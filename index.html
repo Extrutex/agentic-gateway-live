@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="de" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic Gateway | KI-Audit-Infrastruktur fuer Handwerk & Industrie</title>
+    <meta
+      name="description"
+      content="Agentic Gateway automatisiert Kundenanfragen, Kostenvoranschlaege, Rechnungen und technische Nachweispruefung fuer SHK, Elektro und Bau."
+    />
+    <meta property="og:title" content="Agentic Gateway | KI-Audit-Infrastruktur fuer Handwerk & Industrie" />
+    <meta
+      property="og:description"
+      content="High-Ticket B2B-Gateway fuer Lead-Qualifizierung, DIN/GEG-Dokumentation und KfW/BAFA-Nachweise."
+    />
+    <meta property="og:url" content="https://agentic-gateway.de" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+            colors: {
+              industrial: "#0a0a0a",
+              steel: "#111827",
+              blue: "#0052FF",
+              pass: "#00FF41",
+              warning: "#F59E0B",
+              fail: "#EF4444",
+            },
+            boxShadow: {
+              glow: "0 0 50px rgba(0, 82, 255, 0.26)",
+              pass: "0 0 32px rgba(0, 255, 65, 0.22)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: #0a0a0a;
+        color: #f8fafc;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      .industrial-grid {
+        background-image:
+          linear-gradient(rgba(0, 82, 255, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 82, 255, 0.08) 1px, transparent 1px);
+        background-size: 56px 56px;
+      }
+
+      .panel {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+          rgba(15, 23, 42, 0.62);
+        backdrop-filter: blur(16px);
+      }
+
+      .terminal {
+        border: 1px solid rgba(0, 82, 255, 0.32);
+        background: rgba(0, 0, 0, 0.72);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .dropzone.dragover {
+        border-color: rgba(0, 255, 65, 0.8);
+        background: rgba(0, 255, 65, 0.06);
+        box-shadow: 0 0 44px rgba(0, 255, 65, 0.15);
+      }
+
+      .spinner {
+        width: 22px;
+        height: 22px;
+        border-radius: 9999px;
+        border: 3px solid rgba(255, 255, 255, 0.16);
+        border-top-color: #00ff41;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-CxL9I-K6.js"></script>
+  </head>
+
+  <body class="antialiased">
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-industrial/90 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
+        <a href="/" class="flex items-center gap-3">
+          <span class="flex h-10 w-10 items-center justify-center rounded border border-blue/50 bg-blue/15 text-sm font-black text-white shadow-glow">
+            AG
+          </span>
+          <span>
+            <span class="block text-sm font-black uppercase tracking-[0.22em] text-white">Agentic Gateway</span>
+            <span class="hidden text-xs text-white/45 sm:block">B2B KI-Audit-Infrastruktur</span>
+          </span>
+        </a>
+        <div class="hidden items-center gap-7 text-sm font-medium text-white/58 md:flex">
+          <a href="#system" class="transition hover:text-white">System</a>
+          <a href="#audit" class="transition hover:text-white">Upload</a>
+          <a href="#security" class="transition hover:text-white">Sicherheit</a>
+          <a href="#pricing" class="transition hover:text-white">Pricing</a>
+        </div>
+        <a
+          href="#close"
+          class="rounded-md bg-blue px-5 py-2.5 text-sm font800 font-bold text-white transition hover:-translate-y-0.5 hover:shadow-glow"
+        >
+          Prozess-Audit buchen
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="industrial-grid relative overflow-hidden border-b border-white/10 pt-28">
+        <div class="absolute left-1/2 top-0 h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-blue/20 blur-[140px]"></div>
+        <div class="relative mx-auto grid max-w-7xl gap-12 px-4 pb-20 pt-12 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <div class="inline-flex items-center gap-3 rounded-md border border-pass/30 bg-pass/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-pass">
+              <span class="h-2 w-2 rounded-full bg-pass shadow-pass"></span>
+              Live POC fuer SHK, Elektro und Bau
+            </div>
+
+            <h1 class="mt-7 max-w-5xl text-5xl font-black leading-[0.92] tracking-[-0.055em] text-white md:text-7xl">
+              Sichern Sie Ihre Marge. Automatisieren Sie Ihre Haftung.
+            </h1>
+
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-white/66">
+              Agentic Gateway automatisiert Kundenanfragen, Kostenvoranschlaege,
+              Rechnungen und technische Dokumentationspruefung. Fuer Betriebe ab 3
+              Mitarbeitenden, die nicht laenger abends im Buero Foerderunterlagen,
+              Nachweise und Angebotsdaten nachsortieren wollen.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#audit"
+                class="rounded-md bg-blue px-7 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-glow"
+              >
+                Audit-Upload testen
+              </a>
+              <a
+                href="#close"
+                class="rounded-md border border-white/14 bg-white/6 px-7 py-4 text-sm font-bold text-white/86 transition hover:border-white/30 hover:bg-white/10"
+              >
+                15-Minuten-Prozess-Audit buchen
+              </a>
+            </div>
+
+            <div class="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+              <div class="panel rounded-lg p-4">
+                <div class="text-3xl font-black text-pass">-12h</div>
+                <div class="mt-1 text-sm text-white/50">Buerozeit pro Woche</div>
+              </div>
+              <div class="panel rounded-lg p-4">
+                <div class="text-3xl font-black text-pass">0</div>
+                <div class="mt-1 text-sm text-white/50">vergessene Pflichtfotos</div>
+              </div>
+              <div class="panel rounded-lg p-4">
+                <div class="text-3xl font-black text-pass">100%</div>
+                <div class="mt-1 text-sm text-white/50">KfW-Prozessdisziplin</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal rounded-xl p-5">
+            <div class="flex items-center justify-between border-b border-blue/30 pb-3">
+              <span class="text-xs font-black uppercase tracking-[0.18em] text-blue">Agentic Engine</span>
+              <span class="rounded border border-pass/30 bg-pass/10 px-2 py-1 text-xs font-bold text-pass">ONLINE</span>
+            </div>
+            <div class="mt-5 space-y-4 font-mono text-sm leading-6 text-white/70">
+              <p><span class="text-blue">$</span> ingest_customer_request --channel website</p>
+              <p><span class="text-pass">PASS</span> Lead erkannt: Waermepumpe + BAFA/KfW relevant</p>
+              <p><span class="text-pass">PASS</span> CRM-Datensatz vorbereitet</p>
+              <p><span class="text-warning">WARNING</span> Typenschild nicht vollstaendig lesbar</p>
+              <p><span class="text-warning">WARNING</span> Daemmung an Muffe 4 nachfordern</p>
+              <div class="rounded border border-warning/30 bg-warning/10 p-4">
+                <p class="font-bold text-warning">Foerderrisiko: 6.500 EUR bis 14.000 EUR</p>
+                <p class="mt-2 text-white/60">Monteur-Anweisung: Frontalfoto Typenschild, 45-Grad-Gesamtbild, Daemmung Vorlauf nachbessern.</p>
+              </div>
+              <p><span class="text-pass">PASS</span> Kostenvoranschlag bereit zur Freigabe</p>
+              <p><span class="text-pass">PASS</span> Rechnungsvorlage und Audit-Zertifikat erzeugt</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-b border-white/10 bg-white/[0.025] px-4 py-8 md:px-6">
+        <div class="mx-auto flex max-w-7xl flex-wrap justify-center gap-3">
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">GEG 2026</span>
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">KfW / BAFA</span>
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">DIN / VDI</span>
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">n8n Workflows</span>
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">CRM Sync</span>
+          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">Mac Mini Backend</span>
+        </div>
+      </section>
+
+      <section id="system" class="px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Agentic Logic</p>
+            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
+              Ein Gateway fuer die Prozesse, die heute noch im Kopf des Chefs liegen.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-white/62">
+              Nicht noch ein Chatbot. Ein operatives System, das Anfragen klassifiziert,
+              fehlende Daten nachfordert, technische Dokumentation prueft und kaufmaennische
+              Folgeprozesse ausloest.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <article class="panel rounded-xl p-6">
+              <div class="text-sm font-black text-pass">01</div>
+              <h3 class="mt-4 text-xl font800 font-bold text-white">Kundenanfragen automatisieren</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">
+                Website, E-Mail und Telefonnotizen werden qualifiziert: Gewerk, Dringlichkeit,
+                Budget, Foerderrelevanz und fehlende Daten.
+              </p>
+            </article>
+            <article class="panel rounded-xl p-6">
+              <div class="text-sm font-black text-pass">02</div>
+              <h3 class="mt-4 text-xl font-bold text-white">Kostenvoranschlag erzeugen</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">
+                Das Gateway erstellt Angebotsentwuerfe aus Kundendaten, Fotos,
+                Standardpositionen und internen Preisregeln.
+              </p>
+            </article>
+            <article class="panel rounded-xl p-6">
+              <div class="text-sm font-black text-pass">03</div>
+              <h3 class="mt-4 text-xl font-bold text-white">Dokumentation pruefen</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">
+                Baustellenfotos, Typenschilder und Nachweise werden gegen DIN, GEG 2026
+                und KfW/BAFA-Prozessanforderungen bewertet.
+              </p>
+            </article>
+            <article class="panel rounded-xl p-6">
+              <div class="text-sm font-black text-pass">04</div>
+              <h3 class="mt-4 text-xl font-bold text-white">Rechnung vorbereiten</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">
+                Nach Freigabe erzeugt das System Rechnungsentwuerfe, Zertifikate,
+                CRM-Updates und Follow-up-E-Mails.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="audit" class="border-y border-white/10 bg-white/[0.025] px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Live Demo</p>
+            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
+              Audit-Upload direkt auf Ihren lokalen Gateway-Server.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-white/62">
+              Das Frontend sendet Dateien an den Cloudflare-Tunnel Ihres Mac Mini. Die
+              lokale Engine anonymisiert Kundendaten, prueft Bilder multimodal und gibt
+              ein strukturiertes Audit-JSON zurueck.
+            </p>
+            <div class="mt-7 rounded-lg border border-pass/24 bg-pass/8 p-5">
+              <p class="text-sm font-black uppercase tracking-[0.16em] text-pass">Datensouveraenitaet</p>
+              <p class="mt-3 text-sm leading-6 text-white/66">
+                Originaldaten bleiben auf dem lokalen Gateway-Server. Cloud-LLMs erhalten
+                nur minimierte Falldaten und bereinigte Bildkopien.
+              </p>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-6">
+            <form id="audit-form" class="space-y-4">
+              <div class="grid gap-4 md:grid-cols-2">
+                <label class="block">
+                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Firma</span>
+                  <input name="company" required class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="Muster SHK GmbH" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">E-Mail</span>
+                  <input name="email" type="email" required class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="chef@betrieb.de" />
+                </label>
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-3">
+                <label class="block">
+                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Gewerk</span>
+                  <select name="trade" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue">
+                    <option>SHK</option>
+                    <option>Elektro</option>
+                    <option>Dachbau</option>
+                    <option>Bau / Sanierung</option>
+                  </select>
+                </label>
+                <label class="block">
+                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Teamgroesse</span>
+                  <input name="team_size" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="3, 12, 45 ..." />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Foerderrelevant?</span>
+                  <select name="grant_relevant" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue">
+                    <option value="true">Ja</option>
+                    <option value="unknown">Unklar</option>
+                    <option value="false">Nein</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="block">
+                <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Projektfrage</span>
+                <textarea name="notes" rows="4" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="Was soll die KI pruefen? Beispiel: Waermepumpe, Typenschild, Daemmung, KfW-Fotonachweis..."></textarea>
+              </label>
+
+              <label id="dropzone" class="dropzone block cursor-pointer rounded-xl border-2 border-dashed border-blue/40 bg-blue/5 p-8 text-center transition">
+                <input id="file-input" name="files" type="file" multiple accept="image/*,.pdf" class="hidden" />
+                <span class="block text-lg font-black text-white">Baustellenfotos oder PDF-Nachweise hochladen</span>
+                <span class="mt-2 block text-sm text-white/48">JPG, PNG, WEBP oder PDF. Maximal 8 Dateien fuer die Demo.</span>
+                <span id="file-list" class="mt-4 block text-sm font-medium text-pass"></span>
+              </label>
+
+              <button id="submit-button" type="submit" class="flex w-full items-center justify-center gap-3 rounded-md bg-blue px-6 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-glow">
+                <span>Technical Audit starten</span>
+              </button>
+
+              <div id="analysis-box" class="hidden rounded-lg border border-blue/30 bg-blue/10 p-4">
+                <div class="flex items-center gap-3">
+                  <span class="spinner"></span>
+                  <span class="font-bold text-white">Analyzing... Mac Mini prueft DIN, GEG 2026 und KfW/BAFA.</span>
+                </div>
+                <div id="analysis-step" class="mt-3 text-sm text-white/58">Initialisiere Agentic Engine...</div>
+              </div>
+
+              <pre id="audit-result" class="hidden max-h-[420px] overflow-auto rounded-lg border border-pass/30 bg-black/70 p-4 text-xs leading-6 text-pass"></pre>
+              <div id="audit-error" class="hidden rounded-lg border border-fail/30 bg-fail/10 p-4 text-sm text-red-100"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="security" class="px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Enterprise-Sicherheit</p>
+              <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
+                Cloud-Komfort, lokale Kontrolle.
+              </h2>
+              <p class="mt-5 text-lg leading-8 text-white/62">
+                Das Gateway ist fuer deutsche Handwerksbetriebe gebaut, die sensible
+                Kundendaten, Rechnungen und Baustellenfotos nicht unkontrolliert in
+                SaaS-Tools verteilen wollen.
+              </p>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="panel rounded-xl p-6">
+                <h3 class="text-xl font-black text-white">Mac Mini Backend</h3>
+                <p class="mt-3 text-sm leading-6 text-white/56">Lokaler Gateway-Server mit FastAPI, Audit-Speicher und Anonymisierung vor LLM-Aufrufen.</p>
+              </div>
+              <div class="panel rounded-xl p-6">
+                <h3 class="text-xl font-black text-white">Cloudflare Tunnel</h3>
+                <p class="mt-3 text-sm leading-6 text-white/56">Kontrollierter Zugriff ohne offene Router-Ports. Secret-basierte Webhook-Abnahme.</p>
+              </div>
+              <div class="panel rounded-xl p-6">
+                <h3 class="text-xl font-black text-white">n8n Orchestrierung</h3>
+                <p class="mt-3 text-sm leading-6 text-white/56">Lead-Qualifizierung, CRM-Sync, PDF-Report, E-Mail und Rechnungsvorbereitung.</p>
+              </div>
+              <div class="panel rounded-xl p-6">
+                <h3 class="text-xl font-black text-white">Audit-Trail</h3>
+                <p class="mt-3 text-sm leading-6 text-white/56">Jeder Fall erhaelt Audit-ID, Status, Mangelmatrix, Schadenkorridor und Monteur-Anweisung.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="border-y border-white/10 bg-white/[0.025] px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto max-w-7xl">
+          <div class="max-w-3xl">
+            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Value Ladder</p>
+            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
+              Gebaut fuer 5.000 EUR+ Entscheidungen.
+            </h2>
+          </div>
+
+          <div class="mt-12 grid gap-5 lg:grid-cols-3">
+            <article class="panel rounded-xl p-7">
+              <p class="text-sm font-black uppercase tracking-[0.16em] text-white/42">Stufe 1</p>
+              <h3 class="mt-3 text-2xl font-black text-white">Discovery-Audit</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">Flaschenhals-Analyse fuer Anfrage, Angebot, Foerderakte und Rechnung.</p>
+              <div class="mt-6 text-4xl font-black text-white">3.500 EUR</div>
+              <ul class="mt-6 space-y-3 text-sm text-white/62">
+                <li>✓ 15-Minuten Prozess-Mapping</li>
+                <li>✓ Dokumentations-Risikoanalyse</li>
+                <li>✓ ROI-Plan fuer 30 Tage</li>
+              </ul>
+            </article>
+
+            <article class="rounded-xl border border-blue/60 bg-blue/10 p-7 shadow-glow">
+              <p class="text-sm font-black uppercase tracking-[0.16em] text-blue">Stufe 2</p>
+              <h3 class="mt-3 text-2xl font-black text-white">Vollintegration Gateway</h3>
+              <p class="mt-3 text-sm leading-6 text-white/62">n8n Workflows, CRM-Sync, Mac-Mini-Engine und Audit-Reports.</p>
+              <div class="mt-6 text-4xl font-black text-white">15k-25k EUR</div>
+              <ul class="mt-6 space-y-3 text-sm text-white/70">
+                <li>✓ Lead-Qualifizierung</li>
+                <li>✓ Angebot- und Rechnungsvorbereitung</li>
+                <li>✓ KfW/BAFA Dokumentationscheck</li>
+                <li>✓ lokaler Datenschutz-Layer</li>
+              </ul>
+            </article>
+
+            <article class="panel rounded-xl p-7">
+              <p class="text-sm font-black uppercase tracking-[0.16em] text-white/42">Stufe 3</p>
+              <h3 class="mt-3 text-2xl font-black text-white">Haftungsschirm</h3>
+              <p class="mt-3 text-sm leading-6 text-white/56">Support, Updates, Normenpflege und Workflow-Monitoring.</p>
+              <div class="mt-6 text-4xl font-black text-white">1.250 EUR/Monat</div>
+              <ul class="mt-6 space-y-3 text-sm text-white/62">
+                <li>✓ monatliche Audit-Updates</li>
+                <li>✓ neue Automationen</li>
+                <li>✓ Prioritaets-Support</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid gap-5 md:grid-cols-3">
+            <blockquote class="panel rounded-xl p-6">
+              <p class="text-sm leading-7 text-white/66">"Wir haben nicht noch ein Tool gebraucht, sondern ein System, das vor der Rechnung fragt: Ist die Dokumentation wirklich wasserdicht?"</p>
+              <footer class="mt-5 text-sm font-bold text-white">SHK-Unternehmer, 18 Mitarbeiter</footer>
+            </blockquote>
+            <blockquote class="panel rounded-xl p-6">
+              <p class="text-sm leading-7 text-white/66">"Die Monteure bekommen klare Foto-Anweisungen. Das spart Rueckfragen und schuetzt die Foerderakte."</p>
+              <footer class="mt-5 text-sm font-bold text-white">Dachbau-Betrieb, Sanierung</footer>
+            </blockquote>
+            <blockquote class="panel rounded-xl p-6">
+              <p class="text-sm leading-7 text-white/66">"Der Wert liegt im Prozess: Anfrage rein, Daten nachfordern, Angebot vorbereiten, Nachweise pruefen."</p>
+              <footer class="mt-5 text-sm font-bold text-white">Elektro-Meisterbetrieb</footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section id="close" class="industrial-grid border-t border-white/10 px-4 py-20 md:px-6 md:py-28">
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-xs font-black uppercase tracking-[0.2em] text-pass">3.500 EUR Setup-Garantie</p>
+          <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-6xl">
+            Buchen Sie das 15-Minuten-Prozess-Audit.
+          </h2>
+          <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/62">
+            Wir identifizieren den groessten administrativen Engpass in Ihrem Betrieb
+            und zeigen, welcher Workflow zuerst automatisiert wird: Anfrage, Angebot,
+            Dokumentation, Rechnung oder Foerderakte.
+          </p>
+          <a
+            href="mailto:support@3d-windt.de?subject=Agentic%20Gateway%20Prozess-Audit%20buchen&body=Firma%3A%0AMitarbeiterzahl%3A%0AGewerk%3A%0AGroesster%20Engpass%3A%0A"
+            class="mt-9 inline-flex rounded-md bg-pass px-8 py-4 text-sm font-black text-black transition hover:-translate-y-0.5 hover:shadow-pass"
+          >
+            Jetzt Prozess-Audit buchen
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-4 py-8 md:px-6">
+      <div class="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-white/42 md:flex-row md:items-center md:justify-between">
+        <p>Agentic Gateway | B2B KI-Audit-Infrastruktur fuer Handwerk und Industrie</p>
+        <p>Kontakt: <a class="text-white/72 hover:text-white" href="mailto:support@3d-windt.de">support@3d-windt.de</a></p>
+      </div>
+    </footer>
+
+  </body>
+</html>
