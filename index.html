@@ -1,486 +1,546 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agentic Gateway | KI-Audit-Infrastruktur fuer Handwerk & Industrie</title>
-    <meta
-      name="description"
-      content="Agentic Gateway automatisiert Kundenanfragen, Kostenvoranschlaege, Rechnungen und technische Nachweispruefung fuer SHK, Elektro und Bau."
-    />
-    <meta property="og:title" content="Agentic Gateway | KI-Audit-Infrastruktur fuer Handwerk & Industrie" />
-    <meta
-      property="og:description"
-      content="High-Ticket B2B-Gateway fuer Lead-Qualifizierung, DIN/GEG-Dokumentation und KfW/BAFA-Nachweise."
-    />
-    <meta property="og:url" content="https://agentic-gateway.de" />
-    <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-            },
-            colors: {
-              industrial: "#0a0a0a",
-              steel: "#111827",
-              blue: "#0052FF",
-              pass: "#00FF41",
-              warning: "#F59E0B",
-              fail: "#EF4444",
-            },
-            boxShadow: {
-              glow: "0 0 50px rgba(0, 82, 255, 0.26)",
-              pass: "0 0 32px rgba(0, 255, 65, 0.22)",
-            },
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Gateway | SHK BüroPilot für Anfrage, Angebot und Nachweise</title>
+  <meta name="description" content="Agentic Gateway hilft SHK-Betrieben, Anfragen, Angebotsdaten, Nachweise und Wiedervorlagen strukturiert mit n8n, CRM und KI-Assistenz vorzubereiten. Mit lokaler Vorverarbeitung, Human Review und DSGVO-orientiertem Ablauf." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Agentic Gateway | SHK BüroPilot" />
+  <meta property="og:description" content="Der digitale Büroprozess für SHK-Betriebe: Anfrage, Angebot, Nachweise, Wiedervorlagen und KI-unterstützte Vorbereitung mit menschlicher Freigabe." />
+  <meta property="og:url" content="https://agentic-gateway.de" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
           },
-        },
-      };
-    </script>
-    <style>
-      body {
-        background: #0a0a0a;
-        color: #f8fafc;
-        font-family: "Inter", system-ui, sans-serif;
-      }
-
-      .industrial-grid {
-        background-image:
-          linear-gradient(rgba(0, 82, 255, 0.08) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 82, 255, 0.08) 1px, transparent 1px);
-        background-size: 56px 56px;
-      }
-
-      .panel {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
-          rgba(15, 23, 42, 0.62);
-        backdrop-filter: blur(16px);
-      }
-
-      .terminal {
-        border: 1px solid rgba(0, 82, 255, 0.32);
-        background: rgba(0, 0, 0, 0.72);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      }
-
-      .dropzone.dragover {
-        border-color: rgba(0, 255, 65, 0.8);
-        background: rgba(0, 255, 65, 0.06);
-        box-shadow: 0 0 44px rgba(0, 255, 65, 0.15);
-      }
-
-      .spinner {
-        width: 22px;
-        height: 22px;
-        border-radius: 9999px;
-        border: 3px solid rgba(255, 255, 255, 0.16);
-        border-top-color: #00ff41;
-        animation: spin 0.8s linear infinite;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
+          colors: {
+            bg: "#0a0a0a",
+            surface: "#111111",
+            line: "#1f1f1f",
+            blue: "#0052FF",
+            green: "#00FF41",
+            amber: "#F5A623"
+          }
         }
       }
-    </style>
-    <script type="module" crossorigin src="/assets/index-CxL9I-K6.js"></script>
-  </head>
-
-  <body class="antialiased">
-    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-industrial/90 backdrop-blur-xl">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-        <a href="/" class="flex items-center gap-3">
-          <span class="flex h-10 w-10 items-center justify-center rounded border border-blue/50 bg-blue/15 text-sm font-black text-white shadow-glow">
-            AG
-          </span>
-          <span>
-            <span class="block text-sm font-black uppercase tracking-[0.22em] text-white">Agentic Gateway</span>
-            <span class="hidden text-xs text-white/45 sm:block">B2B KI-Audit-Infrastruktur</span>
-          </span>
-        </a>
-        <div class="hidden items-center gap-7 text-sm font-medium text-white/58 md:flex">
-          <a href="#system" class="transition hover:text-white">System</a>
-          <a href="#audit" class="transition hover:text-white">Upload</a>
-          <a href="#security" class="transition hover:text-white">Sicherheit</a>
-          <a href="#pricing" class="transition hover:text-white">Pricing</a>
+    };
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; background: #0a0a0a; color: #e8e8e8; font-family: "Inter", sans-serif; }
+    body { min-height: 100vh; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,82,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,82,255,0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .panel { background: #111111; border: 1px solid #1f1f1f; }
+    .panel-soft { background: rgba(17,17,17,0.74); border: 1px solid #1f1f1f; }
+    .panel-blue { background: rgba(0,82,255,0.08); border: 1px solid rgba(0,82,255,0.28); }
+    .panel-green { background: rgba(0,255,65,0.06); border: 1px solid rgba(0,255,65,0.22); }
+    .panel-amber { background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.24); }
+    .label { font-family: "JetBrains Mono", monospace; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: #777; }
+    .text-blue-grad { background: linear-gradient(135deg, #0052FF, #7db0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .text-green-grad { background: linear-gradient(135deg, #00FF41, #7cff9c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; background: #0052FF; color: #fff; font-weight: 800; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+    .btn-primary:hover { background: #0044d8; transform: translateY(-1px); box-shadow: 0 16px 42px rgba(0,82,255,.28); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #2a2a2a; color: #d0d0d0; font-weight: 700; transition: border .2s ease, color .2s ease, background .2s ease; }
+    .btn-secondary:hover { border-color: #4a4a4a; color: #fff; background: rgba(255,255,255,.03); }
+    input, select, textarea {
+      width: 100%;
+      background: #101010;
+      border: 1px solid #2a2a2a;
+      color: #ededed;
+      border-radius: 0.75rem;
+      padding: 0.9rem 1rem;
+      font-size: 0.95rem;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0052FF;
+      box-shadow: 0 0 0 3px rgba(0,82,255,.16);
+    }
+    ::placeholder { color: #666; }
+    .metric { font-family: "JetBrains Mono", monospace; }
+  </style>
+</head>
+<body>
+  <nav class="fixed left-0 right-0 top-0 z-50 border-b border-[#1a1a1a] bg-[rgba(10,10,10,.92)] backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+      <a href="/" class="flex items-center gap-3">
+        <div class="flex h-9 w-9 items-center justify-center rounded-md panel-blue">
+          <span class="font-mono text-sm font-black text-blue">AG</span>
         </div>
-        <a
-          href="#close"
-          class="rounded-md bg-blue px-5 py-2.5 text-sm font800 font-bold text-white transition hover:-translate-y-0.5 hover:shadow-glow"
-        >
-          Prozess-Audit buchen
-        </a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="industrial-grid relative overflow-hidden border-b border-white/10 pt-28">
-        <div class="absolute left-1/2 top-0 h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-blue/20 blur-[140px]"></div>
-        <div class="relative mx-auto grid max-w-7xl gap-12 px-4 pb-20 pt-12 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <div class="inline-flex items-center gap-3 rounded-md border border-pass/30 bg-pass/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-pass">
-              <span class="h-2 w-2 rounded-full bg-pass shadow-pass"></span>
-              Live POC fuer SHK, Elektro und Bau
-            </div>
-
-            <h1 class="mt-7 max-w-5xl text-5xl font-black leading-[0.92] tracking-[-0.055em] text-white md:text-7xl">
-              Sichern Sie Ihre Marge. Automatisieren Sie Ihre Haftung.
-            </h1>
-
-            <p class="mt-7 max-w-2xl text-lg leading-8 text-white/66">
-              Agentic Gateway automatisiert Kundenanfragen, Kostenvoranschlaege,
-              Rechnungen und technische Dokumentationspruefung. Fuer Betriebe ab 3
-              Mitarbeitenden, die nicht laenger abends im Buero Foerderunterlagen,
-              Nachweise und Angebotsdaten nachsortieren wollen.
-            </p>
-
-            <div class="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#audit"
-                class="rounded-md bg-blue px-7 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-glow"
-              >
-                Audit-Upload testen
-              </a>
-              <a
-                href="#close"
-                class="rounded-md border border-white/14 bg-white/6 px-7 py-4 text-sm font-bold text-white/86 transition hover:border-white/30 hover:bg-white/10"
-              >
-                15-Minuten-Prozess-Audit buchen
-              </a>
-            </div>
-
-            <div class="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
-              <div class="panel rounded-lg p-4">
-                <div class="text-3xl font-black text-pass">-12h</div>
-                <div class="mt-1 text-sm text-white/50">Buerozeit pro Woche</div>
-              </div>
-              <div class="panel rounded-lg p-4">
-                <div class="text-3xl font-black text-pass">0</div>
-                <div class="mt-1 text-sm text-white/50">vergessene Pflichtfotos</div>
-              </div>
-              <div class="panel rounded-lg p-4">
-                <div class="text-3xl font-black text-pass">100%</div>
-                <div class="mt-1 text-sm text-white/50">KfW-Prozessdisziplin</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="terminal rounded-xl p-5">
-            <div class="flex items-center justify-between border-b border-blue/30 pb-3">
-              <span class="text-xs font-black uppercase tracking-[0.18em] text-blue">Agentic Engine</span>
-              <span class="rounded border border-pass/30 bg-pass/10 px-2 py-1 text-xs font-bold text-pass">ONLINE</span>
-            </div>
-            <div class="mt-5 space-y-4 font-mono text-sm leading-6 text-white/70">
-              <p><span class="text-blue">$</span> ingest_customer_request --channel website</p>
-              <p><span class="text-pass">PASS</span> Lead erkannt: Waermepumpe + BAFA/KfW relevant</p>
-              <p><span class="text-pass">PASS</span> CRM-Datensatz vorbereitet</p>
-              <p><span class="text-warning">WARNING</span> Typenschild nicht vollstaendig lesbar</p>
-              <p><span class="text-warning">WARNING</span> Daemmung an Muffe 4 nachfordern</p>
-              <div class="rounded border border-warning/30 bg-warning/10 p-4">
-                <p class="font-bold text-warning">Foerderrisiko: 6.500 EUR bis 14.000 EUR</p>
-                <p class="mt-2 text-white/60">Monteur-Anweisung: Frontalfoto Typenschild, 45-Grad-Gesamtbild, Daemmung Vorlauf nachbessern.</p>
-              </div>
-              <p><span class="text-pass">PASS</span> Kostenvoranschlag bereit zur Freigabe</p>
-              <p><span class="text-pass">PASS</span> Rechnungsvorlage und Audit-Zertifikat erzeugt</p>
-            </div>
-          </div>
+        <div>
+          <div class="text-sm font-black uppercase tracking-[0.16em] text-white">Agentic Gateway</div>
+          <div class="hidden text-[10px] font-mono text-[#666] md:block">SHK BüroPilot · Prozessautomation</div>
         </div>
-      </section>
-
-      <section class="border-b border-white/10 bg-white/[0.025] px-4 py-8 md:px-6">
-        <div class="mx-auto flex max-w-7xl flex-wrap justify-center gap-3">
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">GEG 2026</span>
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">KfW / BAFA</span>
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">DIN / VDI</span>
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">n8n Workflows</span>
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">CRM Sync</span>
-          <span class="rounded border border-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-white/50">Mac Mini Backend</span>
-        </div>
-      </section>
-
-      <section id="system" class="px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto max-w-7xl">
-          <div class="max-w-3xl">
-            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Agentic Logic</p>
-            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
-              Ein Gateway fuer die Prozesse, die heute noch im Kopf des Chefs liegen.
-            </h2>
-            <p class="mt-5 text-lg leading-8 text-white/62">
-              Nicht noch ein Chatbot. Ein operatives System, das Anfragen klassifiziert,
-              fehlende Daten nachfordert, technische Dokumentation prueft und kaufmaennische
-              Folgeprozesse ausloest.
-            </p>
-          </div>
-
-          <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            <article class="panel rounded-xl p-6">
-              <div class="text-sm font-black text-pass">01</div>
-              <h3 class="mt-4 text-xl font800 font-bold text-white">Kundenanfragen automatisieren</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">
-                Website, E-Mail und Telefonnotizen werden qualifiziert: Gewerk, Dringlichkeit,
-                Budget, Foerderrelevanz und fehlende Daten.
-              </p>
-            </article>
-            <article class="panel rounded-xl p-6">
-              <div class="text-sm font-black text-pass">02</div>
-              <h3 class="mt-4 text-xl font-bold text-white">Kostenvoranschlag erzeugen</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">
-                Das Gateway erstellt Angebotsentwuerfe aus Kundendaten, Fotos,
-                Standardpositionen und internen Preisregeln.
-              </p>
-            </article>
-            <article class="panel rounded-xl p-6">
-              <div class="text-sm font-black text-pass">03</div>
-              <h3 class="mt-4 text-xl font-bold text-white">Dokumentation pruefen</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">
-                Baustellenfotos, Typenschilder und Nachweise werden gegen DIN, GEG 2026
-                und KfW/BAFA-Prozessanforderungen bewertet.
-              </p>
-            </article>
-            <article class="panel rounded-xl p-6">
-              <div class="text-sm font-black text-pass">04</div>
-              <h3 class="mt-4 text-xl font-bold text-white">Rechnung vorbereiten</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">
-                Nach Freigabe erzeugt das System Rechnungsentwuerfe, Zertifikate,
-                CRM-Updates und Follow-up-E-Mails.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="audit" class="border-y border-white/10 bg-white/[0.025] px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
-            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Live Demo</p>
-            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
-              Audit-Upload direkt auf Ihren lokalen Gateway-Server.
-            </h2>
-            <p class="mt-5 text-lg leading-8 text-white/62">
-              Das Frontend sendet Dateien an den Cloudflare-Tunnel Ihres Mac Mini. Die
-              lokale Engine anonymisiert Kundendaten, prueft Bilder multimodal und gibt
-              ein strukturiertes Audit-JSON zurueck.
-            </p>
-            <div class="mt-7 rounded-lg border border-pass/24 bg-pass/8 p-5">
-              <p class="text-sm font-black uppercase tracking-[0.16em] text-pass">Datensouveraenitaet</p>
-              <p class="mt-3 text-sm leading-6 text-white/66">
-                Originaldaten bleiben auf dem lokalen Gateway-Server. Cloud-LLMs erhalten
-                nur minimierte Falldaten und bereinigte Bildkopien.
-              </p>
-            </div>
-          </div>
-
-          <div class="panel rounded-xl p-6">
-            <form id="audit-form" class="space-y-4">
-              <div class="grid gap-4 md:grid-cols-2">
-                <label class="block">
-                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Firma</span>
-                  <input name="company" required class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="Muster SHK GmbH" />
-                </label>
-                <label class="block">
-                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">E-Mail</span>
-                  <input name="email" type="email" required class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="chef@betrieb.de" />
-                </label>
-              </div>
-
-              <div class="grid gap-4 md:grid-cols-3">
-                <label class="block">
-                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Gewerk</span>
-                  <select name="trade" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue">
-                    <option>SHK</option>
-                    <option>Elektro</option>
-                    <option>Dachbau</option>
-                    <option>Bau / Sanierung</option>
-                  </select>
-                </label>
-                <label class="block">
-                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Teamgroesse</span>
-                  <input name="team_size" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="3, 12, 45 ..." />
-                </label>
-                <label class="block">
-                  <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Foerderrelevant?</span>
-                  <select name="grant_relevant" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue">
-                    <option value="true">Ja</option>
-                    <option value="unknown">Unklar</option>
-                    <option value="false">Nein</option>
-                  </select>
-                </label>
-              </div>
-
-              <label class="block">
-                <span class="text-xs font-bold uppercase tracking-[0.16em] text-white/45">Projektfrage</span>
-                <textarea name="notes" rows="4" class="mt-2 w-full rounded-md border border-white/10 bg-black/40 px-4 py-3 text-white outline-none focus:border-blue" placeholder="Was soll die KI pruefen? Beispiel: Waermepumpe, Typenschild, Daemmung, KfW-Fotonachweis..."></textarea>
-              </label>
-
-              <label id="dropzone" class="dropzone block cursor-pointer rounded-xl border-2 border-dashed border-blue/40 bg-blue/5 p-8 text-center transition">
-                <input id="file-input" name="files" type="file" multiple accept="image/*,.pdf" class="hidden" />
-                <span class="block text-lg font-black text-white">Baustellenfotos oder PDF-Nachweise hochladen</span>
-                <span class="mt-2 block text-sm text-white/48">JPG, PNG, WEBP oder PDF. Maximal 8 Dateien fuer die Demo.</span>
-                <span id="file-list" class="mt-4 block text-sm font-medium text-pass"></span>
-              </label>
-
-              <button id="submit-button" type="submit" class="flex w-full items-center justify-center gap-3 rounded-md bg-blue px-6 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:shadow-glow">
-                <span>Technical Audit starten</span>
-              </button>
-
-              <div id="analysis-box" class="hidden rounded-lg border border-blue/30 bg-blue/10 p-4">
-                <div class="flex items-center gap-3">
-                  <span class="spinner"></span>
-                  <span class="font-bold text-white">Analyzing... Mac Mini prueft DIN, GEG 2026 und KfW/BAFA.</span>
-                </div>
-                <div id="analysis-step" class="mt-3 text-sm text-white/58">Initialisiere Agentic Engine...</div>
-              </div>
-
-              <pre id="audit-result" class="hidden max-h-[420px] overflow-auto rounded-lg border border-pass/30 bg-black/70 p-4 text-xs leading-6 text-pass"></pre>
-              <div id="audit-error" class="hidden rounded-lg border border-fail/30 bg-fail/10 p-4 text-sm text-red-100"></div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section id="security" class="px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto max-w-7xl">
-          <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Enterprise-Sicherheit</p>
-              <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
-                Cloud-Komfort, lokale Kontrolle.
-              </h2>
-              <p class="mt-5 text-lg leading-8 text-white/62">
-                Das Gateway ist fuer deutsche Handwerksbetriebe gebaut, die sensible
-                Kundendaten, Rechnungen und Baustellenfotos nicht unkontrolliert in
-                SaaS-Tools verteilen wollen.
-              </p>
-            </div>
-            <div class="grid gap-4 md:grid-cols-2">
-              <div class="panel rounded-xl p-6">
-                <h3 class="text-xl font-black text-white">Mac Mini Backend</h3>
-                <p class="mt-3 text-sm leading-6 text-white/56">Lokaler Gateway-Server mit FastAPI, Audit-Speicher und Anonymisierung vor LLM-Aufrufen.</p>
-              </div>
-              <div class="panel rounded-xl p-6">
-                <h3 class="text-xl font-black text-white">Cloudflare Tunnel</h3>
-                <p class="mt-3 text-sm leading-6 text-white/56">Kontrollierter Zugriff ohne offene Router-Ports. Secret-basierte Webhook-Abnahme.</p>
-              </div>
-              <div class="panel rounded-xl p-6">
-                <h3 class="text-xl font-black text-white">n8n Orchestrierung</h3>
-                <p class="mt-3 text-sm leading-6 text-white/56">Lead-Qualifizierung, CRM-Sync, PDF-Report, E-Mail und Rechnungsvorbereitung.</p>
-              </div>
-              <div class="panel rounded-xl p-6">
-                <h3 class="text-xl font-black text-white">Audit-Trail</h3>
-                <p class="mt-3 text-sm leading-6 text-white/56">Jeder Fall erhaelt Audit-ID, Status, Mangelmatrix, Schadenkorridor und Monteur-Anweisung.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing" class="border-y border-white/10 bg-white/[0.025] px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto max-w-7xl">
-          <div class="max-w-3xl">
-            <p class="text-xs font-black uppercase tracking-[0.2em] text-blue">Value Ladder</p>
-            <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-5xl">
-              Gebaut fuer 5.000 EUR+ Entscheidungen.
-            </h2>
-          </div>
-
-          <div class="mt-12 grid gap-5 lg:grid-cols-3">
-            <article class="panel rounded-xl p-7">
-              <p class="text-sm font-black uppercase tracking-[0.16em] text-white/42">Stufe 1</p>
-              <h3 class="mt-3 text-2xl font-black text-white">Discovery-Audit</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">Flaschenhals-Analyse fuer Anfrage, Angebot, Foerderakte und Rechnung.</p>
-              <div class="mt-6 text-4xl font-black text-white">3.500 EUR</div>
-              <ul class="mt-6 space-y-3 text-sm text-white/62">
-                <li>✓ 15-Minuten Prozess-Mapping</li>
-                <li>✓ Dokumentations-Risikoanalyse</li>
-                <li>✓ ROI-Plan fuer 30 Tage</li>
-              </ul>
-            </article>
-
-            <article class="rounded-xl border border-blue/60 bg-blue/10 p-7 shadow-glow">
-              <p class="text-sm font-black uppercase tracking-[0.16em] text-blue">Stufe 2</p>
-              <h3 class="mt-3 text-2xl font-black text-white">Vollintegration Gateway</h3>
-              <p class="mt-3 text-sm leading-6 text-white/62">n8n Workflows, CRM-Sync, Mac-Mini-Engine und Audit-Reports.</p>
-              <div class="mt-6 text-4xl font-black text-white">15k-25k EUR</div>
-              <ul class="mt-6 space-y-3 text-sm text-white/70">
-                <li>✓ Lead-Qualifizierung</li>
-                <li>✓ Angebot- und Rechnungsvorbereitung</li>
-                <li>✓ KfW/BAFA Dokumentationscheck</li>
-                <li>✓ lokaler Datenschutz-Layer</li>
-              </ul>
-            </article>
-
-            <article class="panel rounded-xl p-7">
-              <p class="text-sm font-black uppercase tracking-[0.16em] text-white/42">Stufe 3</p>
-              <h3 class="mt-3 text-2xl font-black text-white">Haftungsschirm</h3>
-              <p class="mt-3 text-sm leading-6 text-white/56">Support, Updates, Normenpflege und Workflow-Monitoring.</p>
-              <div class="mt-6 text-4xl font-black text-white">1.250 EUR/Monat</div>
-              <ul class="mt-6 space-y-3 text-sm text-white/62">
-                <li>✓ monatliche Audit-Updates</li>
-                <li>✓ neue Automationen</li>
-                <li>✓ Prioritaets-Support</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto max-w-7xl">
-          <div class="grid gap-5 md:grid-cols-3">
-            <blockquote class="panel rounded-xl p-6">
-              <p class="text-sm leading-7 text-white/66">"Wir haben nicht noch ein Tool gebraucht, sondern ein System, das vor der Rechnung fragt: Ist die Dokumentation wirklich wasserdicht?"</p>
-              <footer class="mt-5 text-sm font-bold text-white">SHK-Unternehmer, 18 Mitarbeiter</footer>
-            </blockquote>
-            <blockquote class="panel rounded-xl p-6">
-              <p class="text-sm leading-7 text-white/66">"Die Monteure bekommen klare Foto-Anweisungen. Das spart Rueckfragen und schuetzt die Foerderakte."</p>
-              <footer class="mt-5 text-sm font-bold text-white">Dachbau-Betrieb, Sanierung</footer>
-            </blockquote>
-            <blockquote class="panel rounded-xl p-6">
-              <p class="text-sm leading-7 text-white/66">"Der Wert liegt im Prozess: Anfrage rein, Daten nachfordern, Angebot vorbereiten, Nachweise pruefen."</p>
-              <footer class="mt-5 text-sm font-bold text-white">Elektro-Meisterbetrieb</footer>
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
-      <section id="close" class="industrial-grid border-t border-white/10 px-4 py-20 md:px-6 md:py-28">
-        <div class="mx-auto max-w-4xl text-center">
-          <p class="text-xs font-black uppercase tracking-[0.2em] text-pass">3.500 EUR Setup-Garantie</p>
-          <h2 class="mt-4 text-4xl font-black tracking-[-0.04em] text-white md:text-6xl">
-            Buchen Sie das 15-Minuten-Prozess-Audit.
-          </h2>
-          <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/62">
-            Wir identifizieren den groessten administrativen Engpass in Ihrem Betrieb
-            und zeigen, welcher Workflow zuerst automatisiert wird: Anfrage, Angebot,
-            Dokumentation, Rechnung oder Foerderakte.
-          </p>
-          <a
-            href="mailto:support@3d-windt.de?subject=Agentic%20Gateway%20Prozess-Audit%20buchen&body=Firma%3A%0AMitarbeiterzahl%3A%0AGewerk%3A%0AGroesster%20Engpass%3A%0A"
-            class="mt-9 inline-flex rounded-md bg-pass px-8 py-4 text-sm font-black text-black transition hover:-translate-y-0.5 hover:shadow-pass"
-          >
-            Jetzt Prozess-Audit buchen
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="border-t border-white/10 px-4 py-8 md:px-6">
-      <div class="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-white/42 md:flex-row md:items-center md:justify-between">
-        <p>Agentic Gateway | B2B KI-Audit-Infrastruktur fuer Handwerk und Industrie</p>
-        <p>Kontakt: <a class="text-white/72 hover:text-white" href="mailto:support@3d-windt.de">support@3d-windt.de</a></p>
+      </a>
+      <div class="hidden items-center gap-7 text-sm font-semibold text-[#777] md:flex">
+        <a href="#problem" class="hover:text-white">Problem</a>
+        <a href="#produkt" class="hover:text-white">Produkt</a>
+        <a href="#ablauf" class="hover:text-white">Ablauf</a>
+        <a href="#sicherheit" class="hover:text-white">Sicherheit</a>
+        <a href="#kontakt" class="hover:text-white">Kontakt</a>
       </div>
-    </footer>
+      <a href="#kontakt" class="btn-primary rounded-md px-5 py-2.5 text-sm">Prozess prüfen</a>
+    </div>
+  </nav>
 
-  </body>
+  <main>
+    <section class="relative min-h-screen overflow-hidden pt-24 grid-bg">
+      <div class="pointer-events-none absolute left-1/2 top-0 h-[560px] w-[900px] -translate-x-1/2 rounded-full" style="background: radial-gradient(ellipse, rgba(0,82,255,.12), transparent 65%);"></div>
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full panel-blue px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[.2em] text-blue">
+            <span class="h-1.5 w-1.5 rounded-full bg-blue"></span>
+            Für SHK-Betriebe mit echten Büroengpässen
+          </div>
+          <h1 class="mt-8 max-w-4xl text-5xl font-black leading-[.94] tracking-[-.045em] text-white md:text-[70px]">
+            SHK BüroPilot:<br />
+            <span class="text-blue-grad">Anfragen, Angebote und Nachweise</span> sauber führen.
+          </h1>
+          <p class="mt-7 max-w-2xl text-lg leading-8 text-[#a0a0a0]">
+            Agentic Gateway baut einen kontrollierten Büroprozess für Heizungsmodernisierung, Wärmepumpe und Kundendienst:
+            Anfrage rein, fehlende Angaben erkennen, Angebotsdaten vorbereiten, Nachweise nachhalten und kritische Fälle
+            menschlich freigeben. Keine Wunder-KI. Ein belastbarer Arbeitsablauf.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="#kontakt" class="btn-primary rounded-md px-7 py-3.5 text-sm">20-Minuten Prozess-Check anfragen</a>
+            <a href="#ablauf" class="btn-secondary rounded-md px-7 py-3.5 text-sm">Ablauf ansehen</a>
+          </div>
+          <p class="mt-5 max-w-xl text-xs leading-5 text-[#666]">
+            Wichtig: Agentic Gateway ist keine Rechtsberatung, keine Förderzusage und kein Ersatz für Meister,
+            Energieeffizienz-Experten oder Datenschutzbeauftragte. KI-Ausgaben werden als Entwurf behandelt.
+          </p>
+        </div>
+
+        <div class="panel rounded-2xl p-5 md:p-7">
+          <div class="flex items-center justify-between border-b border-[#1f1f1f] pb-4">
+            <div>
+              <div class="label">Digitaler Büroprozess</div>
+              <h2 class="mt-2 text-xl font-black text-white">Ein Vorgang. Ein Status. Eine nächste Aktion.</h2>
+            </div>
+            <div class="rounded-md panel-green px-3 py-1.5 text-[10px] font-mono font-bold text-green">HUMAN REVIEW</div>
+          </div>
+          <div class="mt-6 space-y-3 font-mono text-xs">
+            <div class="rounded-lg border border-[#222] bg-[#0d0d0d] p-4">
+              <div class="text-[#777]">01 · Kundenanfrage</div>
+              <div class="mt-1 text-white">Objektdaten, Altanlage, Wunschleistung, Fotos, offene Angaben</div>
+            </div>
+            <div class="rounded-lg border border-[#222] bg-[#0d0d0d] p-4">
+              <div class="text-[#777]">02 · KI-Assistenz</div>
+              <div class="mt-1 text-white">Zusammenfassung, fehlende Nachweise, Textentwurf, Risikomarker</div>
+            </div>
+            <div class="rounded-lg border border-[#222] bg-[#0d0d0d] p-4">
+              <div class="text-[#777]">03 · n8n / CRM</div>
+              <div class="mt-1 text-white">Aufgabe, Wiedervorlage, fehlende-Unterlagen-Mail, Angebotsvorbereitung</div>
+            </div>
+            <div class="rounded-lg border border-[#222] bg-[#0d0d0d] p-4">
+              <div class="text-[#777]">04 · Freigabe</div>
+              <div class="mt-1 text-white">Büro oder Meister prüft, korrigiert und gibt Kundenkommunikation frei</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="border-y border-[#171717] bg-[#0d0d0d] px-5 py-20 md:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 max-w-3xl">
+          <div class="label mb-3">Warum das 2026 relevant ist</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            Das Problem ist nicht KI.<br />
+            Das Problem ist <span class="text-blue-grad">unvollständige Arbeit im Büro</span>.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            SHK-Betriebe verlieren Zeit nicht nur auf der Baustelle, sondern zwischen Anfrage, Angebotsdaten,
+            Rückfragen, Fotodokumentation, Förderunterlagen, Wiedervorlagen und Rechnungsvorbereitung.
+          </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <article class="panel rounded-xl p-6">
+            <div class="metric text-3xl font-black text-blue">74 %</div>
+            <h3 class="mt-4 text-lg font-bold text-white">mehr Bürokratie</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              Laut ZDH sehen 74 % der Handwerksbetriebe in den letzten fünf Jahren eine gestiegene Bürokratiebelastung.
+            </p>
+            <a class="mt-4 inline-block text-xs font-mono text-[#777] underline hover:text-white" href="https://www.zdh.de/ueber-uns/fachbereich-wirtschaft-energie-umwelt/sonderumfragen/sonderumfrage-buerokratiebelastung-im-handwerk/" target="_blank" rel="noopener">Quelle: ZDH</a>
+          </article>
+          <article class="panel rounded-xl p-6">
+            <div class="metric text-3xl font-black text-blue">32 h</div>
+            <h3 class="mt-4 text-lg font-bold text-white">Bürokratie pro Monat</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              KfW Research beziffert die durchschnittliche bürokratische Belastung im Mittelstand auf 32 Stunden pro Monat.
+            </p>
+            <a class="mt-4 inline-block text-xs font-mono text-[#777] underline hover:text-white" href="https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/Pressemitteilungen-Details_847424.html" target="_blank" rel="noopener">Quelle: KfW Research</a>
+          </article>
+          <article class="panel rounded-xl p-6">
+            <div class="metric text-3xl font-black text-blue">4 %</div>
+            <h3 class="mt-4 text-lg font-bold text-white">KI-Nutzung im Handwerk</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              Bitkom meldet: Im Handwerk nutzen erst wenige Betriebe KI. Der Engpass ist nicht Interesse, sondern ein sauberer Prozess.
+            </p>
+            <a class="mt-4 inline-block text-xs font-mono text-[#777] underline hover:text-white" href="https://www.bitkom.org/Presse/Presseinformation/Handwerk-Azubis-Betriebe-Digitalisierung" target="_blank" rel="noopener">Quelle: Bitkom</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="produkt" class="px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-14 max-w-3xl">
+          <div class="label mb-3">Das Produkt</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            Ein digitaler Mitarbeiter für den wiederkehrenden SHK-Büroprozess.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            Wir automatisieren nicht den gesamten Betrieb. Wir nehmen einen wirtschaftlich relevanten Ablauf
+            und machen ihn messbar, wiederholbar und kontrollierbar.
+          </p>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 01</div>
+            <h3 class="mt-4 text-xl font-bold text-white">Anfrage qualifizieren</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Kundenanfragen werden strukturiert: Gebäude, Altanlage, Fotos, Wunschleistung, Dringlichkeit,
+              fehlende Angaben und nächster Büro-Schritt.
+            </p>
+          </article>
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 02</div>
+            <h3 class="mt-4 text-xl font-bold text-white">Angebotsdaten vorbereiten</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Das System erstellt keinen blind versendeten Preis. Es bereitet die benötigten Angaben, Rückfragen
+              und Textbausteine für Ihr Angebot vor.
+            </p>
+          </article>
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 03</div>
+            <h3 class="mt-4 text-xl font-bold text-white">Nachweise nachhalten</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Typenschilder, Inbetriebnahme, hydraulischer Abgleich, Fotos, Rechnung, Fachunternehmerangaben
+              und offene Dokumente werden als Checkliste geführt.
+            </p>
+          </article>
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 04</div>
+            <h3 class="mt-4 text-xl font-bold text-white">n8n und CRM steuern</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              n8n erzeugt Aufgaben, E-Mail-Entwürfe, Wiedervorlagen und Statuswechsel. Das CRM bekommt nur die
+              notwendigen Geschäftsdaten.
+            </p>
+          </article>
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 05</div>
+            <h3 class="mt-4 text-xl font-bold text-white">KI assistiert, Mensch entscheidet</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              KI fasst zusammen, erkennt Lücken und markiert Risiken. Versand, technische Freigabe und
+              haftungsrelevante Aussagen bleiben beim Menschen.
+            </p>
+          </article>
+          <article class="panel rounded-xl p-7">
+            <div class="label text-blue">Modul 06</div>
+            <h3 class="mt-4 text-xl font-bold text-white">SOP für das Büro</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Am Ende steht kein loses Tool, sondern eine klare Arbeitsanweisung: Wer prüft was, wann wird
+              nachgefasst, wann wird eskaliert.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ablauf" class="border-y border-[#171717] bg-[#0d0d0d] px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-14 max-w-3xl">
+          <div class="label mb-3">Delivery</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            So läuft ein seriöser Start ab.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            Erst Scope, Vertrag und Datenschutz. Danach echte Kundenvorgänge. Kein Upload vertraulicher Daten
+            ohne Prozessrahmen.
+          </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-5">
+          <div class="panel rounded-xl p-6">
+            <div class="metric text-4xl font-black text-[#252525]">01</div>
+            <h3 class="mt-5 font-bold text-white">Prozess-Check</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">20 Minuten: Engpass, Software, Team, Dokumente, wiederkehrender Ablauf.</p>
+          </div>
+          <div class="panel rounded-xl p-6">
+            <div class="metric text-4xl font-black text-[#252525]">02</div>
+            <h3 class="mt-5 font-bold text-white">Scope und AVV</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Leistungsbeschreibung, AVV, TOMs, Subprocessor und Löschfristen vor Echtdaten.</p>
+          </div>
+          <div class="panel rounded-xl p-6">
+            <div class="metric text-4xl font-black text-[#252525]">03</div>
+            <h3 class="mt-5 font-bold text-white">Workflow bauen</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Intake, n8n, CRM-Aufgabe, Rückfragen, Checkliste, Review-Gate.</p>
+          </div>
+          <div class="panel rounded-xl p-6">
+            <div class="metric text-4xl font-black text-[#252525]">04</div>
+            <h3 class="mt-5 font-bold text-white">3 echte Fälle</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Der Ablauf wird an realen Vorgängen geprüft und angepasst.</p>
+          </div>
+          <div class="panel rounded-xl p-6">
+            <div class="metric text-4xl font-black text-[#252525]">05</div>
+            <h3 class="mt-5 font-bold text-white">Übergabe</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">SOP, Rollen, Freigaben, Statuslogik und nächste Ausbaustufe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sicherheit" class="px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+        <div>
+          <div class="label mb-3">DSGVO und EU AI Act</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            Datenschutz ist kein Footer. Er ist Teil des Produkts.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            Agentic Gateway wird als assistierender Prozess gebaut: datenminimiert, dokumentiert,
+            mit menschlicher Freigabe und klaren Grenzen.
+          </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <article class="panel-green rounded-xl p-6">
+            <h3 class="font-bold text-white">Lokale Vorverarbeitung</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              Mac Mini als lokaler Verarbeitungskern: Upload, Dateihash, EXIF-Entfernung, PII-Redaktion und Audit-Log.
+            </p>
+          </article>
+          <article class="panel-green rounded-xl p-6">
+            <h3 class="font-bold text-white">AVV und TOMs</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              Vor Echtdaten werden Zweck, Rollen, Aufbewahrung, Unterauftragnehmer und technische Maßnahmen dokumentiert.
+            </p>
+          </article>
+          <article class="panel-green rounded-xl p-6">
+            <h3 class="font-bold text-white">Keine Automatikentscheidung</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              KI-Ausgaben sind Vorschläge. Förder-, Haftungs- und Kundenkommunikation wird vor Versand geprüft.
+            </p>
+          </article>
+          <article class="panel-green rounded-xl p-6">
+            <h3 class="font-bold text-white">n8n mit Minimaldaten</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">
+              n8n speichert Status, IDs und Aufgaben. Rohdokumente und sensible Inhalte bleiben außerhalb der Workflow-Historie.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#171717] bg-[#0d0d0d] px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-14 max-w-3xl">
+          <div class="label mb-3">Technischer Kern</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            n8n lokal. Supabase später. Zapier nicht für sensible Rohdaten.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            Für den ersten marktfähigen Betrieb ist der schlanke Stack richtig: statische Website,
+            Mac-Mini-Backend, n8n, Postgres und PDF-Generator. Externe Tools werden nur dort genutzt,
+            wo sie operativ nötig und datenschutzrechtlich sauber eingebunden sind.
+          </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-4">
+          <article class="panel rounded-xl p-6">
+            <div class="label text-blue">Frontend</div>
+            <h3 class="mt-3 font-bold text-white">GitHub Pages</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Öffentliche Produktseite, Kontaktstart, keine vertraulichen Uploads.</p>
+          </article>
+          <article class="panel rounded-xl p-6">
+            <div class="label text-blue">Backend</div>
+            <h3 class="mt-3 font-bold text-white">Mac Mini FastAPI</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Upload, Speicherung, Redaction, KI-Assistenz, Audit-Log.</p>
+          </article>
+          <article class="panel rounded-xl p-6">
+            <div class="label text-blue">Automation</div>
+            <h3 class="mt-3 font-bold text-white">n8n + Postgres</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">Status, Aufgaben, E-Mail-Entwürfe, CRM, Review-Gates.</p>
+          </article>
+          <article class="panel rounded-xl p-6">
+            <div class="label text-blue">Optional</div>
+            <h3 class="mt-3 font-bold text-white">CRM / E-Mail</h3>
+            <p class="mt-2 text-sm leading-6 text-[#777]">HubSpot, Pipedrive, lexoffice oder E-Mail erst nach Kundenscope.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pakete" class="px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-14 text-center">
+          <div class="label mb-3">Angebot</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            Starten Sie mit einem Prozess, nicht mit einem Großprojekt.
+          </h2>
+          <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#888]">
+            Preise werden nach Scope bestätigt. Der Einstieg ist bewusst begrenzt, damit Nutzen, Datenschutz
+            und Betrieb vor der Skalierung geprüft werden.
+          </p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          <article class="panel rounded-2xl p-8">
+            <div class="label mb-4">Stufe 1</div>
+            <h3 class="text-2xl font-black text-white">Bezahlter Prozess-Audit</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Ein realer SHK-Vorgang wird durchlaufen: Anfrage, Daten, Nachweise, Systeme, Engpässe,
+              Datenschutz und Umsetzungsvorschlag.
+            </p>
+            <div class="mt-6 text-sm font-mono text-blue">Festpreis nach Scope</div>
+          </article>
+          <article class="panel-blue rounded-2xl p-8">
+            <div class="label mb-4 text-blue">Stufe 2</div>
+            <h3 class="text-2xl font-black text-white">SHK BüroPilot Umsetzung</h3>
+            <p class="mt-3 text-sm leading-6 text-[#b8caff]">
+              Ein definierter Workflow wird gebaut: Intake, n8n, CRM-Aufgabe, E-Mail-Entwürfe,
+              Checkliste, Review-Gate und Büro-SOP.
+            </p>
+            <div class="mt-6 text-sm font-mono text-blue">Modular nach Integrationen</div>
+          </article>
+          <article class="panel rounded-2xl p-8">
+            <div class="label mb-4">Stufe 3</div>
+            <h3 class="text-2xl font-black text-white">Betrieb und Weiterentwicklung</h3>
+            <p class="mt-3 text-sm leading-6 text-[#777]">
+              Monitoring, kleine Anpassungen, Vorlagenpflege, neue Nachweislisten, n8n-Wartung
+              und quartalsweise Prozessprüfung.
+            </p>
+            <div class="mt-6 text-sm font-mono text-blue">Monatlich nach Bedarf</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="border-t border-[#171717] px-5 py-24 md:px-8 md:py-32">
+      <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+        <div>
+          <div class="label mb-3">Nächster Schritt</div>
+          <h2 class="text-4xl font-black tracking-[-.04em] text-white md:text-5xl">
+            Lassen Sie uns einen echten Vorgang prüfen.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#888]">
+            Kein vertraulicher Upload auf der Website. Beschreiben Sie nur den Prozess. Wenn es passt,
+            folgt Scope, Angebot, AVV und danach ein projektbezogener Upload-Link.
+          </p>
+          <div class="mt-7 space-y-3 text-sm text-[#777]">
+            <div class="flex gap-3"><span class="text-green">✓</span><span>20-Minuten Erstgespräch ohne Verkaufsdruck</span></div>
+            <div class="flex gap-3"><span class="text-green">✓</span><span>Keine Förderzusage, keine Rechtsberatung, keine Scheingenauigkeit</span></div>
+            <div class="flex gap-3"><span class="text-green">✓</span><span>Fokus auf einen wiederkehrenden Büroprozess mit messbarem Engpass</span></div>
+          </div>
+        </div>
+
+        <form id="intake-form" class="panel rounded-2xl p-6 md:p-8">
+          <div class="grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="label mb-2 block" for="company">Betrieb</label>
+              <input id="company" name="company" autocomplete="organization" placeholder="Muster SHK GmbH" required />
+            </div>
+            <div>
+              <label class="label mb-2 block" for="team">Teamgröße</label>
+              <select id="team" name="team" required>
+                <option value="">Bitte auswählen</option>
+                <option>3 bis 7 Mitarbeitende</option>
+                <option>8 bis 20 Mitarbeitende</option>
+                <option>21 bis 50 Mitarbeitende</option>
+                <option>über 50 Mitarbeitende</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 md:grid-cols-2">
+            <div>
+              <label class="label mb-2 block" for="email">E-Mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="name@betrieb.de" required />
+            </div>
+            <div>
+              <label class="label mb-2 block" for="process">Engpass</label>
+              <select id="process" name="process" required>
+                <option value="">Bitte auswählen</option>
+                <option>Anfragen und Rückfragen</option>
+                <option>Angebotsvorbereitung</option>
+                <option>Nachweise und Fotodokumentation</option>
+                <option>Wartung und Wiedervorlagen</option>
+                <option>CRM / E-Mail / Büroorganisation</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4">
+            <label class="label mb-2 block" for="message">Kurzbeschreibung ohne vertrauliche Daten</label>
+            <textarea id="message" name="message" rows="4" placeholder="Wo bleibt Arbeit liegen? Welche Software nutzen Sie? Was muss Ihr Büro aktuell manuell nachhalten?"></textarea>
+          </div>
+          <div class="mt-5 rounded-xl border border-[#252525] bg-[#0c0c0c] p-4 text-xs leading-5 text-[#777]">
+            Bitte keine Kundendaten, Fotos, Rechnungen oder vertraulichen Unterlagen über dieses Formular senden.
+            Vertrauliche Dateien werden erst nach Scope, Angebot und AVV über einen projektbezogenen Upload-Link verarbeitet.
+          </div>
+          <button type="submit" class="btn-primary mt-6 w-full rounded-md px-7 py-3.5 text-sm">Anfrage vorbereiten</button>
+          <p class="mt-4 text-center text-xs text-[#666]">
+            Oder direkt per E-Mail: <a class="underline hover:text-white" href="mailto:info@agentic-gateway.de">info@agentic-gateway.de</a>
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[#171717] px-5 py-8 md:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-[#555] md:flex-row md:items-center md:justify-between">
+      <div>
+        <span class="font-bold text-[#888]">Agentic Gateway</span>
+        <span> · SHK BüroPilot · n8n, CRM und KI-Assistenz für Handwerksprozesse</span>
+      </div>
+      <div class="flex flex-wrap gap-5 text-xs">
+        <a href="/impressum" class="hover:text-white">Impressum</a>
+        <a href="/datenschutz" class="hover:text-white">Datenschutz</a>
+        <a href="/agb" class="hover:text-white">AGB</a>
+        <span class="font-mono text-[#444]">agentic-gateway.de</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("intake-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const company = encodeURIComponent(data.get("company") || "");
+      const team = encodeURIComponent(data.get("team") || "");
+      const email = encodeURIComponent(data.get("email") || "");
+      const process = encodeURIComponent(data.get("process") || "");
+      const message = encodeURIComponent(data.get("message") || "");
+      const subject = encodeURIComponent("SHK BüroPilot Prozess-Check anfragen");
+      const body = [
+        "Hallo Agentic Gateway,",
+        "",
+        "ich möchte einen SHK BüroPilot Prozess-Check anfragen.",
+        "",
+        "Betrieb: " + decodeURIComponent(company),
+        "Teamgröße: " + decodeURIComponent(team),
+        "E-Mail: " + decodeURIComponent(email),
+        "Engpass: " + decodeURIComponent(process),
+        "",
+        "Kurzbeschreibung:",
+        decodeURIComponent(message),
+        "",
+        "Hinweis: Es wurden keine vertraulichen Dateien übermittelt.",
+        "",
+        "Mit freundlichen Grüßen"
+      ].join("\n");
+      window.location.href = "mailto:info@agentic-gateway.de?subject=" + subject + "&body=" + encodeURIComponent(body);
+    });
+  </script>
+</body>
 </html>
