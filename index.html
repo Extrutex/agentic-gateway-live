@@ -461,6 +461,47 @@
       .gw-ring1, .gw-ring2 { opacity: 0; }
     }
 
+    /* ---------- KI-Check Funnel ---------- */
+    .check-section { background: var(--paper-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .check-card { max-width: 720px; margin: 54px auto 0; background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); padding: 34px; box-shadow: 0 30px 70px -40px rgba(25,22,19,.22); }
+    @media (max-width: 560px) { .check-card { padding: 26px 22px; } }
+    .check-top { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+    .check-progress { flex: 1; height: 6px; background: var(--paper-deep); border-radius: 999px; overflow: hidden; }
+    .check-progress span { display: block; height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width .4s cubic-bezier(.2,.6,.2,1); }
+    .check-count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .check-q { font-family: var(--font-display); font-size: clamp(21px, 3vw, 27px); font-weight: 550; letter-spacing: -.01em; line-height: 1.2; margin-bottom: 22px; }
+    .check-opts { display: grid; gap: 11px; }
+    .check-opt { display: flex; align-items: center; gap: 14px; text-align: left; width: 100%; padding: 15px 18px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--card); font-family: var(--font-body); font-size: 15.5px; font-weight: 600; color: var(--ink); cursor: pointer; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+    .check-opt:hover { border-color: var(--accent); background: var(--accent-wash); transform: translateY(-1px); }
+    .check-opt .dot { width: 19px; height: 19px; border-radius: 50%; border: 2px solid var(--line-strong); flex: none; transition: border-color .15s ease, box-shadow .15s ease; }
+    .check-opt:hover .dot { border-color: var(--accent); box-shadow: inset 0 0 0 4px var(--accent); }
+    .check-back { margin-top: 20px; background: none; border: none; color: var(--muted); font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; padding: 6px 0; }
+    .check-back:hover { color: var(--ink); }
+    .check-result-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+    .check-badge { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-wash); border-radius: 999px; padding: 6px 12px; }
+    .check-level { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+    .check-metrics { display: grid; gap: 14px; margin: 24px 0; }
+    @media (min-width: 560px) { .check-metrics { grid-template-columns: 1fr 1fr; } }
+    .check-metric { border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; background: var(--paper); }
+    .check-metric .big { font-family: var(--font-display); font-size: 33px; font-weight: 500; letter-spacing: -.02em; }
+    .check-metric .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .check-rec { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 22px 0; }
+    .check-rec h4 { font-size: 16px; font-weight: 700; }
+    .check-rec p { font-size: 15px; color: var(--muted); margin-top: 6px; }
+    .check-email { margin-top: 24px; }
+    .check-email label { display: block; font-size: 14.5px; font-weight: 650; margin-bottom: 10px; }
+    .check-email .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .check-email input { flex: 1; min-width: 200px; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 12px; padding: 14px 16px; font-size: 15.5px; font-family: var(--font-body); color: var(--ink); }
+    .check-email input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3.5px rgba(59,91,253,.14); }
+    .check-fineprint { font-size: 12.5px; color: var(--faint); margin-top: 12px; line-height: 1.5; }
+    .check-thanks { text-align: center; padding: 16px 0; }
+    .check-thanks .ico { width: 62px; height: 62px; border-radius: 50%; background: var(--accent-wash); color: var(--accent); display: grid; place-items: center; margin: 0 auto 20px; }
+    .check-thanks h3 { font-family: var(--font-display); font-size: 27px; font-weight: 550; }
+    .check-thanks p { color: var(--muted); margin-top: 12px; max-width: 46ch; margin-left: auto; margin-right: auto; }
+    .check-fade { animation: checkFade .35s ease; }
+    @keyframes checkFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .check-fade { animation: none; } .check-progress span { transition: none; } }
+
     /* ---------- Reveal animation ---------- */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1); }
     .reveal.in { opacity: 1; transform: none; }
@@ -487,6 +528,7 @@
         </span>
       </a>
       <div class="nav-links">
+        <a href="#check">KI-Check</a>
         <a href="#leistungen">Leistungen</a>
         <a href="#branchen">Branchen</a>
         <a href="#ablauf">Ablauf</a>
@@ -501,6 +543,7 @@
       </div>
     </div>
     <div class="mobile-menu" id="mobileMenu">
+      <a href="#check">KI-Check</a>
       <a href="#leistungen">Leistungen</a>
       <a href="#branchen">Branchen</a>
       <a href="#ablauf">Ablauf</a>
@@ -525,11 +568,11 @@
             Freigabe an den kritischen Stellen.
           </p>
           <div class="hero-ctas">
-            <a href="#kontakt" class="btn btn-ink">
-              Kostenloses Erstgespräch
+            <a href="#check" class="btn btn-ink">
+              Kostenloser KI-Check · 2 Min.
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
-            <a href="#preise" class="btn btn-ghost">Pakete &amp; Preise</a>
+            <a href="#kontakt" class="btn btn-ghost">Direkt Erstgespräch anfragen</a>
           </div>
           <div class="hero-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>DSGVO-orientiert</span>
@@ -628,6 +671,27 @@
         </div>
       </div>
     </div>
+
+    <!-- ============ KI-CHECK FUNNEL ============ -->
+    <section class="block check-section" id="check">
+      <div class="wrap">
+        <div class="sec-head center reveal">
+          <span class="eyebrow">Kostenloser KI-Check</span>
+          <h2 class="display">Wo spart KI in Ihrem Betrieb zuerst Geld?</h2>
+          <p class="lead">
+            Fünf Fragen, zwei Minuten. Sie bekommen sofort eine Einschätzung, wie viel Zeit sich
+            realistisch automatisieren lässt — und wo Sie anfangen sollten.
+          </p>
+        </div>
+        <div class="check-card reveal">
+          <div class="check-top">
+            <div class="check-progress"><span id="checkBar"></span></div>
+            <div class="check-count" id="checkCount">Frage 1 / 5</div>
+          </div>
+          <div id="checkBody"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- ============ PROBLEM ============ -->
     <section class="block" id="problem">
@@ -1108,6 +1172,163 @@
       ].join("\n");
       window.location.href = "mailto:info@agentic-gateway.de?subject=" + subject + "&body=" + encodeURIComponent(body);
     });
+
+    /* ===================== KI-Check Funnel ===================== */
+    (function () {
+      // Trage hier deine Formspree- oder n8n-Webhook-URL ein, dann laufen Leads
+      // vollautomatisch rein. Solange leer, greift der Mailto-Fallback (kein Lead geht verloren).
+      var FORM_ENDPOINT = "";
+
+      var steps = [
+        { key: "branche", q: "In welcher Branche sind Sie unterwegs?", opts: [
+          { l: "Handwerk & Bau (SHK, Elektro …)", v: "Handwerk & Bau" },
+          { l: "Fertigung & Industrie", v: "Fertigung & Industrie" },
+          { l: "Büro & Dienstleistung", v: "Büro & Dienstleistung" },
+          { l: "Etwas anderes", v: "Andere" } ] },
+        { key: "team", q: "Wie groß ist Ihr Team?", opts: [
+          { l: "1–2 Personen", v: "1-2" },
+          { l: "3–7 Mitarbeitende", v: "3-7" },
+          { l: "8–20 Mitarbeitende", v: "8-20" },
+          { l: "Über 20", v: "20+" } ] },
+        { key: "engpass", q: "Wo bleibt bei Ihnen am meisten Arbeit liegen?", opts: [
+          { l: "Anfragen & Rückfragen", v: "Anfragen", rec: "agent" },
+          { l: "Angebote vorbereiten", v: "Angebote", rec: "agent" },
+          { l: "E-Mail-Flut & Posteingang", v: "E-Mail", rec: "assist" },
+          { l: "Dokumente & Nachweise", v: "Dokumente", rec: "workflow" },
+          { l: "Termine & Wiedervorlagen", v: "Termine", rec: "workflow" } ] },
+        { key: "heute", q: "Wie erledigen Sie das heute?", opts: [
+          { l: "Alles manuell / auf Zetteln", v: "manuell", s: 3 },
+          { l: "Mit Excel & E-Mail", v: "excel", s: 2 },
+          { l: "Teilweise mit Software / CRM", v: "software", s: 1 },
+          { l: "Weiß ich nicht genau", v: "unklar", s: 2 } ] },
+        { key: "stunden", q: "Wie viele Stunden pro Woche kostet Sie der Bürokram grob?", opts: [
+          { l: "Unter 5 Stunden", v: "<5", h: 4 },
+          { l: "5–10 Stunden", v: "5-10", h: 8 },
+          { l: "10–20 Stunden", v: "10-20", h: 15 },
+          { l: "Über 20 Stunden", v: "20+", h: 24 } ] }
+      ];
+
+      var recMap = {
+        agent: { h: "KI-Agent für Anfragen & Angebote", p: "Ein Agent qualifiziert Anfragen, erkennt fehlende Angaben und bereitet Angebotsdaten und Antwortentwürfe vor — Sie geben nur noch frei." },
+        workflow: { h: "Workflow-Automatisierung", p: "Dokumente, Nachweise, Termine und Wiedervorlagen laufen automatisch mit Status und Erinnerungen — statt Zettelwirtschaft." },
+        assist: { h: "KI-Assistent für den Posteingang", p: "Der Assistent sortiert E-Mails vor, entwirft Standardantworten und leitet nur die wichtigen Fälle an Sie weiter." }
+      };
+
+      var body = document.getElementById("checkBody");
+      var bar = document.getElementById("checkBar");
+      var count = document.getElementById("checkCount");
+      if (!body) return;
+
+      var answers = {}, idx = 0;
+
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+      function val(k) { return answers[k] ? (answers[k].v || "") : ""; }
+
+      function renderStep() {
+        var st = steps[idx];
+        bar.style.width = (idx / steps.length * 100) + "%";
+        count.textContent = "Frage " + (idx + 1) + " / " + steps.length;
+        var html = '<div class="check-fade"><div class="check-q">' + esc(st.q) + '</div><div class="check-opts">';
+        st.opts.forEach(function (o, i) {
+          html += '<button type="button" class="check-opt" data-i="' + i + '"><span class="dot"></span>' + esc(o.l) + '</button>';
+        });
+        html += '</div>' + (idx > 0 ? '<button type="button" class="check-back" id="checkBack">← Zurück</button>' : '') + '</div>';
+        body.innerHTML = html;
+        Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
+          btn.addEventListener("click", function () {
+            answers[st.key] = st.opts[+btn.getAttribute("data-i")];
+            idx++;
+            if (idx < steps.length) renderStep(); else renderResult();
+          });
+        });
+        var back = document.getElementById("checkBack");
+        if (back) back.addEventListener("click", function () { idx--; renderStep(); });
+      }
+
+      function renderResult() {
+        bar.style.width = "100%";
+        count.textContent = "Ihr Ergebnis";
+        var manual = (answers.heute && answers.heute.s) || 2;
+        var hrs = (answers.stunden && answers.stunden.h) || 8;
+        var saved = Math.round(hrs * (manual >= 3 ? 0.55 : manual >= 2 ? 0.45 : 0.3));
+        if (saved < 2) saved = 2;
+        var euroMonth = Math.round(saved * 4.3 * 40 / 10) * 10;
+        var level = (manual >= 3 || hrs >= 15) ? "Hoch" : (manual >= 2 || hrs >= 8) ? "Mittel" : "Solide";
+        var rec = recMap[(answers.engpass && answers.engpass.rec) || "agent"];
+        var meta = { saved: saved, euroMonth: euroMonth, level: level, rec: rec.h };
+
+        var h = '<div class="check-fade">';
+        h += '<div class="check-result-head"><span class="check-badge">Automatisierungs-Potenzial</span><span class="check-level">' + level + '</span></div>';
+        h += '<p style="color:var(--muted);font-size:15.5px;">Auf Basis Ihrer Angaben — eine grobe erste Einschätzung, kein verbindliches Angebot.</p>';
+        h += '<div class="check-metrics"><div class="check-metric"><div class="big">~' + saved + ' h</div><div class="lbl">realistisch einsparbar pro Woche</div></div>';
+        h += '<div class="check-metric"><div class="big">≈ ' + euroMonth.toLocaleString("de-DE") + ' €</div><div class="lbl">Zeitwert pro Monat (bei 40 €/h)</div></div></div>';
+        h += '<div class="check-rec"><h4>Ihr empfohlener Start: ' + esc(rec.h) + '</h4><p>' + esc(rec.p) + '</p></div>';
+        h += '<div class="check-email"><label for="checkMail">Ergebnis + konkreten Fahrplan per E-Mail erhalten:</label>';
+        h += '<form id="checkForm"><div class="row"><input id="checkMail" type="email" required placeholder="name@betrieb.de" autocomplete="email" />';
+        h += '<button type="submit" class="btn btn-ink">Fahrplan anfordern</button></div></form>';
+        h += '<p class="check-fineprint">Keine Werbung, kein Spam. Sie bekommen nur Ihr Ergebnis und einen Vorschlag für ein kostenloses 20-Minuten-Erstgespräch. Abmeldung jederzeit.</p></div></div>';
+        body.innerHTML = h;
+
+        document.getElementById("checkForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+          submitLead(document.getElementById("checkMail").value, meta);
+        });
+      }
+
+      function payloadFor(email, meta) {
+        return {
+          quelle: "KI-Check Funnel",
+          email: email,
+          branche: val("branche"), team: val("team"), engpass: val("engpass"),
+          heute: val("heute"), stunden: val("stunden"),
+          potenzial: meta.level, einsparung_h_woche: meta.saved,
+          zeitwert_monat_eur: meta.euroMonth, empfehlung: meta.rec
+        };
+      }
+
+      function submitLead(email, meta) {
+        var p = payloadFor(email, meta);
+        if (FORM_ENDPOINT) {
+          fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) })
+            .then(function () { renderThanks(); })
+            .catch(function () { mailtoFallback(p); });
+        } else {
+          mailtoFallback(p);
+        }
+      }
+
+      function mailtoFallback(p) {
+        var lines = [
+          "Neuer Lead über den KI-Check:", "",
+          "E-Mail: " + p.email,
+          "Branche: " + p.branche,
+          "Team: " + p.team,
+          "Größter Engpass: " + p.engpass,
+          "Heute: " + p.heute,
+          "Bürostunden/Woche: " + p.stunden,
+          "",
+          "Potenzial: " + p.potenzial,
+          "Einsparung: ~" + p.einsparung_h_woche + " h/Woche",
+          "Zeitwert: ≈ " + p.zeitwert_monat_eur + " €/Monat",
+          "Empfehlung: " + p.empfehlung
+        ];
+        window.location.href = "mailto:info@agentic-gateway.de?subject=" +
+          encodeURIComponent("KI-Check Ergebnis – " + p.email) +
+          "&body=" + encodeURIComponent(lines.join("\n"));
+        renderThanks();
+      }
+
+      function renderThanks() {
+        count.textContent = "Fertig";
+        body.innerHTML = '<div class="check-thanks check-fade"><div class="ico">' +
+          '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
+          '<h3>Geschafft — Ihr Ergebnis ist unterwegs.</h3>' +
+          '<p>Wir melden uns innerhalb von 24 Stunden (werktags) mit Ihrem Fahrplan und einem Terminvorschlag für ein kostenloses 20-Minuten-Erstgespräch. Sie müssen nichts weiter tun.</p>' +
+          '<a href="#preise" class="btn btn-ghost" style="margin-top:22px;">Solange die Pakete ansehen</a></div>';
+      }
+
+      renderStep();
+    })();
   </script>
 </body>
 </html>
