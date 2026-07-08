@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://agentic-gateway.de" />
   <meta property="og:type" content="website" />
   <link rel="canonical" href="https://agentic-gateway.de/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M20 44 32 18l12 26' fill='none' stroke='%23FAF7F2' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='36' r='3.4' fill='%233B5BFD'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -436,6 +436,31 @@
     .foot-links { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 14px; color: var(--muted); }
     .foot-links a:hover { color: var(--ink); }
 
+    /* ---------- Logo mark ---------- */
+    .logo-node { animation: nodePulse 2.6s ease-in-out infinite; }
+    @keyframes nodePulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+
+    /* ---------- Gateway animation ---------- */
+    .gwscene { width: 100%; height: auto; margin: 20px 0 4px; }
+    .gw-txt { font-family: var(--font-body); font-weight: 600; fill: var(--ink-soft); }
+    .gw-base { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
+    .gw-flow { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 2 7; stroke-linecap: round; opacity: .75; animation: gwDash 1s linear infinite; }
+    @keyframes gwDash { to { stroke-dashoffset: -18; } }
+    .gw-chip { fill: var(--paper-deep); stroke: var(--line); stroke-width: 1; }
+    .gw-core { fill: var(--ink); }
+    .gw-node { fill: #fff; animation: gwNode 1.8s ease-in-out infinite; }
+    @keyframes gwNode { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+    .gw-ring { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+    .gw-ring1 { animation: gwRing 2.6s ease-out infinite; }
+    .gw-ring2 { animation: gwRing 2.6s ease-out infinite 1.3s; }
+    @keyframes gwRing { 0% { r: 22px; opacity: .5; } 100% { r: 42px; opacity: 0; } }
+    .gw-dot { fill: var(--accent); }
+    .gw-check { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-reduced-motion: reduce) {
+      .gw-flow, .gw-node, .gw-ring1, .gw-ring2, .logo-node { animation: none; }
+      .gw-ring1, .gw-ring2 { opacity: 0; }
+    }
+
     /* ---------- Reveal animation ---------- */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1); }
     .reveal.in { opacity: 1; transform: none; }
@@ -451,9 +476,9 @@
     <div class="wrap nav-inner">
       <a href="/" class="brand" aria-label="Agentic Gateway – Startseite">
         <span class="brand-mark" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
-            <path d="M20 46 32 16l12 30" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="32" cy="37" r="4" fill="#3B5BFD"/>
+          <svg width="21" height="21" viewBox="0 0 64 64" fill="none">
+            <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+            <circle class="logo-node" cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
           </svg>
         </span>
         <span>
@@ -518,6 +543,46 @@
             <h2>So arbeitet ein Agent bei Ihnen</h2>
             <span class="flow-tag">Mensch entscheidet</span>
           </div>
+
+          <svg class="gwscene" viewBox="0 0 400 150" role="img" aria-label="Eine Anfrage wird vom KI-Agenten in strukturierte Aufgaben verwandelt.">
+            <!-- base connectors -->
+            <path class="gw-base" d="M92 75 H158"/>
+            <path class="gw-base" d="M202 75 C234 75 244 37 270 37"/>
+            <path class="gw-base" d="M202 75 H270"/>
+            <path class="gw-base" d="M202 75 C234 75 244 113 270 113"/>
+            <!-- pulse rings behind core -->
+            <circle class="gw-ring gw-ring1" cx="180" cy="75" r="22"/>
+            <circle class="gw-ring gw-ring2" cx="180" cy="75" r="22"/>
+            <!-- input chip -->
+            <rect class="gw-chip" x="6" y="58" width="86" height="34" rx="9"/>
+            <text class="gw-txt" x="49" y="79" text-anchor="middle" font-size="12.5">Anfrage</text>
+            <!-- output chips -->
+            <rect class="gw-chip" x="270" y="22" width="124" height="30" rx="8"/>
+            <rect class="gw-chip" x="270" y="60" width="124" height="30" rx="8"/>
+            <rect class="gw-chip" x="270" y="98" width="124" height="30" rx="8"/>
+            <path class="gw-check" d="M282 37 l3 3 5.5-6.5"/>
+            <path class="gw-check" d="M282 75 l3 3 5.5-6.5"/>
+            <path class="gw-check" d="M282 113 l3 3 5.5-6.5"/>
+            <text class="gw-txt" x="300" y="41" font-size="11">Zusammenfassung</text>
+            <text class="gw-txt" x="300" y="79" font-size="11">Aufgabe angelegt</text>
+            <text class="gw-txt" x="300" y="117" font-size="11">Antwort-Entwurf</text>
+            <!-- animated data flow overlay -->
+            <path class="gw-flow" d="M92 75 H158"/>
+            <path class="gw-flow" d="M202 75 C234 75 244 37 270 37"/>
+            <path class="gw-flow" d="M202 75 H270"/>
+            <path class="gw-flow" d="M202 75 C234 75 244 113 270 113"/>
+            <!-- agent core -->
+            <circle class="gw-core" cx="180" cy="75" r="22"/>
+            <path d="M172 84V72a8 8 0 0 1 16 0v12" fill="none" stroke="#FAF7F2" stroke-width="2.6" stroke-linecap="round"/>
+            <circle class="gw-node" cx="180" cy="72.5" r="3.1"/>
+            <text class="gw-txt" x="180" y="112" text-anchor="middle" font-size="10" fill="#3B5BFD" font-weight="700" letter-spacing=".04em">KI-AGENT</text>
+            <!-- traveling particles -->
+            <circle r="3" class="gw-dot"><animateMotion dur="1.7s" repeatCount="indefinite" path="M92 75 H158"/></circle>
+            <circle r="2.6" class="gw-dot"><animateMotion dur="1.9s" begin="0.7s" repeatCount="indefinite" path="M202 75 C234 75 244 37 270 37"/></circle>
+            <circle r="2.6" class="gw-dot"><animateMotion dur="1.9s" begin="1s" repeatCount="indefinite" path="M202 75 H270"/></circle>
+            <circle r="2.6" class="gw-dot"><animateMotion dur="1.9s" begin="1.3s" repeatCount="indefinite" path="M202 75 C234 75 244 113 270 113"/></circle>
+          </svg>
+
           <div class="flow-steps" id="flowSteps">
             <div class="flow-step active">
               <span class="flow-num">01</span>
@@ -974,8 +1039,8 @@
       <div class="foot-brand">
         <span class="brand-mark" aria-hidden="true" style="width:32px;height:32px;border-radius:8px;">
           <svg width="16" height="16" viewBox="0 0 64 64" fill="none">
-            <path d="M20 46 32 16l12 30" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="32" cy="37" r="4" fill="#3B5BFD"/>
+            <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
           </svg>
         </span>
         <span><strong>Agentic Gateway</strong> · KI-Agentur · Rodgau bei Frankfurt</span>
