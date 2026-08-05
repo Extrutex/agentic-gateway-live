@@ -488,6 +488,11 @@
     .check-opt:hover { border-color: var(--accent); background: var(--accent-wash); transform: translateY(-1px); }
     .check-opt .dot { width: 19px; height: 19px; border-radius: 50%; border: 2px solid var(--line-strong); flex: none; transition: border-color .15s ease, box-shadow .15s ease; }
     .check-opt:hover .dot { border-color: var(--accent); box-shadow: inset 0 0 0 4px var(--accent); }
+    .check-opt.sel { border-color: var(--accent); background: var(--accent-wash); }
+    .check-opt.sel .dot { border-color: var(--accent); box-shadow: inset 0 0 0 4px var(--accent); }
+    .check-hint { font-size: 13px; color: var(--muted); margin: -8px 0 18px; }
+    .check-next { margin-top: 20px; }
+    .check-next:disabled { opacity: .45; cursor: not-allowed; transform: none; }
     .check-back { margin-top: 20px; background: none; border: none; color: var(--muted); font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; padding: 6px 0; }
     .check-back:hover { color: var(--ink); }
     .check-result-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
@@ -1204,7 +1209,7 @@
           { l: "3–7 Mitarbeitende", v: "3-7" },
           { l: "8–20 Mitarbeitende", v: "8-20" },
           { l: "Über 20", v: "20+" } ] },
-        { key: "engpass", q: "Wo bleibt bei Ihnen am meisten Arbeit liegen?", opts: [
+        { key: "engpass", q: "Wo bleibt bei Ihnen am meisten Arbeit liegen?", multi: true, opts: [
           { l: "Anfragen & Rückfragen", v: "Anfragen", rec: "agent" },
           { l: "Angebote vorbereiten", v: "Angebote", rec: "agent" },
           { l: "E-Mail-Flut & Posteingang", v: "E-Mail", rec: "assist" },
@@ -1240,21 +1245,54 @@
 
       function renderStep() {
         var st = steps[idx];
+        var multi = !!st.multi;
         bar.style.width = (idx / steps.length * 100) + "%";
         count.textContent = "Frage " + (idx + 1) + " / " + steps.length;
-        var html = '<div class="check-fade"><div class="check-q">' + esc(st.q) + '</div><div class="check-opts">';
+        var preSel = (multi && answers[st.key] && answers[st.key].idxs) ? answers[st.key].idxs : [];
+        var html = '<div class="check-fade"><div class="check-q">' + esc(st.q) + '</div>';
+        if (multi) html += '<div class="check-hint">Mehrfachauswahl möglich — wählen Sie alles, was zutrifft.</div>';
+        html += '<div class="check-opts">';
         st.opts.forEach(function (o, i) {
-          html += '<button type="button" class="check-opt" data-i="' + i + '"><span class="dot"></span>' + esc(o.l) + '</button>';
+          var on = preSel.indexOf(i) > -1 ? ' sel' : '';
+          html += '<button type="button" class="check-opt' + on + '" data-i="' + i + '"><span class="dot"></span>' + esc(o.l) + '</button>';
         });
-        html += '</div>' + (idx > 0 ? '<button type="button" class="check-back" id="checkBack">← Zurück</button>' : '') + '</div>';
+        html += '</div>';
+        if (multi) html += '<button type="button" class="btn btn-ink check-next" id="checkNext"' + (preSel.length ? '' : ' disabled') + '>Weiter</button>';
+        html += (idx > 0 ? '<button type="button" class="check-back" id="checkBack">← Zurück</button>' : '') + '</div>';
         body.innerHTML = html;
-        Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
-          btn.addEventListener("click", function () {
-            answers[st.key] = st.opts[+btn.getAttribute("data-i")];
+
+        if (multi) {
+          var sel = preSel.slice();
+          var nextBtn = document.getElementById("checkNext");
+          Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
+            btn.addEventListener("click", function () {
+              var i = +btn.getAttribute("data-i");
+              var pos = sel.indexOf(i);
+              if (pos > -1) { sel.splice(pos, 1); btn.classList.remove("sel"); }
+              else { sel.push(i); btn.classList.add("sel"); }
+              nextBtn.disabled = sel.length === 0;
+            });
+          });
+          nextBtn.addEventListener("click", function () {
+            if (!sel.length) return;
+            var chosen = sel.slice().sort(function (a, b) { return a - b; }).map(function (i) { return st.opts[i]; });
+            answers[st.key] = {
+              v: chosen.map(function (o) { return o.v; }).join(", "),
+              rec: chosen[0].rec,
+              idxs: sel.slice()
+            };
             idx++;
             if (idx < steps.length) renderStep(); else renderResult();
           });
-        });
+        } else {
+          Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
+            btn.addEventListener("click", function () {
+              answers[st.key] = st.opts[+btn.getAttribute("data-i")];
+              idx++;
+              if (idx < steps.length) renderStep(); else renderResult();
+            });
+          });
+        }
         var back = document.getElementById("checkBack");
         if (back) back.addEventListener("click", function () { idx--; renderStep(); });
       }
