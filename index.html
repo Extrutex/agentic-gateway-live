@@ -1106,10 +1106,12 @@
             Bitte keine Kundendaten oder vertraulichen Unterlagen über dieses Formular senden.
             Vertrauliche Dateien werden erst nach Angebot und Datenschutzvereinbarung verarbeitet.
           </div>
+          <input type="checkbox" name="botcheck" id="botcheck" style="display:none;" tabindex="-1" autocomplete="off" />
           <button type="submit" class="btn btn-ink">
             Erstgespräch anfragen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
           </button>
+          <p id="intake-status" class="form-alt" style="display:none;" aria-live="polite"></p>
           <p class="form-alt">Oder direkt per E-Mail: <a href="mailto:info@agentic-gateway.de">info@agentic-gateway.de</a></p>
         </form>
       </div>
@@ -1138,6 +1140,33 @@
   </footer>
 
   <script>
+    /* ===== Formular-Versand: Web3Forms ====================================
+       EINE Zeile eintragen, dann laufen BEIDE Formulare (Kontaktformular +
+       KI-Check) automatisch per E-Mail an info@agentic-gateway.de ein. Key
+       holen: https://web3forms.com — nur E-Mail-Adresse eingeben, kein
+       Account/Login nötig, Key kommt sofort per Mail. Hier einfügen:      */
+    var WEB3FORMS_ACCESS_KEY = "";
+    var WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
+    // Solange der Key oben leer ist, meldet sendToWeb3Forms sofort einen Fehler
+    // und beide Formulare fallen automatisch auf mailto zurück — kein Lead geht verloren.
+    function sendToWeb3Forms(payload, onSuccess, onError) {
+      if (!WEB3FORMS_ACCESS_KEY) { onError(); return; }
+      var body = Object.assign({ access_key: WEB3FORMS_ACCESS_KEY }, payload);
+      fetch(WEB3FORMS_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(body)
+      })
+        .then(function (res) {
+          return res.json().then(function (json) { return { ok: res.ok, json: json }; });
+        })
+        .then(function (r) {
+          if (r.ok && r.json && r.json.success) { onSuccess(); } else { onError(); }
+        })
+        .catch(onError);
+    }
+
     // Mobile menu
     var burger = document.getElementById("burger");
     var menu = document.getElementById("mobileMenu");
@@ -1169,35 +1198,59 @@
       steps[current].classList.add("active");
     }, 2600);
 
-    // Contact form -> mailto
-    document.getElementById("intake-form").addEventListener("submit", function (event) {
-      event.preventDefault();
-      var data = new FormData(event.currentTarget);
-      var subject = encodeURIComponent("Erstgespräch anfragen | agentic-gateway.de");
-      var body = [
-        "Hallo Agentic Gateway,",
-        "",
-        "ich möchte ein kostenloses Erstgespräch anfragen.",
-        "",
-        "Firma: " + (data.get("company") || ""),
-        "Teamgröße: " + (data.get("team") || ""),
-        "E-Mail: " + (data.get("email") || ""),
-        "Größter Engpass: " + (data.get("process") || ""),
-        "",
-        "Kurzbeschreibung:",
-        (data.get("message") || ""),
-        "",
-        "Mit freundlichen Grüßen"
-      ].join("\n");
-      window.location.href = "mailto:info@agentic-gateway.de?subject=" + subject + "&body=" + encodeURIComponent(body);
-    });
+    // Contact form -> Web3Forms, mailto als Rückfalloption (kein Lead geht verloren)
+    (function () {
+      var intakeForm = document.getElementById("intake-form");
+      var intakeStatus = document.getElementById("intake-status");
+
+      function mailtoFallback(data) {
+        var subject = encodeURIComponent("Erstgespräch anfragen | agentic-gateway.de");
+        var body = [
+          "Hallo Agentic Gateway,",
+          "",
+          "ich möchte ein kostenloses Erstgespräch anfragen.",
+          "",
+          "Firma: " + (data.get("company") || ""),
+          "Teamgröße: " + (data.get("team") || ""),
+          "E-Mail: " + (data.get("email") || ""),
+          "Größter Engpass: " + (data.get("process") || ""),
+          "",
+          "Kurzbeschreibung:",
+          (data.get("message") || ""),
+          "",
+          "Mit freundlichen Grüßen"
+        ].join("\n");
+        window.location.href = "mailto:info@agentic-gateway.de?subject=" + subject + "&body=" + encodeURIComponent(body);
+      }
+
+      intakeForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var data = new FormData(event.currentTarget);
+        var payload = {
+          subject: "Neues Erstgespräch | agentic-gateway.de",
+          from_name: data.get("company") || "Website-Formular",
+          email: data.get("email") || "",
+          Firma: data.get("company") || "",
+          Teamgroesse: data.get("team") || "",
+          Engpass: data.get("process") || "",
+          Nachricht: data.get("message") || "",
+          botcheck: data.get("botcheck") === "on"
+        };
+        intakeStatus.style.display = "block";
+        intakeStatus.textContent = "Wird gesendet …";
+        sendToWeb3Forms(payload, function () {
+          intakeStatus.textContent = "Danke — wir melden uns innerhalb von 24 Stunden (werktags).";
+          intakeForm.reset();
+          Array.prototype.forEach.call(intakeForm.querySelectorAll("input,select,textarea,button"), function (el) { el.disabled = true; });
+        }, function () {
+          intakeStatus.textContent = "Automatischer Versand hat nicht geklappt — Ihr E-Mail-Programm öffnet sich als Alternative.";
+          mailtoFallback(data);
+        });
+      });
+    })();
 
     /* ===================== KI-Check Funnel ===================== */
     (function () {
-      // Trage hier deine Formspree- oder n8n-Webhook-URL ein, dann laufen Leads
-      // vollautomatisch rein. Solange leer, greift der Mailto-Fallback (kein Lead geht verloren).
-      var FORM_ENDPOINT = "";
-
       var steps = [
         { key: "branche", q: "In welcher Branche sind Sie unterwegs?", opts: [
           { l: "Handwerk & Bau (SHK, Elektro …)", v: "Handwerk & Bau" },
@@ -1340,13 +1393,22 @@
 
       function submitLead(email, meta) {
         var p = payloadFor(email, meta);
-        if (FORM_ENDPOINT) {
-          fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) })
-            .then(function () { renderThanks(); })
-            .catch(function () { mailtoFallback(p); });
-        } else {
-          mailtoFallback(p);
-        }
+        var payload = {
+          subject: "Neuer KI-Check Lead | agentic-gateway.de",
+          from_name: p.email,
+          email: p.email,
+          Branche: p.branche,
+          Team: p.team,
+          Engpass: p.engpass,
+          Heute: p.heute,
+          StundenProWoche: p.stunden,
+          Potenzial: p.potenzial,
+          EinsparungStundenWoche: p.einsparung_h_woche,
+          ZeitwertMonatEur: p.zeitwert_monat_eur,
+          Empfehlung: p.empfehlung,
+          botcheck: false
+        };
+        sendToWeb3Forms(payload, renderThanks, function () { mailtoFallback(p); });
       }
 
       function mailtoFallback(p) {
