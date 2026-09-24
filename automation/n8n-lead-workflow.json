@@ -1,0 +1,98 @@
+{
+  "id": "ffbca48b-e4e1-4ad9-9a73-c1fe2a36e6ca",
+  "name": "Agentic Gateway - KI-Check Lead Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agentic-gateway-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node-1",
+      "name": "Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "agentic-gateway-lead"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const item = $input.first().json;\nconst headers = item.headers || {};\nconst body = item.body || {};\n\n// TODO vor Produktivbetrieb: Secret aus Umgebungsvariable statt hardcoded (Task-Runner-Sandbox blockiert aktuell $env-Zugriff im Code-Node, siehe Report).\nconst expected = 'REPLACE_LEAD_WEBHOOK_SECRET';\nconst provided = headers['x-lead-secret'] || headers['X-Lead-Secret'];\n\nif (!expected || provided !== expected) {\n  return [{ json: { ok: false, message: 'unauthorized' } }];\n}\n\nconst required = ['email', 'branche', 'team', 'engpass', 'heute', 'stunden'];\nconst missing = required.filter((k) => !body[k]);\nif (missing.length) {\n  return [{ json: { ok: false, message: 'missing fields: ' + missing.join(', ') } }];\n}\n\nconst fs = require('fs');\nconst logPath = '/files/leads_log/leads.jsonl';\nconst line = JSON.stringify(Object.assign({ received_at: new Date().toISOString() }, body)) + '\\n';\nfs.appendFileSync(logPath, line);\n\nreturn [{ json: { ok: true, message: 'lead received' } }];"
+      },
+      "id": "code-node-1",
+      "name": "Process Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.ok}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-node-1",
+      "name": "Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, message: $json.message } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-ok",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [920, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: false, message: $json.message } }}",
+        "options": {
+          "responseCode": 401
+        }
+      },
+      "id": "respond-rejected",
+      "name": "Respond Rejected",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [920, 420]
+    }
+  ],
+  "connections": {
+    "Lead Webhook": {
+      "main": [
+        [ { "node": "Process Lead", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Process Lead": {
+      "main": [
+        [ { "node": "Valid?", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Valid?": {
+      "main": [
+        [ { "node": "Respond OK", "type": "main", "index": 0 } ],
+        [ { "node": "Respond Rejected", "type": "main", "index": 0 } ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
