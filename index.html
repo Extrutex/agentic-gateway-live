@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agentic Gateway | KI-Agentur für Automatisierung und KI-Agenten im Mittelstand</title>
-  <meta name="description" content="Agentic Gateway ist Ihre KI-Agentur: KI-Agenten, Workflow-Automatisierung mit n8n und KI-Assistenz für kleine und mittlere Betriebe. DSGVO-orientiert, mit menschlicher Freigabe und festen Einstiegspreisen." />
+  <title>KI-Agenten für Fertigungsbetriebe | Agentic Gateway</title>
+  <meta name="description" content="KI-Agenten und Automatisierung für Fertiger, Zulieferer und Lohnfertiger: Anfragen mit Zeichnung prüfen, Angebote vorbereiten, Auftragsstatus nachhalten. Mit menschlicher Freigabe, DSGVO-orientiert, Festpreis." />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Agentic Gateway | KI-Agentur für den Mittelstand" />
-  <meta property="og:description" content="KI-Agenten, Workflow-Automatisierung und KI-Assistenz für Betriebe, die Zeit im Büro verlieren. Fester Einstiegspreis, klarer Ablauf, menschliche Freigabe." />
+  <meta property="og:title" content="KI-Agenten für Fertigungsbetriebe | Agentic Gateway" />
+  <meta property="og:description" content="KI-Agenten für Fertigungsbetriebe – gebaut von einem Fertiger. Anfrage, Zeichnung, Machbarkeit, Angebot: automatisiert, mit menschlicher Freigabe und Festpreis." />
   <meta property="og:url" content="https://agentic-gateway.de" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
@@ -15,10 +15,10 @@
   <meta property="og:image" content="https://agentic-gateway.de/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Agentic Gateway – KI-Agenten, die wirklich arbeiten" />
+  <meta property="og:image:alt" content="Agentic Gateway – KI-Agenten für Fertigungsbetriebe" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agentic Gateway | KI-Agentur für den Mittelstand" />
-  <meta name="twitter:description" content="KI-Agenten, Workflow-Automatisierung und KI-Assistenz für Betriebe, die Zeit im Büro verlieren." />
+  <meta name="twitter:title" content="KI-Agenten für Fertigungsbetriebe | Agentic Gateway" />
+  <meta name="twitter:description" content="KI-Agenten für Fertiger, Zulieferer und Lohnfertiger – von der Anfrage mit Zeichnung bis zum Angebot." />
   <meta name="twitter:image" content="https://agentic-gateway.de/og-image.png" />
   <meta name="geo.region" content="DE-HE" />
   <meta name="geo.placename" content="Rodgau, Rhein-Main" />
@@ -33,14 +33,14 @@
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Agentic Gateway",
-    "description": "KI-Agentur für KI-Agenten, Workflow-Automatisierung und KI-Assistenz im Mittelstand.",
+    "description": "KI-Agentur für Fertigungsbetriebe: KI-Agenten und Workflow-Automatisierung für Anfrage-, Angebots- und Auftragsprozesse in Lohnfertigung, Zulieferindustrie und Maschinenbau.",
     "url": "https://agentic-gateway.de",
     "email": "info@agentic-gateway.de",
     "telephone": "+4915125534623",
     "founder": { "@type": "Person", "name": "Sebastian Windt" },
     "address": { "@type": "PostalAddress", "addressLocality": "Rodgau", "postalCode": "63110", "addressCountry": "DE" },
     "areaServed": "DE",
-    "knowsAbout": ["KI-Agenten", "Workflow-Automatisierung", "n8n", "KI-Beratung", "Prozessautomatisierung"]
+    "knowsAbout": ["KI-Agenten", "Workflow-Automatisierung", "n8n", "Angebotsautomatisierung", "Fertigung", "Lohnfertigung", "Prozessautomatisierung"]
   }
   </script>
   <style>
@@ -182,7 +182,7 @@
     }
     .hero-grid { display: grid; gap: 64px; align-items: center; }
     @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.08fr .92fr; gap: 72px; } }
-    .hero h1 { font-size: clamp(42px, 6.2vw, 76px); margin-top: 26px; max-width: 13ch; }
+    .hero h1 { font-size: clamp(38px, 5.4vw, 68px); margin-top: 26px; max-width: 15ch; hyphens: manual; }
     .hero h1 em { font-style: italic; color: var(--accent); }
     .hero .lead { margin-top: 28px; max-width: 54ch; }
     .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
@@ -283,7 +283,12 @@
 
     /* ---------- Branchen ---------- */
     .sectors { display: grid; gap: 20px; margin-top: 64px; }
-    @media (min-width: 900px) { .sectors { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) { .sectors { grid-template-columns: 1.5fr 1fr; } }
+    .sector-primary { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+    .sector-primary h3 { font-size: 23px; }
+    .sector-primary p { font-size: 16px; color: var(--ink-soft); }
+    .sector-list { list-style: none; margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .sector-list li { font-size: 13px; font-weight: 600; color: var(--ink-soft); background: var(--paper-deep); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
     .sector {
       background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
       padding: 34px 30px;
@@ -349,6 +354,10 @@
     .plan-featured .plan-meta { color: var(--dark-muted); }
     .plan-featured li { color: #D9D2C6; }
     .plan-featured .plan-price span { color: var(--dark-muted); }
+    .plan-example { margin-top: 22px; padding-top: 16px; border-top: 1px dashed var(--line-strong); font-size: 14px; line-height: 1.5; color: var(--muted); }
+    .plan-example strong { color: var(--ink-soft); }
+    .plan-featured .plan-example { border-top-color: var(--dark-line); color: var(--dark-muted); }
+    .plan-featured .plan-example strong { color: #D9D2C6; }
     .plans-note { text-align: center; font-size: 13.5px; color: var(--faint); margin-top: 34px; }
 
     /* ---------- Sicherheit ---------- */
@@ -577,13 +586,12 @@
     <header class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">KI-Agentur für kleine &amp; mittlere Betriebe</span>
-          <h1 class="display">KI-Agenten, die <em>wirklich</em> arbeiten.</h1>
+          <span class="eyebrow">KI-Agentur für Fertigung &amp; Industrie</span>
+          <h1 class="display">KI-Agenten für <em>Fertigungs&shy;betriebe</em> – gebaut von einem Fertiger.</h1>
           <p class="lead">
-            Agentic Gateway baut KI-Agenten und Automatisierungen für Betriebe, die Zeit im Büro
-            verlieren: Anfragen beantworten, Angebote vorbereiten, E&#8209;Mails sortieren, Dokumente
-            nachhalten. Keine Wunder-KI — Prozesse, die messbar Stunden sparen, mit menschlicher
-            Freigabe an den kritischen Stellen.
+            Zwischen Anfrage, Zeichnung, Machbarkeitsprüfung und Angebot bleibt in Fertigungsbetrieben
+            die meiste Zeit liegen. Genau diese Abläufe automatisieren wir – erprobt im eigenen
+            Industrie-3D-Druck-Betrieb, mit menschlicher Freigabe an jeder kritischen Stelle.
           </p>
           <div class="hero-ctas">
             <a href="#check" class="btn btn-ink">
@@ -593,9 +601,10 @@
             <a href="#kontakt" class="btn btn-ghost">Direkt Erstgespräch anfragen</a>
           </div>
           <div class="hero-note">
-            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>DSGVO-orientiert</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Im eigenen Fertigungsbetrieb erprobt</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Feste Preise</span>
-            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Antwort in 24&nbsp;h</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Menschliche Freigabe</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>DSGVO-orientiert</span>
           </div>
         </div>
 
@@ -616,7 +625,7 @@
             <circle class="gw-ring gw-ring2" cx="180" cy="75" r="22"/>
             <!-- input chip -->
             <rect class="gw-chip" x="6" y="58" width="86" height="34" rx="9"/>
-            <text class="gw-txt" x="49" y="79" text-anchor="middle" font-size="12.5">Anfrage</text>
+            <text class="gw-txt" x="49" y="79" text-anchor="middle" font-size="11">Anfrage + STEP</text>
             <!-- output chips -->
             <rect class="gw-chip" x="270" y="22" width="124" height="30" rx="8"/>
             <rect class="gw-chip" x="270" y="60" width="124" height="30" rx="8"/>
@@ -624,9 +633,9 @@
             <path class="gw-check" d="M282 37 l3 3 5.5-6.5"/>
             <path class="gw-check" d="M282 75 l3 3 5.5-6.5"/>
             <path class="gw-check" d="M282 113 l3 3 5.5-6.5"/>
-            <text class="gw-txt" x="300" y="41" font-size="11">Zusammenfassung</text>
-            <text class="gw-txt" x="300" y="79" font-size="11">Aufgabe angelegt</text>
-            <text class="gw-txt" x="300" y="117" font-size="11">Antwort-Entwurf</text>
+            <text class="gw-txt" x="300" y="41" font-size="10.5">Machbarkeitscheck</text>
+            <text class="gw-txt" x="300" y="79" font-size="11">Rückfrage-Entwurf</text>
+            <text class="gw-txt" x="300" y="117" font-size="11">Angebotsentwurf</text>
             <!-- animated data flow overlay -->
             <path class="gw-flow" d="M92 75 H158"/>
             <path class="gw-flow" d="M202 75 C234 75 244 37 270 37"/>
@@ -649,21 +658,21 @@
               <span class="flow-num">01</span>
               <div>
                 <h3>Eingang</h3>
-                <p>Anfrage, E-Mail oder Dokument kommt rein — strukturiert oder nicht.</p>
+                <p>Kundenanfrage mit Zeichnung, STEP-Datei oder Stückliste kommt rein — strukturiert oder nicht.</p>
               </div>
             </div>
             <div class="flow-step">
               <span class="flow-num">02</span>
               <div>
                 <h3>KI-Agent versteht</h3>
-                <p>Erkennt Inhalt und fehlende Angaben, erstellt Zusammenfassung und Antwortentwurf.</p>
+                <p>Erkennt fehlende Angaben wie Stückzahl, Material, Toleranzen und Termin und bereitet die Prüfung vor.</p>
               </div>
             </div>
             <div class="flow-step">
               <span class="flow-num">03</span>
               <div>
                 <h3>Automation sortiert</h3>
-                <p>Aufgabe im CRM, Wiedervorlage, Checkliste, E-Mail-Entwurf — alles am richtigen Ort.</p>
+                <p>Machbarkeits-Checkliste, Rückfrage, Angebotsentwurf und Wiedervorlage – alles am richtigen Ort.</p>
               </div>
             </div>
             <div class="flow-step">
@@ -718,8 +727,8 @@
           <span class="eyebrow">Warum jetzt</span>
           <h2 class="display">Das Problem ist nicht fehlende KI. Es ist liegengebliebene Arbeit.</h2>
           <p class="lead">
-            Kleine und mittlere Betriebe verlieren ihre Marge nicht am Produkt, sondern zwischen
-            Anfrage, Rückfrage, Angebot, Dokumentation und Nachfassen. Genau dort setzen KI-Agenten an.
+            Fertigungsbetriebe verlieren ihre Marge nicht an der Maschine, sondern zwischen Anfrage,
+            Zeichnungsprüfung, Rückfrage, Angebot, Dokumentation und Nachfassen. Genau dort setzen KI-Agenten an.
           </p>
         </div>
         <div class="stats reveal">
@@ -736,9 +745,9 @@
             <a href="https://www.zdh.de/ueber-uns/fachbereich-wirtschaft-energie-umwelt/sonderumfragen/sonderumfrage-buerokratiebelastung-im-handwerk/" target="_blank" rel="noopener">Quelle: ZDH</a>
           </div>
           <div class="stat">
-            <div class="stat-num">&lt;10<sup>%</sup></div>
-            <h3>nutzen KI produktiv</h3>
-            <p>Der Engpass ist nicht Interesse — sondern jemand, der es sauber umsetzt.</p>
+            <div class="stat-num">4<sup>%</sup></div>
+            <h3>setzen KI bereits ein</h3>
+            <p>der Handwerksbetriebe laut Bitkom. Der Engpass ist nicht Interesse — sondern jemand, der es sauber umsetzt.</p>
             <a href="https://www.bitkom.org/Presse/Presseinformation/Handwerk-Azubis-Betriebe-Digitalisierung" target="_blank" rel="noopener">Quelle: Bitkom</a>
           </div>
         </div>
@@ -750,7 +759,7 @@
       <div class="wrap">
         <div class="sec-head reveal">
           <span class="eyebrow">Leistungen</span>
-          <h2 class="display">Vier Wege, wie KI in Ihrem Betrieb Geld verdient.</h2>
+          <h2 class="display">Vier Wege, wie KI in Ihrer Fertigung Geld verdient.</h2>
           <p class="lead">
             Wir automatisieren nicht den gesamten Betrieb auf einmal. Wir nehmen den Ablauf,
             der Sie am meisten Zeit kostet — und machen ihn messbar, wiederholbar und kontrollierbar.
@@ -763,12 +772,12 @@
             <h3>KI-Agenten für wiederkehrende Vorgänge</h3>
             <div>
               <p>
-                Digitale Mitarbeiter, die Anfragen qualifizieren, E-Mails vorsortieren, Angebotsdaten
-                vorbereiten, Dokumente prüfen und Antwortentwürfe schreiben. Sie geben frei — der Agent
+                Anfragen mit Zeichnung oder STEP-Datei erfassen, fehlende Angaben (Stückzahl, Material,
+                Toleranzen, Termin) erkennen und Rückfrage-Entwürfe schreiben. Sie geben frei — der Agent
                 arbeitet zu.
               </p>
               <div class="service-tags">
-                <span>Anfrage-Qualifizierung</span><span>Angebotsvorbereitung</span><span>Antwortentwürfe</span>
+                <span>Anfrage-Intake</span><span>Vollständigkeitsprüfung</span><span>Rückfrage-Entwürfe</span>
               </div>
             </div>
           </article>
@@ -777,12 +786,11 @@
             <h3>Workflow-Automatisierung mit n8n</h3>
             <div>
               <p>
-                E-Mail, CRM, Kalender, Buchhaltung, Cloud-Speicher: Wir verbinden Ihre bestehende
-                Software zu einem Ablauf mit Status, Aufgaben und Wiedervorlagen — statt
-                Zettelwirtschaft und Copy-Paste.
+                Anfrage → Machbarkeitsprüfung → Angebot → Auftrag → Liefertermin: ein durchgängiger
+                Status über Ihre bestehende Software – statt Excel, Postfach und Zuruf.
               </p>
               <div class="service-tags">
-                <span>n8n</span><span>CRM-Anbindung</span><span>Wiedervorlagen</span><span>Status-Updates</span>
+                <span>n8n</span><span>ERP-/CRM-Anbindung</span><span>Auftragsstatus</span><span>Wiedervorlagen</span>
               </div>
             </div>
           </article>
@@ -791,12 +799,12 @@
             <h3>KI-Assistenten &amp; Chatbots</h3>
             <div>
               <p>
-                Assistenten auf Ihrer Website oder im Posteingang, die Standardfragen beantworten,
-                Termine vorbereiten und qualifizierte Anfragen an Sie weitergeben. Kritisches geht
-                immer an einen Menschen.
+                Liefertermin- und Statusanfragen von Kunden automatisch vorbereiten, Standardfragen
+                beantworten und qualifizierte Anfragen weitergeben – Freigabe durch Ihr Team. Kritisches
+                geht immer an einen Menschen.
               </p>
               <div class="service-tags">
-                <span>Website-Assistent</span><span>E-Mail-Triage</span><span>Terminvorbereitung</span>
+                <span>Statusanfragen</span><span>E-Mail-Triage</span><span>Website-Assistent</span>
               </div>
             </div>
           </article>
@@ -805,12 +813,12 @@
             <h3>KI-Beratung &amp; Einführung</h3>
             <div>
               <p>
-                Potenzialanalyse, Tool-Auswahl, Datenschutz-Rahmen und Team-Einführung. Am Ende wissen
-                Sie, welche drei Automatisierungen sich bei Ihnen zuerst rechnen — und welche Sie sich
-                sparen können.
+                Potenzialanalyse, Tool-Auswahl, Datenschutz-Rahmen und Team-Einführung – inklusive
+                Bewertung Ihrer ERP-/Warenwirtschafts-Anbindung. Am Ende wissen Sie, welche drei
+                Automatisierungen sich bei Ihnen zuerst rechnen — und welche Sie sich sparen können.
               </p>
               <div class="service-tags">
-                <span>Potenzialanalyse</span><span>Tool-Auswahl</span><span>Team-Schulung</span>
+                <span>Potenzialanalyse</span><span>ERP-Bewertung</span><span>Team-Schulung</span>
               </div>
             </div>
           </article>
@@ -823,45 +831,37 @@
       <div class="wrap">
         <div class="sec-head reveal">
           <span class="eyebrow">Für wen</span>
-          <h2 class="display">Gebaut für Betriebe, nicht für Konzerne.</h2>
+          <h2 class="display">Gebaut für Fertiger, nicht für Konzerne.</h2>
           <p class="lead">
-            Wir kommen selbst aus dem produzierenden Umfeld und kennen den Alltag zwischen Werkstatt,
-            Baustelle und Büro. Deshalb sprechen wir Ihre Sprache — nicht Konzern-Folien.
+            Wir fertigen selbst und kennen den Alltag zwischen Zeichnung, Maschine und Büro.
+            Deshalb sprechen wir Ihre Sprache — Toleranzen, Liefertermine, Chargen — nicht Konzern-Folien.
           </p>
         </div>
         <div class="sectors">
+          <article class="sector sector-primary reveal">
+            <div class="sector-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V8l5-4v16M14 20V10l6 3v7"/><path d="M6.5 9.5v.01M6.5 12.5v.01M6.5 15.5v.01"/></svg>
+            </div>
+            <h3>Fertigung &amp; Industrie</h3>
+            <div class="sub">Unser Schwerpunkt</div>
+            <p>
+              Anfrage- und Angebotsprozess, technische Prüf-Checklisten, Auftragsstatus sowie Prüf- und
+              Chargendokumentation. Erprobt im eigenen Haus: Unser Industrie-3D-Druck-Betrieb
+              <a href="https://3d-windt.de" target="_blank" rel="noopener">3D-Windt</a> läuft auf genau diesen Abläufen.
+            </p>
+            <ul class="sector-list">
+              <li>Lohnfertiger</li><li>Zulieferer</li><li>Sondermaschinenbau</li><li>Werkstätten</li>
+            </ul>
+          </article>
           <article class="sector reveal">
             <div class="sector-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             </div>
             <h3>Handwerk &amp; Bau</h3>
-            <div class="sub">SHK · Elektro · Ausbau</div>
+            <div class="sub">SHK · Elektro · Metallbau</div>
             <p>
               Anfragen qualifizieren, Angebotsdaten vorbereiten, Nachweise und Fotodokumentation
               nachhalten, Wartung und Wiedervorlagen steuern — der komplette Büroprozess rund um den Auftrag.
-            </p>
-          </article>
-          <article class="sector reveal">
-            <div class="sector-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V8l5-4v16M14 20V10l6 3v7"/><path d="M6.5 9.5v.01M6.5 12.5v.01M6.5 15.5v.01"/></svg>
-            </div>
-            <h3>Fertigung &amp; Industrie</h3>
-            <div class="sub">Produktion · Werkstätten · Zulieferer</div>
-            <p>
-              Anfrage- und Angebotsprozesse, technische Prüf-Checklisten, Auftragsstatus und
-              Kundenkommunikation. Erprobt im eigenen Haus: Unser 3D-Druck-Betrieb
-              <a href="https://3d-windt.de" target="_blank" rel="noopener">3D-Windt</a> läuft auf genau diesen Abläufen.
-            </p>
-          </article>
-          <article class="sector reveal">
-            <div class="sector-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 7h1m4 0h1M9 11h1m4 0h1M9 15h1m4 0h1"/></svg>
-            </div>
-            <h3>Büro &amp; Dienstleistung</h3>
-            <div class="sub">Agenturen · Kanzleien · Praxen</div>
-            <p>
-              Posteingang vorsortieren, Termine und Unterlagen vorbereiten, Standardantworten
-              entwerfen, Fristen automatisch nachhalten — ohne dass sensible Daten das Haus verlassen.
             </p>
           </article>
         </div>
@@ -927,6 +927,7 @@
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Konkreter Umsetzungsplan mit Tool-Empfehlung</li>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Datenschutz-Kurzbewertung</li>
             </ul>
+            <p class="plan-example"><strong>Beispiel:</strong> Wie lange dauert bei Ihnen der Weg von der Kundenanfrage mit Zeichnung bis zum Angebot?</p>
             <a href="#kontakt" class="btn btn-ghost">Check anfragen</a>
           </article>
 
@@ -937,10 +938,11 @@
             <div class="plan-meta">Festpreis nach Scope · Umsetzung in 2–4 Wochen</div>
             <ul>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8FA3FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ein KI-Agent oder Workflow, komplett umgesetzt</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8FA3FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Anbindung an Ihre bestehende Software (E-Mail, CRM, Kalender&nbsp;…)</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8FA3FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Anbindung an Ihre bestehende Software (E-Mail, ERP, CRM&nbsp;…)</li>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8FA3FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Test an echten Vorgängen, Freigabe-Schritte inklusive</li>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8FA3FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Einweisung Ihres Teams und schriftliche Arbeitsanweisung</li>
             </ul>
+            <p class="plan-example"><strong>Beispiel:</strong> Anfrage-Intake mit automatischer Vollständigkeitsprüfung und Angebotsentwurf.</p>
             <a href="#kontakt" class="btn btn-light">Sprint anfragen</a>
           </article>
 
@@ -1089,6 +1091,7 @@
               <label for="process">Wo drückt es am meisten?</label>
               <select id="process" name="process" required>
                 <option value="">Bitte auswählen</option>
+                <option>Anfragen mit Zeichnungen und technischer Prüfung</option>
                 <option>Anfragen und Rückfragen</option>
                 <option>Angebote vorbereiten</option>
                 <option>E-Mail-Flut und Posteingang</option>
@@ -1099,8 +1102,20 @@
             </div>
           </div>
           <div class="field">
+            <label for="branche">Branche</label>
+            <select id="branche" name="branche" required>
+              <option value="">Bitte auswählen</option>
+              <option>Lohnfertigung</option>
+              <option>Zulieferer</option>
+              <option>Maschinen- &amp; Anlagenbau</option>
+              <option>Werkstatt</option>
+              <option>Handwerk</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="field">
             <label for="message">Kurzbeschreibung — ohne vertrauliche Daten</label>
-            <textarea id="message" name="message" rows="4" placeholder="Wo bleibt Arbeit liegen? Welche Software nutzen Sie? Was kostet Sie aktuell am meisten Zeit?"></textarea>
+            <textarea id="message" name="message" rows="4" placeholder="Wo bleibt Arbeit liegen? Welches ERP / welche Software nutzen Sie? Wie viele Anfragen kommen pro Woche?"></textarea>
           </div>
           <div class="form-hint">
             Bitte keine Kundendaten oder vertraulichen Unterlagen über dieses Formular senden.
@@ -1181,6 +1196,7 @@
         "",
         "Firma: " + (data.get("company") || ""),
         "Teamgröße: " + (data.get("team") || ""),
+        "Branche: " + (data.get("branche") || ""),
         "E-Mail: " + (data.get("email") || ""),
         "Größter Engpass: " + (data.get("process") || ""),
         "",
@@ -1200,9 +1216,10 @@
 
       var steps = [
         { key: "branche", q: "In welcher Branche sind Sie unterwegs?", opts: [
-          { l: "Handwerk & Bau (SHK, Elektro …)", v: "Handwerk & Bau" },
-          { l: "Fertigung & Industrie", v: "Fertigung & Industrie" },
-          { l: "Büro & Dienstleistung", v: "Büro & Dienstleistung" },
+          { l: "Lohnfertigung / Zulieferer", v: "Lohnfertigung / Zulieferer" },
+          { l: "Maschinen- & Anlagenbau", v: "Maschinen- & Anlagenbau" },
+          { l: "Werkstatt / Produktion", v: "Werkstatt / Produktion" },
+          { l: "Handwerk & Bau", v: "Handwerk & Bau" },
           { l: "Etwas anderes", v: "Andere" } ] },
         { key: "team", q: "Wie groß ist Ihr Team?", opts: [
           { l: "1–2 Personen", v: "1-2" },
@@ -1210,10 +1227,12 @@
           { l: "8–20 Mitarbeitende", v: "8-20" },
           { l: "Über 20", v: "20+" } ] },
         { key: "engpass", q: "Wo bleibt bei Ihnen am meisten Arbeit liegen?", multi: true, opts: [
+          { l: "Anfragen mit Zeichnungen & technische Prüfung", v: "Zeichnungsanfragen", rec: "agent" },
           { l: "Anfragen & Rückfragen", v: "Anfragen", rec: "agent" },
           { l: "Angebote vorbereiten", v: "Angebote", rec: "agent" },
           { l: "E-Mail-Flut & Posteingang", v: "E-Mail", rec: "assist" },
           { l: "Dokumente & Nachweise", v: "Dokumente", rec: "workflow" },
+          { l: "Auftragsstatus & Liefertermine", v: "Auftragsstatus", rec: "workflow" },
           { l: "Termine & Wiedervorlagen", v: "Termine", rec: "workflow" } ] },
         { key: "heute", q: "Wie erledigen Sie das heute?", opts: [
           { l: "Alles manuell / auf Zetteln", v: "manuell", s: 3 },
@@ -1228,8 +1247,8 @@
       ];
 
       var recMap = {
-        agent: { h: "KI-Agent für Anfragen & Angebote", p: "Ein Agent qualifiziert Anfragen, erkennt fehlende Angaben und bereitet Angebotsdaten und Antwortentwürfe vor — Sie geben nur noch frei." },
-        workflow: { h: "Workflow-Automatisierung", p: "Dokumente, Nachweise, Termine und Wiedervorlagen laufen automatisch mit Status und Erinnerungen — statt Zettelwirtschaft." },
+        agent: { h: "KI-Agent für Anfragen & Angebote", p: "Ein Agent erfasst Anfragen samt Zeichnung, erkennt fehlende Angaben wie Stückzahl, Material, Toleranzen und Termin und bereitet Rückfrage und Angebotsentwurf vor — Sie geben nur noch frei." },
+        workflow: { h: "Workflow-Automatisierung", p: "Auftragsstatus, Liefertermine, Prüf- und Chargendokumentation laufen automatisch mit Status und Erinnerungen — statt Excel und Zuruf." },
         assist: { h: "KI-Assistent für den Posteingang", p: "Der Assistent sortiert E-Mails vor, entwirft Standardantworten und leitet nur die wichtigen Fälle an Sie weiter." }
       };
 
