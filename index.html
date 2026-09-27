@@ -12,36 +12,261 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:site_name" content="Agentic Gateway" />
-  <meta property="og:image" content="https://agentic-gateway.de/og-image.png" />
+  <meta property="og:image" content="https://agentic-gateway.de/og-image.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Agentic Gateway – KI-Agenten für Fertigungsbetriebe" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="KI-Agenten für Fertigungsbetriebe | Agentic Gateway" />
   <meta name="twitter:description" content="KI-Agenten für Fertiger, Zulieferer und Lohnfertiger – von der Anfrage mit Zeichnung bis zum Angebot." />
-  <meta name="twitter:image" content="https://agentic-gateway.de/og-image.png" />
+  <meta name="twitter:image" content="https://agentic-gateway.de/og-image.png?v=2" />
   <meta name="geo.region" content="DE-HE" />
   <meta name="geo.placename" content="Rodgau, Rhein-Main" />
   <meta name="author" content="Sebastian Windt" />
+  <script>
+    /*
+     * Zentrale Konfiguration – Einrichtung siehe ops/README.md.
+     * leadEndpoint:   Web-App-URL des Google-Apps-Script-Webhooks. Leer = E-Mail-Fallback (mailto).
+     * umamiWebsiteId: Website-ID aus Umami Cloud (cookielos, ohne Banner). Leer = kein Tracking.
+     */
+    window.AG_CONFIG = {
+      leadEndpoint: "",
+      umamiWebsiteId: ""
+    };
+
+    (function () {
+      "use strict";
+      var cfg = window.AG_CONFIG;
+      var queue = [];
+
+      // Tracking: Events werden gepuffert, bis das Umami-Skript geladen ist.
+      window.agTrack = function (name, data) {
+        try {
+          if (window.umami && typeof window.umami.track === "function") window.umami.track(name, data || {});
+          else if (cfg.umamiWebsiteId) queue.push([name, data || {}]);
+        } catch (e) { /* Tracking darf die Seite nie blockieren */ }
+      };
+
+      if (cfg.umamiWebsiteId) {
+        var sc = document.createElement("script");
+        sc.defer = true;
+        sc.src = "https://cloud.umami.is/script.js";
+        sc.setAttribute("data-website-id", cfg.umamiWebsiteId);
+        sc.setAttribute("data-domains", "agentic-gateway.de");
+        sc.onload = function () {
+          var q = queue.splice(0, queue.length);
+          q.forEach(function (ev) { window.agTrack(ev[0], ev[1]); });
+        };
+        document.head.appendChild(sc);
+      }
+
+      // Erstkontakt-Attribution (UTM, gclid, externer Referrer) für die Lead-Zuordnung.
+      var KEY = "ag_attr";
+      var attr = null;
+      try { attr = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) { attr = null; }
+      if (!attr) {
+        var qs = new URLSearchParams(location.search);
+        var ref = "";
+        try { if (document.referrer && new URL(document.referrer).host !== location.host) ref = document.referrer; } catch (e) { ref = ""; }
+        attr = {
+          utm_source: qs.get("utm_source") || "",
+          utm_medium: qs.get("utm_medium") || "",
+          utm_campaign: qs.get("utm_campaign") || "",
+          utm_term: qs.get("utm_term") || "",
+          utm_content: qs.get("utm_content") || "",
+          gclid: qs.get("gclid") || "",
+          referrer: ref,
+          landing: location.pathname
+        };
+        try { sessionStorage.setItem(KEY, JSON.stringify(attr)); } catch (e) { /* privater Modus */ }
+      }
+
+      // Lead-Versand: resolved "sent" bei Übertragung, rejected bei fehlendem Endpoint/Netzwerkfehler.
+      window.agSendLead = function (payload) {
+        var body = {};
+        Object.keys(payload).forEach(function (k) { body[k] = payload[k]; });
+        body.attribution = attr;
+        body.seite = location.href.split("#")[0];
+        body.zeitpunkt = new Date().toISOString();
+        if (!cfg.leadEndpoint) return Promise.reject(new Error("no-endpoint"));
+        var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+        var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 10000) : null;
+        // no-cors + text/plain: einfacher Request ohne Preflight; Apps Script antwortet per Redirect.
+        return fetch(cfg.leadEndpoint, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(body),
+          signal: ctrl ? ctrl.signal : undefined
+        }).then(function () {
+          if (timer) clearTimeout(timer);
+          return "sent";
+        }, function (err) {
+          if (timer) clearTimeout(timer);
+          throw err;
+        });
+      };
+    })();
+  </script>
   <link rel="canonical" href="https://agentic-gateway.de/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Agentic Gateway",
-    "description": "KI-Agentur für Fertigungsbetriebe: KI-Agenten und Workflow-Automatisierung für Anfrage-, Angebots- und Auftragsprozesse in Lohnfertigung, Zulieferindustrie und Maschinenbau.",
-    "url": "https://agentic-gateway.de",
-    "email": "info@agentic-gateway.de",
-    "telephone": "+4915125534623",
-    "founder": { "@type": "Person", "name": "Sebastian Windt" },
-    "address": { "@type": "PostalAddress", "addressLocality": "Rodgau", "postalCode": "63110", "addressCountry": "DE" },
-    "areaServed": "DE",
-    "knowsAbout": ["KI-Agenten", "Workflow-Automatisierung", "n8n", "Angebotsautomatisierung", "Fertigung", "Lohnfertigung", "Prozessautomatisierung"]
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://agentic-gateway.de/#org",
+      "name": "Agentic Gateway",
+      "description": "KI-Agentur für Fertigungsbetriebe: KI-Agenten und Workflow-Automatisierung für Anfrage-, Angebots- und Auftragsprozesse in Lohnfertigung, Zulieferindustrie und Maschinenbau.",
+      "url": "https://agentic-gateway.de",
+      "logo": "https://agentic-gateway.de/og-image.png",
+      "image": "https://agentic-gateway.de/og-image.png",
+      "email": "info@agentic-gateway.de",
+      "telephone": "+4915125534623",
+      "founder": {
+        "@type": "Person",
+        "name": "Sebastian Windt"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Rodgau",
+        "postalCode": "63110",
+        "addressRegion": "Hessen",
+        "addressCountry": "DE"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "Deutschland"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Rhein-Main"
+        }
+      ],
+      "knowsAbout": [
+        "KI-Agenten",
+        "Workflow-Automatisierung",
+        "n8n",
+        "Angebotsautomatisierung",
+        "Anfragebearbeitung",
+        "Fertigung",
+        "Lohnfertigung",
+        "Prozessautomatisierung"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Pakete",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "KI-Potenzial-Check",
+            "price": "490",
+            "priceCurrency": "EUR",
+            "description": "Analyse eines realen Vorgangs mit Aufwand heute vs. automatisiert, Umsetzungsplan und Datenschutz-Kurzbewertung."
+          },
+          {
+            "@type": "Offer",
+            "name": "Automatisierungs-Sprint",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "2900",
+              "priceCurrency": "EUR"
+            },
+            "description": "Ein KI-Agent oder Workflow komplett umgesetzt, angebunden an bestehende Software, in 2–4 Wochen."
+          },
+          {
+            "@type": "Offer",
+            "name": "Laufende Betreuung",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "minPrice": "290",
+              "priceCurrency": "EUR",
+              "unitText": "Monat"
+            },
+            "description": "Monitoring, Wartung und Anpassungen, monatlich kündbar."
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agentic-gateway.de/#website",
+      "url": "https://agentic-gateway.de/",
+      "name": "Agentic Gateway",
+      "inLanguage": "de",
+      "publisher": {
+        "@id": "https://agentic-gateway.de/#org"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://agentic-gateway.de/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was kostet der Einstieg?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Der KI-Potenzial-Check kostet 490 € zum Festpreis und wird bei einer Umsetzung angerechnet. Ein Automatisierungs-Sprint für einen kompletten Ablauf startet bei 2.900 €, die laufende Betreuung bei 290 € pro Monat, monatlich kündbar. Der verbindliche Preis steht im Angebot."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Müssen wir dafür unser ERP oder unsere Software wechseln?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Wir binden die Automatisierung an Ihre bestehende Software an – E-Mail, ERP, CRM oder Cloud-Speicher. Wo es keine Schnittstelle gibt, klären wir im Potenzial-Check, welcher Weg sauber funktioniert, etwa über Import und Export."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Verschickt die KI selbstständig Angebote oder Preise?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Der Agent bereitet vor: Vollständigkeitsprüfung, Rückfrage-Entwürfe, Angebotsentwürfe. Preise, Kundenkommunikation und haftungsrelevante Aussagen gibt immer ein Mensch aus Ihrem Team frei."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert mit unseren Zeichnungen und Kundendaten?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Echtdaten verarbeiten wir erst nach festgelegtem Umfang und Auftragsverarbeitungsvertrag (AVV). KI-Dienste bekommen nur, was sie für die Aufgabe brauchen, und wir setzen auf EU-taugliche Werkzeuge. Über das Website-Formular senden Sie bitte keine vertraulichen Unterlagen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie lange dauert die Umsetzung?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ein Automatisierungs-Sprint für einen Ablauf dauert in der Regel zwei bis vier Wochen – inklusive Test an echten Vorgängen und Einweisung Ihres Teams."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Für welche Betriebe lohnt sich das?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Für Lohnfertiger, Zulieferer, Maschinen- und Anlagenbauer und Werkstätten, bei denen regelmäßig Anfragen mit Zeichnungen eingehen und der Weg bis zum Angebot Zeit frisst. Ob es sich bei Ihnen rechnet, zeigt der kostenlose KI-Check oder das Erstgespräch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist die Live-Demo schon das fertige Produkt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Die Demo ist bewusst vereinfacht und regelbasiert, damit sie ohne Datenübertragung in Ihrem Browser läuft. Im Kundenprojekt wertet ein KI-Modell Anfragen und Anhänge mit Ihren Werkstoffen, Prüfregeln und Ihrem Angebotsformat aus."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
   <style>
     :root {
@@ -358,6 +583,62 @@
     .plan-example strong { color: var(--ink-soft); }
     .plan-featured .plan-example { border-top-color: var(--dark-line); color: var(--dark-muted); }
     .plan-featured .plan-example strong { color: #D9D2C6; }
+    /* ---------- Live-Demo ---------- */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .demo { display: grid; gap: 22px; margin-top: 56px; }
+    @media (min-width: 980px) { .demo { grid-template-columns: 1fr 1.08fr; align-items: start; } }
+    .demo-in, .demo-out { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; min-width: 0; }
+    .demo-sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .demo-samples { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 16px; }
+    .demo-chip { font: 600 13.5px var(--font-body); color: var(--ink-soft); background: var(--paper-deep); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; transition: border-color .2s, background .2s; }
+    .demo-chip:hover { border-color: var(--line-strong); }
+    .demo-chip.sel { background: var(--accent-wash); border-color: var(--accent); color: var(--accent-deep); }
+    .demo-in textarea { width: 100%; font: 14px/1.55 var(--font-mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px; resize: vertical; min-height: 220px; }
+    .demo-in textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+    .demo-in .btn { margin-top: 16px; width: 100%; }
+    .demo-note { font-size: 12.5px; color: var(--faint); margin-top: 14px; line-height: 1.5; }
+    .demo-note a { display: inline-block; margin-top: 6px; color: var(--accent); font-weight: 600; }
+    .demo-empty { color: var(--muted); font-size: 15px; padding: 38px 8px; text-align: center; }
+    .demo-status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; border-radius: 12px; padding: 14px 16px; }
+    .demo-status strong { font-size: 15.5px; }
+    .demo-status span { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+    .demo-status.is-ok { background: #E9F6EE; color: #17643A; }
+    .demo-status.is-open { background: #FFF4E0; color: #8A5300; }
+    .demo-fields { list-style: none; margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .demo-fields li { display: grid; grid-template-columns: 24px 118px 1fr; gap: 10px; align-items: start; padding: 11px 14px; font-size: 14px; border-top: 1px solid var(--line); }
+    .demo-fields li:first-child { border-top: 0; }
+    .demo-ico { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+    .st-ok .demo-ico { background: #E9F6EE; color: #17643A; }
+    .st-unklar .demo-ico { background: #FFF4E0; color: #8A5300; }
+    .st-fehlt .demo-ico { background: #FDECEC; color: #A32020; }
+    .demo-k { font-weight: 650; color: var(--ink-soft); padding-top: 2px; }
+    .demo-v { color: var(--ink); padding-top: 2px; overflow-wrap: anywhere; }
+    .demo-v em { font-style: normal; color: var(--faint); }
+    .demo-hints { margin-top: 18px; }
+    .demo-hints ul { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .demo-hints li { font-size: 13.5px; color: var(--ink-soft); background: var(--paper); border-radius: 10px; padding: 8px 12px; overflow-wrap: anywhere; }
+    .demo-hints li span { font-weight: 650; margin-right: 8px; }
+    .demo-hints li.warn { background: #FFF4E0; }
+    .demo-mail { margin-top: 18px; }
+    .demo-mail-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .demo-copy { font: 600 12.5px var(--font-body); color: var(--accent-deep); background: var(--accent-wash); border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+    .demo-mail pre { margin-top: 10px; white-space: pre-wrap; overflow-wrap: anywhere; font: 13.5px/1.6 var(--font-body); color: var(--ink); background: var(--paper); border: 1px dashed var(--line-strong); border-radius: 12px; padding: 16px; }
+    .demo-free { font-size: 12.5px; color: var(--faint); margin-top: 8px; }
+    .demo-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 22px; margin-top: 34px; text-align: center; }
+    .demo-cta p { font-size: 16px; color: var(--ink-soft); font-weight: 600; }
+    @media (max-width: 520px) {
+      .demo-in, .demo-out { padding: 18px; }
+      .demo-fields li { grid-template-columns: 22px 1fr; }
+      .demo-fields .demo-v { grid-column: 2; padding-top: 0; }
+    }
+    /* ---------- FAQ ---------- */
+    .faq { margin-top: 44px; max-width: 860px; border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 22px 0; font-size: 18px; font-weight: 650; color: var(--ink); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "+"; font-family: var(--font-mono); font-size: 22px; color: var(--accent); flex: none; transition: transform .2s; }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p { color: var(--muted); font-size: 16px; line-height: 1.7; padding: 0 40px 22px 0; }
     .plans-note { text-align: center; font-size: 13.5px; color: var(--faint); margin-top: 34px; }
 
     /* ---------- Sicherheit ---------- */
@@ -520,6 +801,11 @@
     .check-email .row { display: flex; gap: 10px; flex-wrap: wrap; }
     .check-email input { flex: 1; min-width: 200px; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 12px; padding: 14px 16px; font-size: 15.5px; font-family: var(--font-body); color: var(--ink); }
     .check-email input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3.5px rgba(59,91,253,.14); }
+    .hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+    .form-done { text-align: center; padding: 28px 8px; }
+    .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin-top: 14px; }
+    .form-done p { color: var(--muted); margin-top: 10px; }
+    .form-done .ico { width: 54px; height: 54px; border-radius: 50%; background: var(--accent-wash); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
     .check-fineprint { font-size: 12.5px; color: var(--faint); margin-top: 12px; line-height: 1.5; }
     .check-thanks { text-align: center; padding: 16px 0; }
     .check-thanks .ico { width: 62px; height: 62px; border-radius: 50%; background: var(--accent-wash); color: var(--accent); display: grid; place-items: center; margin: 0 auto 20px; }
@@ -556,6 +842,7 @@
       </a>
       <div class="nav-links">
         <a href="#check">KI-Check</a>
+        <a href="#demo">Live-Demo</a>
         <a href="#leistungen">Leistungen</a>
         <a href="#branchen">Branchen</a>
         <a href="#ablauf">Ablauf</a>
@@ -571,6 +858,7 @@
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a href="#check">KI-Check</a>
+      <a href="#demo">Live-Demo</a>
       <a href="#leistungen">Leistungen</a>
       <a href="#branchen">Branchen</a>
       <a href="#ablauf">Ablauf</a>
@@ -590,8 +878,8 @@
           <h1 class="display">KI-Agenten für <em>Fertigungs&shy;betriebe</em> – gebaut von einem Fertiger.</h1>
           <p class="lead">
             Zwischen Anfrage, Zeichnung, Machbarkeitsprüfung und Angebot bleibt in Fertigungsbetrieben
-            die meiste Zeit liegen. Genau diese Abläufe automatisieren wir – erprobt im eigenen
-            Industrie-3D-Druck-Betrieb, mit menschlicher Freigabe an jeder kritischen Stelle.
+            die meiste Zeit liegen. Genau diese Abläufe automatisieren wir – aus der Praxis eines eigenen
+            Industrie-3D-Druck-Betriebs, mit menschlicher Freigabe an jeder kritischen Stelle.
           </p>
           <div class="hero-ctas">
             <a href="#check" class="btn btn-ink">
@@ -601,7 +889,7 @@
             <a href="#kontakt" class="btn btn-ghost">Direkt Erstgespräch anfragen</a>
           </div>
           <div class="hero-note">
-            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Im eigenen Fertigungsbetrieb erprobt</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Aus eigener Fertigungspraxis</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Feste Preise</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Menschliche Freigabe</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>DSGVO-orientiert</span>
@@ -693,7 +981,7 @@
         <div class="trustbar-inner">
           <div class="trust-item">Menschliche Freigabe<small>bei allem, was rausgeht</small></div>
           <div class="trust-item">Feste Einstiegspreise<small>statt offener Tagessätze</small></div>
-          <div class="trust-item">Eigener Betrieb als Referenz<small>3D-Windt, Industrie-3D-Druck</small></div>
+          <div class="trust-item">Eigener Fertigungsbetrieb<small>3D-Windt, Industrie-3D-Druck</small></div>
           <div class="trust-item">Rhein-Main &amp; remote<small>Rodgau bei Frankfurt</small></div>
         </div>
       </div>
@@ -826,6 +1114,50 @@
       </div>
     </section>
 
+    <!-- ============ LIVE-DEMO ============ -->
+    <section class="block demo-section" id="demo">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Live-Demo · Anfrage-Check</span>
+          <h2 class="display">Probieren Sie es mit einer echten Anfrage aus.</h2>
+          <p class="lead">
+            So prüft ein Agent eine eingehende Kundenanfrage: Sind Stückzahl, Werkstoff, Toleranzen,
+            Liefertermin und Zeichnung vollständig? Was fehlt, landet als fertiger Rückfrage-Entwurf
+            bei Ihrem Team – zur Freigabe.
+          </p>
+        </div>
+        <div class="demo reveal" id="demo-app">
+          <div class="demo-in">
+            <div class="demo-sub">1 · Beispiel wählen oder eigene Anfrage einfügen</div>
+            <div class="demo-samples" role="group" aria-label="Beispielanfragen">
+              <button type="button" class="demo-chip" data-sample="a">Knapp &amp; unvollständig</button>
+              <button type="button" class="demo-chip" data-sample="b">Zeichnung folgt</button>
+              <button type="button" class="demo-chip" data-sample="c">Vollständig</button>
+            </div>
+            <label class="sr-only" for="demoInput">Kundenanfrage</label>
+            <textarea id="demoInput" rows="11" spellcheck="false" placeholder="Anfrage-Text hier einfügen – z. B. eine echte E-Mail aus Ihrem Postfach (bitte ohne Kundennamen)."></textarea>
+            <button type="button" class="btn btn-ink" id="demoRun">
+              2 · Anfrage prüfen
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </button>
+            <p class="demo-note">
+              Läuft komplett in Ihrem Browser – der Text wird nicht übertragen oder gespeichert.
+              Vereinfachte, regelbasierte Demo; im Kundenprojekt wertet ein KI-Modell mit Ihren
+              Werkstoffen, Prüfregeln und Ihrem Angebotsformat aus.
+              <a href="/blog/anfrage-bis-angebot-lohnfertigung/">Hintergrund: die 5 Pflichtangaben einer Anfrage →</a>
+            </p>
+          </div>
+          <div class="demo-out" id="demoOut" aria-live="polite">
+            <div class="demo-empty">Wählen Sie links ein Beispiel – oder fügen Sie eine Anfrage aus Ihrem Postfach ein.</div>
+          </div>
+        </div>
+        <div class="demo-cta reveal">
+          <p>Das Gleiche für Ihre Anfragen, Ihre Werkstoffe und Ihr Angebotsformat?</p>
+          <a href="#preise" class="btn btn-ghost">Zum Potenzial-Check</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ BRANCHEN ============ -->
     <section class="block" id="branchen" style="padding-top:30px;">
       <div class="wrap">
@@ -846,8 +1178,8 @@
             <div class="sub">Unser Schwerpunkt</div>
             <p>
               Anfrage- und Angebotsprozess, technische Prüf-Checklisten, Auftragsstatus sowie Prüf- und
-              Chargendokumentation. Erprobt im eigenen Haus: Unser Industrie-3D-Druck-Betrieb
-              <a href="https://3d-windt.de" target="_blank" rel="noopener">3D-Windt</a> läuft auf genau diesen Abläufen.
+              Chargendokumentation. Diese Abläufe kennen wir aus unserem eigenen Industrie-3D-Druck-Betrieb
+              <a href="https://3d-windt.de" target="_blank" rel="noopener">3D-Windt</a> – nicht aus Foliensätzen.
             </p>
             <ul class="sector-list">
               <li>Lohnfertiger</li><li>Zulieferer</li><li>Sondermaschinenbau</li><li>Werkstätten</li>
@@ -1014,31 +1346,71 @@
       <div class="wrap case-grid">
         <div class="reveal">
           <span class="eyebrow">Aus der Praxis</span>
-          <h2 class="display">Wir verkaufen nichts, was wir nicht <em>selbst nutzen</em>.</h2>
+          <h2 class="display">Wir bauen nichts, was wir nicht <em>selbst brauchen</em>.</h2>
           <p class="lead" style="margin-top:24px;">
-            Unser eigener Fertigungsbetrieb 3D-Windt (industrieller 3D-Druck) läuft auf denselben
-            Abläufen, die wir für Kunden bauen: automatisierte Anfrage-Qualifizierung, technische
-            Prüf-Checklisten, Angebotsvorbereitung und Wiedervorlagen.
+            Hinter Agentic Gateway steht ein eigener Fertigungsbetrieb: 3D-Windt, industrieller
+            3D-Druck für Funktionsbauteile, Vorrichtungen und Ersatzteile. Anfragen mit Zeichnung,
+            Machbarkeitsprüfung, Rückfragen und Angebote sind dort Alltag.
           </p>
           <p class="lead" style="margin-top:18px;">
-            Das heißt für Sie: Wir kennen den Unterschied zwischen einer Demo und einem Ablauf,
-            der montags um 7&nbsp;Uhr funktionieren muss.
+            Deshalb entwickeln wir unsere Abläufe zuerst am eigenen Betrieb – und wissen, dass ein
+            Ablauf montags um 7&nbsp;Uhr funktionieren muss, nicht nur in der Demo.
           </p>
         </div>
         <div class="case-card reveal">
-          <div class="plan-tier">Referenz · Eigener Betrieb</div>
+          <div class="plan-tier">Eigener Betrieb · im Aufbau</div>
           <h3>3D-Windt — Industrieller 3D-Druck</h3>
           <div class="case-rows">
             <div class="case-row">
-              <div class="k">Automatisiert</div>
-              <div class="v">Anfrage-Intake, technische Prüfung, Angebotsvorbereitung, Status-Updates</div>
+              <div class="k">Was wir aufbauen</div>
+              <div class="v">Anfrage-Intake mit Zeichnung, technische Prüf-Checkliste, Angebotsvorbereitung, Status-Updates</div>
             </div>
             <div class="case-row">
-              <div class="k">Ergebnis</div>
-              <div class="v">Verbindliche Rückmeldung an Kunden in unter 24 Stunden — bei gleichbleibender Qualität</div>
+              <div class="k">Zum Ausprobieren</div>
+              <div class="v">Den Anfrage-Check aus diesem Aufbau können Sie oben in der Live-Demo selbst testen</div>
             </div>
           </div>
-          <a href="https://3d-windt.de" target="_blank" rel="noopener" class="btn btn-light">3d-windt.de ansehen</a>
+          <a href="#demo" class="btn btn-light">Zur Live-Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="block" id="faq">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Häufige Fragen</span>
+          <h2 class="display">Was Fertigungsbetriebe vorher wissen wollen.</h2>
+        </div>
+        <div class="faq reveal">
+          <details class="faq-item">
+            <summary>Was kostet der Einstieg?</summary>
+            <p>Der KI-Potenzial-Check kostet 490 € zum Festpreis und wird bei einer Umsetzung angerechnet. Ein Automatisierungs-Sprint für einen kompletten Ablauf startet bei 2.900 €, die laufende Betreuung bei 290 € pro Monat, monatlich kündbar. Der verbindliche Preis steht im Angebot.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Müssen wir dafür unser ERP oder unsere Software wechseln?</summary>
+            <p>Nein. Wir binden die Automatisierung an Ihre bestehende Software an – E-Mail, ERP, CRM oder Cloud-Speicher. Wo es keine Schnittstelle gibt, klären wir im Potenzial-Check, welcher Weg sauber funktioniert, etwa über Import und Export.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Verschickt die KI selbstständig Angebote oder Preise?</summary>
+            <p>Nein. Der Agent bereitet vor: Vollständigkeitsprüfung, Rückfrage-Entwürfe, Angebotsentwürfe. Preise, Kundenkommunikation und haftungsrelevante Aussagen gibt immer ein Mensch aus Ihrem Team frei.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Was passiert mit unseren Zeichnungen und Kundendaten?</summary>
+            <p>Echtdaten verarbeiten wir erst nach festgelegtem Umfang und Auftragsverarbeitungsvertrag (AVV). KI-Dienste bekommen nur, was sie für die Aufgabe brauchen, und wir setzen auf EU-taugliche Werkzeuge. Über das Website-Formular senden Sie bitte keine vertraulichen Unterlagen.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Wie lange dauert die Umsetzung?</summary>
+            <p>Ein Automatisierungs-Sprint für einen Ablauf dauert in der Regel zwei bis vier Wochen – inklusive Test an echten Vorgängen und Einweisung Ihres Teams.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Für welche Betriebe lohnt sich das?</summary>
+            <p>Für Lohnfertiger, Zulieferer, Maschinen- und Anlagenbauer und Werkstätten, bei denen regelmäßig Anfragen mit Zeichnungen eingehen und der Weg bis zum Angebot Zeit frisst. Ob es sich bei Ihnen rechnet, zeigt der kostenlose KI-Check oder das Erstgespräch.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Ist die Live-Demo schon das fertige Produkt?</summary>
+            <p>Nein. Die Demo ist bewusst vereinfacht und regelbasiert, damit sie ohne Datenübertragung in Ihrem Browser läuft. Im Kundenprojekt wertet ein KI-Modell Anfragen und Anhänge mit Ihren Werkstoffen, Prüfregeln und Ihrem Angebotsformat aus.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -1065,7 +1437,11 @@
           </div>
         </div>
 
-        <form id="intake-form" class="form reveal">
+        <form id="intake-form" class="form reveal" novalidate>
+          <div class="hp" aria-hidden="true">
+            <label for="website">Website (bitte leer lassen)</label>
+            <input id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
           <div class="form-row">
             <div class="field">
               <label for="company">Firma / Betrieb</label>
@@ -1184,35 +1560,79 @@
       steps[current].classList.add("active");
     }, 2600);
 
-    // Contact form -> mailto
-    document.getElementById("intake-form").addEventListener("submit", function (event) {
-      event.preventDefault();
-      var data = new FormData(event.currentTarget);
-      var subject = encodeURIComponent("Erstgespräch anfragen | agentic-gateway.de");
-      var body = [
-        "Hallo Agentic Gateway,",
-        "",
-        "ich möchte ein kostenloses Erstgespräch anfragen.",
-        "",
-        "Firma: " + (data.get("company") || ""),
-        "Teamgröße: " + (data.get("team") || ""),
-        "Branche: " + (data.get("branche") || ""),
-        "E-Mail: " + (data.get("email") || ""),
-        "Größter Engpass: " + (data.get("process") || ""),
-        "",
-        "Kurzbeschreibung:",
-        (data.get("message") || ""),
-        "",
-        "Mit freundlichen Grüßen"
-      ].join("\n");
-      window.location.href = "mailto:info@agentic-gateway.de?subject=" + subject + "&body=" + encodeURIComponent(body);
+    // Klick-Tracking für Conversion-Wege (CTA, Telefon, E-Mail)
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest ? e.target.closest("a[href]") : null;
+      if (!a) return;
+      var href = a.getAttribute("href");
+      var sec = a.closest("section, header, nav, footer");
+      var pos = sec ? (sec.id || sec.className.split(" ")[0] || sec.tagName.toLowerCase()) : "unbekannt";
+      if (href === "#check" || href === "#kontakt" || href === "#demo" || href === "#preise") window.agTrack("cta_click", { ziel: href.slice(1), position: pos });
+      else if (href.indexOf("mailto:") === 0) window.agTrack("mail_click", { position: pos });
+      else if (href.indexOf("tel:") === 0) window.agTrack("tel_click", { position: pos });
     });
+
+    // Kontaktformular -> Lead-Webhook, Fallback mailto
+    (function () {
+      var form = document.getElementById("intake-form");
+      if (!form) return;
+      var btn = form.querySelector('button[type="submit"]');
+
+      function mailtoFallback(d) {
+        var body = [
+          "Hallo Agentic Gateway,",
+          "",
+          "ich möchte ein kostenloses Erstgespräch anfragen.",
+          "",
+          "Firma: " + d.firma,
+          "Teamgröße: " + d.team,
+          "Branche: " + d.branche,
+          "E-Mail: " + d.email,
+          "Größter Engpass: " + d.engpass,
+          "",
+          "Kurzbeschreibung:",
+          d.nachricht,
+          "",
+          "Mit freundlichen Grüßen"
+        ].join("\n");
+        window.location.href = "mailto:info@agentic-gateway.de?subject=" +
+          encodeURIComponent("Erstgespräch anfragen | agentic-gateway.de") + "&body=" + encodeURIComponent(body);
+      }
+
+      function done() {
+        form.innerHTML = '<div class="form-done"><span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>' +
+          '<h3>Danke – Ihre Anfrage ist da.</h3>' +
+          '<p>Sie bekommen eine Eingangsbestätigung per E-Mail. Wir melden uns innerhalb von 24 Stunden (werktags) mit einem Terminvorschlag.</p></div>';
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var f = new FormData(form);
+        var d = {
+          typ: "kontakt",
+          firma: String(f.get("company") || "").trim(),
+          team: String(f.get("team") || ""),
+          email: String(f.get("email") || "").trim(),
+          engpass: String(f.get("process") || ""),
+          branche: String(f.get("branche") || ""),
+          nachricht: String(f.get("message") || "").trim(),
+          website: String(f.get("website") || "")
+        };
+        if (d.website) { done(); return; } // Bot: stillschweigend verwerfen
+        btn.disabled = true;
+        window.agTrack("lead_submit", { typ: "kontakt", branche: d.branche, engpass: d.engpass });
+        window.agSendLead(d).then(done, function () {
+          btn.disabled = false;
+          window.agTrack("lead_mailto", { typ: "kontakt" });
+          mailtoFallback(d);
+        });
+      });
+    })();
 
     /* ===================== KI-Check Funnel ===================== */
     (function () {
-      // Trage hier deine Formspree- oder n8n-Webhook-URL ein, dann laufen Leads
-      // vollautomatisch rein. Solange leer, greift der Mailto-Fallback (kein Lead geht verloren).
-      var FORM_ENDPOINT = "";
+      var started = false;
 
       var steps = [
         { key: "branche", q: "In welcher Branche sind Sie unterwegs?", opts: [
@@ -1306,6 +1726,7 @@
         } else {
           Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
             btn.addEventListener("click", function () {
+              if (!started) { started = true; window.agTrack("check_start", {}); }
               answers[st.key] = st.opts[+btn.getAttribute("data-i")];
               idx++;
               if (idx < steps.length) renderStep(); else renderResult();
@@ -1327,6 +1748,7 @@
         var level = (manual >= 3 || hrs >= 15) ? "Hoch" : (manual >= 2 || hrs >= 8) ? "Mittel" : "Solide";
         var rec = recMap[(answers.engpass && answers.engpass.rec) || "agent"];
         var meta = { saved: saved, euroMonth: euroMonth, level: level, rec: rec.h };
+        window.agTrack("check_complete", { potenzial: level, branche: val("branche") });
 
         var h = '<div class="check-fade">';
         h += '<div class="check-result-head"><span class="check-badge">Automatisierungs-Potenzial</span><span class="check-level">' + level + '</span></div>';
@@ -1335,20 +1757,23 @@
         h += '<div class="check-metric"><div class="big">≈ ' + euroMonth.toLocaleString("de-DE") + ' €</div><div class="lbl">Zeitwert pro Monat (bei 40 €/h)</div></div></div>';
         h += '<div class="check-rec"><h4>Ihr empfohlener Start: ' + esc(rec.h) + '</h4><p>' + esc(rec.p) + '</p></div>';
         h += '<div class="check-email"><label for="checkMail">Ergebnis + konkreten Fahrplan per E-Mail erhalten:</label>';
-        h += '<form id="checkForm"><div class="row"><input id="checkMail" type="email" required placeholder="name@betrieb.de" autocomplete="email" />';
+        h += '<form id="checkForm"><div class="hp" aria-hidden="true"><input id="checkHp" name="website" tabindex="-1" autocomplete="off" /></div><div class="row"><input id="checkMail" type="email" required placeholder="name@betrieb.de" autocomplete="email" />';
         h += '<button type="submit" class="btn btn-ink">Fahrplan anfordern</button></div></form>';
         h += '<p class="check-fineprint">Keine Werbung, kein Spam. Sie bekommen nur Ihr Ergebnis und einen Vorschlag für ein kostenloses 20-Minuten-Erstgespräch. Abmeldung jederzeit.</p></div></div>';
         body.innerHTML = h;
 
         document.getElementById("checkForm").addEventListener("submit", function (e) {
           e.preventDefault();
-          submitLead(document.getElementById("checkMail").value, meta);
+          if (document.getElementById("checkHp").value) { renderThanks(); return; }
+          var sb = e.currentTarget.querySelector('button[type="submit"]');
+          if (sb) sb.disabled = true;
+          submitLead(document.getElementById("checkMail").value.trim(), meta);
         });
       }
 
       function payloadFor(email, meta) {
         return {
-          quelle: "KI-Check Funnel",
+          typ: "ki-check",
           email: email,
           branche: val("branche"), team: val("team"), engpass: val("engpass"),
           heute: val("heute"), stunden: val("stunden"),
@@ -1359,13 +1784,11 @@
 
       function submitLead(email, meta) {
         var p = payloadFor(email, meta);
-        if (FORM_ENDPOINT) {
-          fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p) })
-            .then(function () { renderThanks(); })
-            .catch(function () { mailtoFallback(p); });
-        } else {
+        window.agTrack("lead_submit", { typ: "ki-check", potenzial: meta.level, branche: p.branche });
+        window.agSendLead(p).then(function () { renderThanks(); }, function () {
+          window.agTrack("lead_mailto", { typ: "ki-check" });
           mailtoFallback(p);
-        }
+        });
       }
 
       function mailtoFallback(p) {
@@ -1401,5 +1824,6 @@
       renderStep();
     })();
   </script>
+  <script src="assets/demo.js" defer></script>
 </body>
 </html>
