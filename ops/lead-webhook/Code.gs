@@ -1,9 +1,10 @@
 /**
  * Agentic Gateway – Lead-Webhook (Google Apps Script, an ein Google Sheet gebunden)
  *
- * Nimmt Leads von agentic-gateway.de entgegen (Kontaktformular + KI-Check),
- * schreibt sie als Zeile ins Tabellenblatt "Leads", benachrichtigt per E-Mail
- * und schickt dem Interessenten eine Bestätigung bzw. sein KI-Check-Ergebnis.
+ * Nimmt Leads von agentic-gateway.de entgegen (Kontaktformular + KI-Check +
+ * Pilotliste "Anfragen-Postfach"), schreibt sie als Zeile ins passende Tabellenblatt
+ * ("Leads" bzw. "Warteliste"), benachrichtigt per E-Mail und schickt dem Interessenten
+ * eine Bestätigung bzw. sein KI-Check-Ergebnis.
  *
  * Einrichtung: siehe ops/README.md. Kosten: keine (Google-Konto genügt).
  *
@@ -22,6 +23,7 @@ var CONFIG = {
   SENDER_NAME: "Agentic Gateway",
   REPLY_TO: "info@agentic-gateway.de",
   SHEET_NAME: "Leads",
+  WAITLIST_SHEET_NAME: "Warteliste",
   MAX_FIELD_LEN: 2000,
   AUTOREPLY_PER_ADDRESS_SECONDS: 6 * 60 * 60,
   AUTOREPLY_DAILY_CAP: 40,
@@ -54,7 +56,30 @@ var COLUMNS = [
   ["seite", "Seite"]
 ];
 
-var ALLOWED_TYPES = ["kontakt", "ki-check"];
+var WAITLIST_TYPE = "warteliste-anfragen-postfach";
+
+var WAITLIST_COLUMNS = [
+  ["zeitpunkt", "Zeitpunkt"],
+  ["status", "Status"],
+  ["name", "Name"],
+  ["firma", "Firma"],
+  ["email", "E-Mail"],
+  ["team", "Betriebsgröße"],
+  ["anfragen_woche", "Anfragen/Woche"],
+  ["kanaele", "Kanäle"],
+  ["problem", "Größtes Problem"],
+  ["einwilligung", "Einwilligung (Zeitpunkt)"],
+  ["utm_source", "utm_source"],
+  ["utm_medium", "utm_medium"],
+  ["utm_campaign", "utm_campaign"],
+  ["utm_term", "utm_term"],
+  ["gclid", "gclid"],
+  ["referrer", "Referrer"],
+  ["landing", "Landingpage"],
+  ["seite", "Seite"]
+];
+
+var ALLOWED_TYPES = ["kontakt", "ki-check", WAITLIST_TYPE];
 var EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[A-Za-z]{2,}$/;
 
 // ---------------------------------------------------------------- Fehlerklassen
@@ -120,6 +145,8 @@ function parseLead_(e) {
 
   var attr = raw.attribution && typeof raw.attribution === "object" ? raw.attribution : {};
 
+  if (typ === WAITLIST_TYPE) return parseWaitlist_(raw, email, attr);
+
   return {
     isBot: str_(raw.website) !== "",
     zeitpunkt: new Date(),
@@ -148,24 +175,68 @@ function parseLead_(e) {
   };
 }
 
+function parseWaitlist_(raw, email, attr) {
+  var name = str_(raw.name);
+  var firma = str_(raw.firma);
+  if (!name) throw new ValidationError("missing-name");
+  if (!firma) throw new ValidationError("missing-firma");
+  // Einwilligung ist Pflicht (Art. 6 Abs. 1 lit. a DSGVO) – ohne sie wird nichts gespeichert.
+  if (raw.einwilligung !== true) throw new ValidationError("missing-consent");
+  var kanaele = Array.isArray(raw.kanaele) ? raw.kanaele.map(str_).filter(Boolean).join(", ") : str_(raw.kanaele);
+
+  return {
+    isBot: str_(raw.website) !== "",
+    zeitpunkt: new Date(),
+    typ: WAITLIST_TYPE,
+    status: "neu",
+    name: name,
+    firma: firma,
+    email: email,
+    team: str_(raw.team),
+    anfragen_woche: str_(raw.anfragen_woche),
+    kanaele: str_(kanaele),
+    problem: str_(raw.problem),
+    einwilligung: new Date().toISOString(), // Serverzeit des Eingangs, nicht vom Client übernommen
+    utm_source: str_(attr.utm_source),
+    utm_medium: str_(attr.utm_medium),
+    utm_campaign: str_(attr.utm_campaign),
+    utm_term: str_(attr.utm_term),
+    gclid: str_(attr.gclid),
+    referrer: str_(attr.referrer),
+    landing: str_(attr.landing),
+    seite: str_(raw.seite)
+  };
+}
+
+function columnsFor_(lead) {
+  return lead.typ === WAITLIST_TYPE ? WAITLIST_COLUMNS : COLUMNS;
+}
+
 function appendRow_(lead) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName(CONFIG.SHEET_NAME) || ss.insertSheet(CONFIG.SHEET_NAME);
+  var name = lead.typ === WAITLIST_TYPE ? CONFIG.WAITLIST_SHEET_NAME : CONFIG.SHEET_NAME;
+  var columns = columnsFor_(lead);
+  var sheet = ss.getSheetByName(name) || ss.insertSheet(name);
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(COLUMNS.map(function (c) { return c[1]; }));
+    sheet.appendRow(columns.map(function (c) { return c[1]; }));
     sheet.setFrozenRows(1);
-    sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight("bold");
+    sheet.getRange(1, 1, 1, columns.length).setFontWeight("bold");
   }
-  sheet.appendRow(COLUMNS.map(function (c) {
+  sheet.appendRow(columns.map(function (c) {
     var v = lead[c[0]];
     return v instanceof Date ? v : safeCell_(v);
   }));
 }
 
 function notifyOwner_(lead) {
-  var subject = (lead.typ === "ki-check" ? "Neuer Lead (KI-Check): " : "Neue Anfrage: ") +
-    (lead.firma || lead.email) + (lead.branche ? " · " + lead.branche : "");
-  var lines = COLUMNS
+  var subject;
+  if (lead.typ === WAITLIST_TYPE) {
+    subject = "[Pilotliste Anfragen-Postfach] " + lead.firma + " · " + lead.name;
+  } else {
+    subject = (lead.typ === "ki-check" ? "Neuer Lead (KI-Check): " : "Neue Anfrage: ") +
+      (lead.firma || lead.email) + (lead.branche ? " · " + lead.branche : "");
+  }
+  var lines = columnsFor_(lead)
     .filter(function (c) { return c[0] !== "zeitpunkt" && c[0] !== "status" && lead[c[0]] !== "" && lead[c[0]] !== null; })
     .map(function (c) { return c[1] + ": " + lead[c[0]]; });
   lines.push("", "Tabelle: " + SpreadsheetApp.getActiveSpreadsheet().getUrl());
@@ -182,7 +253,25 @@ function autoReply_(lead) {
   if (!mayAutoReply_(lead.email)) return;
 
   var subject, body;
-  if (lead.typ === "ki-check") {
+  if (lead.typ === WAITLIST_TYPE) {
+    subject = "Sie stehen auf der Pilotliste – Anfragen-Postfach";
+    body = [
+      "Guten Tag " + lead.name + ",",
+      "",
+      "danke, Sie stehen auf der Pilotliste für das Anfragen-Postfach für 3D-Druck-Dienstleister.",
+      "Wir melden uns persönlich per E-Mail.",
+      "",
+      "Zur Einordnung: Das Anfragen-Postfach ist in Entwicklung. Wir suchen Betriebe, die es im Pilot",
+      "mit echten Anfragen prüfen – das erste Gespräch dreht sich darum, wie Sie heute mit Anfragen arbeiten.",
+      "",
+      "Ihre Einwilligung können Sie jederzeit mit einer kurzen Antwort auf diese E-Mail widerrufen;",
+      "Ihre Angaben werden dann gelöscht.",
+      "",
+      "Mit freundlichen Grüßen",
+      "Sebastian Windt",
+      "Agentic Gateway · " + CONFIG.SITE_URL + "/anfragen-postfach/"
+    ].join("\n");
+  } else if (lead.typ === "ki-check") {
     subject = "Ihr KI-Check-Ergebnis – Agentic Gateway";
     body = [
       "Guten Tag,",
@@ -293,6 +382,33 @@ function testLead() {
         website: "",
         attribution: { utm_source: "test", landing: "/" },
         seite: CONFIG.SITE_URL + "/"
+      })
+    }
+  });
+  console.log(res.getContent());
+}
+
+/**
+ * Manueller Test für die Pilotliste: Funktion "testWaitlist" auswählen und ausführen.
+ * Legt eine Testzeile im Tab "Warteliste" an und schickt Benachrichtigung + Bestätigung an NOTIFY_TO.
+ */
+function testWaitlist() {
+  var res = doPost({
+    postData: {
+      contents: JSON.stringify({
+        typ: WAITLIST_TYPE,
+        name: "Test Person",
+        firma: "Testbetrieb (bitte löschen)",
+        email: CONFIG.NOTIFY_TO,
+        team: "2–3",
+        anfragen_woche: "5–15",
+        kanaele: ["E-Mail", "WhatsApp"],
+        problem: "Testeintrag aus testWaitlist()",
+        einwilligung: true,
+        website: "",
+        attribution: { utm_source: "test", landing: "/anfragen-postfach/" },
+        seite: CONFIG.SITE_URL + "/anfragen-postfach/",
+        zeitpunkt: new Date().toISOString()
       })
     }
   });

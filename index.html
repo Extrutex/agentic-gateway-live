@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KI-Agenten für Fertigungsbetriebe | Agentic Gateway</title>
-  <meta name="description" content="KI-Agenten und Automatisierung für Fertiger, Zulieferer und Lohnfertiger: Anfragen mit Zeichnung prüfen, Angebote vorbereiten, Auftragsstatus nachhalten. Mit menschlicher Freigabe, DSGVO-orientiert, Festpreis." />
+  <meta name="description" content="KI-Agenten für Fertiger, Zulieferer und Lohnfertiger: Anfragen mit Zeichnung prüfen, Angebote vorbereiten, Status nachhalten. Mit menschlicher Freigabe, Festpreis." />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="KI-Agenten für Fertigungsbetriebe | Agentic Gateway" />
   <meta property="og:description" content="KI-Agenten für Fertigungsbetriebe – gebaut von einem Fertiger. Anfrage, Zeichnung, Machbarkeit, Angebot: automatisiert, mit menschlicher Freigabe und Festpreis." />
@@ -23,96 +23,13 @@
   <meta name="geo.region" content="DE-HE" />
   <meta name="geo.placename" content="Rodgau, Rhein-Main" />
   <meta name="author" content="Sebastian Windt" />
-  <script>
-    /*
-     * Zentrale Konfiguration – Einrichtung siehe ops/README.md.
-     * leadEndpoint:   Web-App-URL des Google-Apps-Script-Webhooks. Leer = E-Mail-Fallback (mailto).
-     * umamiWebsiteId: Website-ID aus Umami Cloud (cookielos, ohne Banner). Leer = kein Tracking.
-     */
-    window.AG_CONFIG = {
-      leadEndpoint: "",
-      umamiWebsiteId: ""
-    };
-
-    (function () {
-      "use strict";
-      var cfg = window.AG_CONFIG;
-      var queue = [];
-
-      // Tracking: Events werden gepuffert, bis das Umami-Skript geladen ist.
-      window.agTrack = function (name, data) {
-        try {
-          if (window.umami && typeof window.umami.track === "function") window.umami.track(name, data || {});
-          else if (cfg.umamiWebsiteId) queue.push([name, data || {}]);
-        } catch (e) { /* Tracking darf die Seite nie blockieren */ }
-      };
-
-      if (cfg.umamiWebsiteId) {
-        var sc = document.createElement("script");
-        sc.defer = true;
-        sc.src = "https://cloud.umami.is/script.js";
-        sc.setAttribute("data-website-id", cfg.umamiWebsiteId);
-        sc.setAttribute("data-domains", "agentic-gateway.de");
-        sc.onload = function () {
-          var q = queue.splice(0, queue.length);
-          q.forEach(function (ev) { window.agTrack(ev[0], ev[1]); });
-        };
-        document.head.appendChild(sc);
-      }
-
-      // Erstkontakt-Attribution (UTM, gclid, externer Referrer) für die Lead-Zuordnung.
-      var KEY = "ag_attr";
-      var attr = null;
-      try { attr = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) { attr = null; }
-      if (!attr) {
-        var qs = new URLSearchParams(location.search);
-        var ref = "";
-        try { if (document.referrer && new URL(document.referrer).host !== location.host) ref = document.referrer; } catch (e) { ref = ""; }
-        attr = {
-          utm_source: qs.get("utm_source") || "",
-          utm_medium: qs.get("utm_medium") || "",
-          utm_campaign: qs.get("utm_campaign") || "",
-          utm_term: qs.get("utm_term") || "",
-          utm_content: qs.get("utm_content") || "",
-          gclid: qs.get("gclid") || "",
-          referrer: ref,
-          landing: location.pathname
-        };
-        try { sessionStorage.setItem(KEY, JSON.stringify(attr)); } catch (e) { /* privater Modus */ }
-      }
-
-      // Lead-Versand: resolved "sent" bei Übertragung, rejected bei fehlendem Endpoint/Netzwerkfehler.
-      window.agSendLead = function (payload) {
-        var body = {};
-        Object.keys(payload).forEach(function (k) { body[k] = payload[k]; });
-        body.attribution = attr;
-        body.seite = location.href.split("#")[0];
-        body.zeitpunkt = new Date().toISOString();
-        if (!cfg.leadEndpoint) return Promise.reject(new Error("no-endpoint"));
-        var ctrl = typeof AbortController === "function" ? new AbortController() : null;
-        var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 10000) : null;
-        // no-cors + text/plain: einfacher Request ohne Preflight; Apps Script antwortet per Redirect.
-        return fetch(cfg.leadEndpoint, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(body),
-          signal: ctrl ? ctrl.signal : undefined
-        }).then(function () {
-          if (timer) clearTimeout(timer);
-          return "sent";
-        }, function (err) {
-          if (timer) clearTimeout(timer);
-          throw err;
-        });
-      };
-    })();
-  </script>
+  <!-- Google Search Console (only if the HTML-tag method is used instead of the DNS domain property, see ops/README.md):
+  <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN" />
+  -->
+  <script src="/assets/site.js"></script>
   <link rel="canonical" href="https://agentic-gateway.de/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -738,6 +655,8 @@
     .foot-brand strong { color: var(--ink); font-family: var(--font-display); font-size: 16px; font-weight: 600; }
     .foot-links { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 14px; color: var(--muted); }
     .foot-links a:hover { color: var(--ink); }
+    .foot-links button { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+    .foot-links button:hover { color: var(--ink); }
 
     /* ---------- Logo mark ---------- */
     .logo-node { animation: nodePulse 2.6s ease-in-out infinite; }
@@ -805,6 +724,9 @@
     .form-done { text-align: center; padding: 28px 8px; }
     .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin-top: 14px; }
     .form-done p { color: var(--muted); margin-top: 10px; }
+    .form-status { margin-top: 14px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+    .form-status[data-state="error"] { color: #B42318; }
+    .form-status a { color: var(--accent); font-weight: 600; }
     .form-done .ico { width: 54px; height: 54px; border-radius: 50%; background: var(--accent-wash); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
     .check-fineprint { font-size: 12.5px; color: var(--faint); margin-top: 12px; line-height: 1.5; }
     .check-thanks { text-align: center; padding: 16px 0; }
@@ -1501,6 +1423,7 @@
             Erstgespräch anfragen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
           </button>
+          <p class="form-status" id="intake-status" role="status" aria-live="polite" hidden></p>
           <p class="form-alt">Oder direkt per E-Mail: <a href="mailto:info@agentic-gateway.de">info@agentic-gateway.de</a></p>
         </form>
       </div>
@@ -1520,10 +1443,12 @@
       </div>
       <div class="foot-links">
         <a href="/blog/">Blog</a>
+        <a href="/anfragen-postfach/" data-cta="anfragen-postfach">Anfragen-Postfach (Pilot)</a>
         <a href="https://3d-windt.de" target="_blank" rel="noopener">3D-Windt</a>
         <a href="/impressum/">Impressum</a>
         <a href="/datenschutz/">Datenschutz</a>
         <a href="/agb/">AGB</a>
+        <button type="button" data-consent-open>Cookie-Einstellungen</button>
       </div>
     </div>
   </footer>
@@ -1577,6 +1502,20 @@
       var form = document.getElementById("intake-form");
       if (!form) return;
       var btn = form.querySelector('button[type="submit"]');
+      var status = document.getElementById("intake-status");
+      var started = false;
+
+      function setStatus(state, html) {
+        status.hidden = false;
+        status.setAttribute("data-state", state);
+        status.innerHTML = html;
+      }
+
+      form.addEventListener("focusin", function () {
+        if (started) return;
+        started = true;
+        window.agTrack("form_start", { form_id: "kontakt" });
+      });
 
       function mailtoFallback(d) {
         var body = [
@@ -1621,10 +1560,14 @@
         };
         if (d.website) { done(); return; } // Bot: stillschweigend verwerfen
         btn.disabled = true;
-        window.agTrack("lead_submit", { typ: "kontakt", branche: d.branche, engpass: d.engpass });
-        window.agSendLead(d).then(done, function () {
+        setStatus("pending", "Wird gesendet …");
+        window.agSendLead(d).then(function () {
+          window.agTrack("generate_lead", { form_id: "kontakt", branche: d.branche, engpass: d.engpass });
+          done();
+        }, function () {
           btn.disabled = false;
-          window.agTrack("lead_mailto", { typ: "kontakt" });
+          window.agTrack("lead_mailto", { form_id: "kontakt" });
+          setStatus("error", "Die direkte Übertragung hat nicht geklappt. Ihr E-Mail-Programm öffnet sich mit einer vorbereiteten Nachricht – bitte dort auf „Senden“ klicken. Falls sich nichts öffnet: <a href=\"mailto:info@agentic-gateway.de\">info@agentic-gateway.de</a>");
           mailtoFallback(d);
         });
       });
@@ -1726,7 +1669,7 @@
         } else {
           Array.prototype.forEach.call(body.querySelectorAll(".check-opt"), function (btn) {
             btn.addEventListener("click", function () {
-              if (!started) { started = true; window.agTrack("check_start", {}); }
+              if (!started) { started = true; window.agTrack("form_start", { form_id: "ki-check" }); }
               answers[st.key] = st.opts[+btn.getAttribute("data-i")];
               idx++;
               if (idx < steps.length) renderStep(); else renderResult();
@@ -1784,9 +1727,11 @@
 
       function submitLead(email, meta) {
         var p = payloadFor(email, meta);
-        window.agTrack("lead_submit", { typ: "ki-check", potenzial: meta.level, branche: p.branche });
-        window.agSendLead(p).then(function () { renderThanks(); }, function () {
-          window.agTrack("lead_mailto", { typ: "ki-check" });
+        window.agSendLead(p).then(function () {
+          window.agTrack("generate_lead", { form_id: "ki-check", potenzial: meta.level, branche: p.branche });
+          renderThanks();
+        }, function () {
+          window.agTrack("lead_mailto", { form_id: "ki-check" });
           mailtoFallback(p);
         });
       }
@@ -1809,7 +1754,15 @@
         window.location.href = "mailto:info@agentic-gateway.de?subject=" +
           encodeURIComponent("KI-Check Ergebnis – " + p.email) +
           "&body=" + encodeURIComponent(lines.join("\n"));
-        renderThanks();
+        renderMailtoNotice();
+      }
+
+      function renderMailtoNotice() {
+        count.textContent = "Fast fertig";
+        body.innerHTML = '<div class="check-thanks check-fade">' +
+          '<h3>Noch ein Klick in Ihrem E-Mail-Programm.</h3>' +
+          '<p>Die direkte Übertragung hat nicht geklappt. Ihr E-Mail-Programm hat sich mit Ihrem Ergebnis geöffnet – bitte dort auf „Senden“ klicken. ' +
+          'Falls sich nichts geöffnet hat, schreiben Sie kurz an <a href="mailto:info@agentic-gateway.de">info@agentic-gateway.de</a>.</p></div>';
       }
 
       function renderThanks() {
