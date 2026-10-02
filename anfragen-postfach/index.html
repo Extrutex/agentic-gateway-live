@@ -134,9 +134,15 @@
     .form-done { text-align: center; padding: 18px 4px; }
     .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin: 0 0 10px; color: var(--ink); }
     .form-done p { color: var(--muted); margin: 0; line-height: 1.6; }
-    .shot { margin: 0; background: var(--card); border: 1px solid var(--line-strong); border-radius: 22px; padding: 14px; box-shadow: 0 26px 60px -38px rgba(25, 22, 19, .25); }
-    .shot img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    .shot { margin: 0; }
     .shot figcaption { margin: 12px 6px 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+    .window { border-radius: 18px; border: 1px solid var(--line-strong); background: #fff; box-shadow: 0 50px 100px -48px rgba(25, 22, 19, .45), 0 1px 0 #fff inset; overflow: hidden; }
+    .window-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: #fbf9f5; }
+    .window-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
+    .window-bar span { margin-left: 10px; flex: 1; max-width: 420px; font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; text-align: center; }
+    .window img { display: block; width: 100%; height: auto; }
+    .nav-cta { display: inline-flex; align-items: center; background: var(--ink); color: var(--paper) !important; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
+    .nav-cta:hover { background: #000; }
     .shots { display: grid; gap: 22px; }
     .block > .intro { max-width: 820px; margin: -10px 0 26px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; }
     .closing { margin-top: 80px; padding: 40px; border-radius: 22px; background: var(--ink); color: var(--paper); }
@@ -171,7 +177,7 @@
           <a href="#so-funktioniert-es">So soll es funktionieren</a>
           <a href="#stand">Stand heute</a>
           <a href="#fragen">Fragen</a>
-          <a href="#pilotliste" data-cta="pilotliste-nav">Pilotliste</a>
+          <a href="#pilotliste" class="nav-cta" data-cta="pilotliste-nav">Pilotliste</a>
         </div>
       </div>
     </nav>
@@ -242,13 +248,17 @@
         <p class="intro">Das Produkt ist noch nicht öffentlich nutzbar. Diese beiden Teile laufen bereits in der Entwicklung, hier mit Beispieldaten.</p>
         <div class="shots">
           <figure class="shot">
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Anfrage · Kalkulation</span></div>
             <img src="/assets/img/anfragen-postfach-kalkulation.png" width="1520" height="1316" loading="lazy" decoding="async"
                  alt="Anfrage mit zwei 3D-Dateien: Tabelle mit Maßen, Volumen, Gewicht, Maschinenzeit und Stückpreis je Bauteil, darunter eine Preisspanne von 70 bis 115 Euro netto und zwei Fertigungshinweise." />
+            </div>
             <figcaption>Kalkulation aus den 3D-Daten: Maße, Gewicht und Maschinenzeit je Bauteil, eine unverbindliche Preisspanne aus den hinterlegten Sätzen und Hinweise, die vor dem Angebot zu klären sind. Beispieldaten.</figcaption>
           </figure>
           <figure class="shot">
+            <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Anfrage · Verlauf</span></div>
             <img src="/assets/img/anfragen-postfach-verlauf.png" width="1520" height="825" loading="lazy" decoding="async"
                  alt="Verlauf einer Anfrage mit sechs Einträgen von Eingang bis Stufenwechsel, jeweils mit Zeitpunkt, laufender Nummer und Prüfwert, darüber der Vermerk: Kette geprüft, 148 Einträge lückenlos." />
+            </div>
             <figcaption>Verlauf einer Anfrage: Jeder Schritt ist mit dem vorherigen verkettet. Ein nachträglich geänderter oder aus der Reihe entfernter Eintrag fällt bei der Prüfung auf. Beispieldaten.</figcaption>
           </figure>
         </div>
