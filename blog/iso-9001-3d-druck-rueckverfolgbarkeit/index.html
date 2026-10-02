@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISO 9001 im 3D-Druck: Rückverfolgbarkeit | Agentic Gateway</title>
+  <meta name="description" content="ISO 9001 3D-Druck Rückverfolgbarkeit: welche Aufzeichnungen die Norm verlangt, wo Excel scheitert und wie Sie klein anfangen. Mit Checkliste." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sebastian Windt" />
+  <meta property="og:title" content="ISO 9001 im 3D-Druck: Rückverfolgbarkeit in der Praxis" />
+  <meta property="og:description" content="Maschine, Datei, Materialcharge, Bediener, Prüfung, Freigabe: Was ISO 9001:2015 für ein gedrucktes Teil an Aufzeichnungen verlangt – mit Checkliste." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://agentic-gateway.de/blog/iso-9001-3d-druck-rueckverfolgbarkeit/" />
+  <meta property="og:image" content="https://agentic-gateway.de/og-image.png?v=2" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://agentic-gateway.de/blog/iso-9001-3d-druck-rueckverfolgbarkeit/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="/legal.css" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Agentic Gateway" />
+  <script src="/assets/site.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "ISO 9001 im 3D-Druck: Rückverfolgbarkeit in der Praxis",
+    "description": "Welche Aufzeichnungen ISO 9001:2015 für ein gedrucktes Teil verlangt, woran Excel und Ordner scheitern und wie ein 3D-Druck-Betrieb in kleinen Schritten anfängt.",
+    "author": { "@type": "Person", "name": "Sebastian Windt" },
+    "publisher": { "@type": "Organization", "name": "Agentic Gateway", "url": "https://agentic-gateway.de" },
+    "mainEntityOfPage": "https://agentic-gateway.de/blog/iso-9001-3d-druck-rueckverfolgbarkeit/",
+    "image": "https://agentic-gateway.de/og-image.png?v=2",
+    "datePublished": "2026-10-02",
+    "dateModified": "2026-10-02",
+    "inLanguage": "de"
+  }
+  </script>
+  <style>
+    .article { max-width: 720px; }
+    .article .kicker { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .article .meta { font-size: 13.5px; color: var(--faint); margin-top: 10px; font-family: "JetBrains Mono", monospace; }
+    .article-body { margin-top: 8px; }
+    .article-body h2 { font-family: "Fraunces", Georgia, serif; font-size: clamp(22px, 3.4vw, 28px); font-weight: 550; letter-spacing: -.01em; color: var(--ink); margin: 40px 0 12px; }
+    .article-body h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
+    .article-body p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin: 0 0 16px; }
+    .article-body ul, .article-body ol { margin: 0 0 16px; padding-left: 4px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .article-body li { position: relative; padding-left: 26px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.6; }
+    .article-body ul li::before { content: ""; position: absolute; left: 4px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+    .article-body ol { counter-reset: step; }
+    .article-body ol li { counter-increment: step; }
+    .article-body ol li::before { content: counter(step); position: absolute; left: 0; top: 1px; font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 500; color: var(--accent); }
+    .article-body strong { color: var(--ink); font-weight: 650; }
+    .article-body a { color: var(--accent); font-weight: 600; }
+    .table-wrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 14px; }
+    .article-body table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 540px; }
+    .article-body th, .article-body td { text-align: left; padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); line-height: 1.5; }
+    .article-body thead th { border-top: 0; background: var(--paper-deep, #F3EEE5); color: var(--ink); font-weight: 650; }
+    .cta-box { margin: 40px 0 8px; background: var(--card); border: 1px solid var(--line-strong); border-radius: 18px; padding: 30px; }
+    .cta-box h3 { font-family: "Fraunces", Georgia, serif; font-size: 22px; font-weight: 550; color: var(--ink); margin: 0 0 8px; }
+    .cta-box p { font-size: 15.5px; color: var(--muted); margin: 0 0 18px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--paper); font-weight: 650; font-size: 15px; padding: 13px 24px; border-radius: 999px; text-decoration: none; }
+    .backlink { display: inline-block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .backlink:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+              <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-title">Agentic Gateway</span>
+            <span class="brand-subtitle">KI-Agentur · Wissen &amp; Praxis</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="/blog/">Blog</a>
+          <a href="/#demo">Live-Demo</a>
+          <a href="/#kontakt">Kontakt</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content article">
+      <a href="/blog/" class="backlink">← Alle Beiträge</a>
+      <div class="kicker">Fertigung · Qualität</div>
+      <h1 class="headline">ISO 9001 im 3D-Druck: Rückverfolgbarkeit in der Praxis</h1>
+      <div class="meta">Von Sebastian Windt · 2. Oktober 2026 · ca. 8 Minuten Lesezeit</div>
+
+      <div class="article-body">
+        <p>
+          Ein Kunde ruft an, sechs Monate nach der Lieferung: Einer der Halter aus PA-CF ist an
+          der Verschraubung gerissen. Er möchte wissen, aus welcher Charge das Teil stammt und ob
+          die übrigen Halter aus demselben Auftrag betroffen sind.
+        </p>
+        <p>
+          Wenn „nachsehen“ dann bedeutet, Slicer-Projekte zu durchsuchen, im Postfach die
+          Filamentrechnung zu finden und den Kollegen zu fragen, ob die Spule damals im Trockner
+          war, dann fehlt Rückverfolgbarkeit – nicht als Zertifikat, sondern als Fähigkeit, eine
+          einfache Frage zu beantworten.
+        </p>
+        <p>
+          Ich betreibe selbst FDM-Drucker und unterrichte additive Fertigung. Dieser Artikel
+          zeigt, welche Aufzeichnungen ISO 9001:2015 an welcher Stelle verlangt, wie das für ein
+          einzelnes gedrucktes Teil aussieht, woran Excel und Ordner scheitern und wie Sie
+          anfangen, ohne daraus ein Zertifizierungsprojekt zu machen.
+        </p>
+
+        <h2>Was Rückverfolgbarkeit im 3D-Druck praktisch bedeutet</h2>
+        <p>
+          Rückverfolgbarkeit hat zwei Richtungen. Rückwärts kommen Sie von einem ausgelieferten
+          Teil zu Maschine, Druckdatei, Material und Prüfer. Vorwärts kommen Sie von einer
+          Materialcharge zu allen Teilen, die daraus entstanden sind. Rückwärts beantworten Sie
+          die Frage des Kunden, vorwärts grenzen Sie den Schaden ein.
+        </p>
+        <p>
+          In der additiven Fertigung wiegt das schwerer als bei einem Frästeil aus zugekauftem
+          Halbzeug, weil die Werkstoffeigenschaften erst im Prozess entstehen. Dieselbe STEP-Datei
+          ergibt je nach Orientierung im Bauraum, Düsentemperatur und Feuchte des Filaments ein
+          anderes Teil. Am fertigen Halter sehen Sie nicht, ob die Spule vor dem Druck getrocknet
+          wurde oder drei Wochen offen im Regal lag. Was nicht aufgeschrieben wurde, lässt sich
+          später nicht mehr feststellen.
+        </p>
+        <p>Was genau aufzuschreiben ist, hängt vom Verfahren ab:</p>
+        <ul>
+          <li><strong>FDM:</strong> Spule mit Herstellercharge, Trocknung, Düse und die Datei, die tatsächlich gedruckt wurde.</li>
+          <li><strong>Harzverfahren (SLA, DLP):</strong> Harzcharge, ob im Tank nachgefüllt und damit gemischt wurde, dazu Waschen und Nachhärten – die Nachhärtung bestimmt die Endeigenschaften mit.</li>
+          <li><strong>Pulverbett:</strong> Nicht verbautes Pulver wird wiederverwendet. Ein Baujob enthält deshalb selten eine einzelne Charge, sondern eine Mischung aus Neupulver und Pulver aus früheren Jobs. Ohne Mischungshistorie – welche Chargen, welches Verhältnis, wie viele Durchläufe – lässt sich die Frage nach „der Charge“ bei einem Pulverbettteil gar nicht beantworten. Dazu kommt die Position im Bauraum.</li>
+        </ul>
+
+        <h2>Welche Abschnitte der ISO 9001:2015 welche Aufzeichnungen verlangen</h2>
+        <p>
+          Die Norm kennt keinen 3D-Druck und schreibt keine Formulare vor. Sie verlangt an
+          bestimmten Stellen „dokumentierte Information“, also Aufzeichnungen, die Sie
+          aufbewahren. Für die Rückverfolgbarkeit sind fünf Abschnitte maßgeblich:
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Abschnitt</th><th>Was aufzubewahren ist</th><th>Im Druckbetrieb</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>7.1.5</strong> Ressourcen zur Überwachung und Messung</td><td>Nachweis, dass Messmittel für ihren Zweck geeignet sind. Wo messtechnische Rückführbarkeit gefordert ist: Kalibrierung oder Verifizierung in festgelegten Abständen oder vor dem Gebrauch, Status erkennbar (7.1.5.2).</td><td>Messschieber, Waage und Lehren mit Nummer, letzter Prüfung und nächstem Termin.</td></tr>
+              <tr><td><strong>8.5.2</strong> Kennzeichnung und Rückverfolgbarkeit</td><td>Ergebnisse kennzeichnen und ihren Prüfstatus erkennbar machen. Wo Rückverfolgbarkeit gefordert ist: eindeutige Kennzeichnung und die Aufzeichnungen, die sie ermöglichen.</td><td>Auftragsnummer am Teil oder Beutel, verknüpft mit Maschine, Datei und Materialcharge.</td></tr>
+              <tr><td><strong>8.6</strong> Freigabe von Produkten und Dienstleistungen</td><td>Nachweis, dass die Annahmekriterien erfüllt sind, und Rückverfolgbarkeit zu der Person, die freigegeben hat.</td><td>Prüfergebnis mit Name und Datum, bevor das Teil in den Versand geht.</td></tr>
+              <tr><td><strong>8.7</strong> Steuerung nichtkonformer Ergebnisse</td><td>Beschreibung der Abweichung, getroffene Maßnahmen, erhaltene Sonderfreigaben und wer entschieden hat (8.7.2).</td><td>Gesperrte Teile, Entscheidung über Nacharbeit, Neudruck oder Sonderfreigabe durch den Kunden.</td></tr>
+              <tr><td><strong>10.2</strong> Nichtkonformität und Korrekturmaßnahmen</td><td>Art der Nichtkonformität, ergriffene Maßnahmen und Ergebnisse der Korrekturmaßnahmen (10.2.2). Dazu gehört, Ursachen zu ermitteln und die Wirksamkeit zu überprüfen (10.2.1).</td><td>Ursachenanalyse nach einer Reklamation und die Kontrolle, ob die Maßnahme gewirkt hat.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Drei Punkte werden dabei oft übersehen.</p>
+        <p>
+          Erstens fordert Abschnitt 8.5.2 Rückverfolgbarkeit nicht pauschal, sondern dort, wo sie
+          eine Anforderung ist – vom Kunden, aus einem Regelwerk oder von Ihnen selbst festgelegt.
+          Wer Funktionsteile liefert, sollte sie sich selbst zur Anforderung machen, bevor der
+          erste Kunde danach fragt.
+        </p>
+        <p>
+          Zweitens meint die Norm mit zwei ähnlichen Wörtern zwei verschiedene Dinge.
+          <strong>Rückverfolgbarkeit</strong> (8.5.2) betrifft das Produkt.
+          <strong>Messtechnische Rückführbarkeit</strong> (7.1.5.2) betrifft das Messmittel: Der
+          Messschieber, mit dem Sie den Halter prüfen, soll sich über Kalibrierung oder
+          Verifizierung auf nationale oder internationale Normale zurückführen lassen. Ein
+          Prüfprotokoll ist nur so viel wert wie das Messmittel dahinter.
+        </p>
+        <p>
+          Drittens nennt ISO 9001 keine Aufbewahrungsfrist. Abschnitt 7.5.3 verlangt, dass Sie
+          Aufbewahrung und Verfügbarkeit selbst regeln. Orientieren Sie sich an der Frage, wie
+          lange nach der Lieferung ein Kunde realistisch anrufen kann – und an dem, was Verträge
+          oder gesetzliche Pflichten Ihnen ohnehin vorgeben.
+        </p>
+
+        <h2>Ein Teil, sechs Angaben: der Datensatz für den PA-CF-Halter</h2>
+        <p>
+          Für den Halter aus dem Beispiel reicht ein Datensatz mit sechs Angaben, alle unter
+          derselben Auftragsnummer:
+        </p>
+        <ol>
+          <li><strong>Maschine:</strong> welcher Drucker, mit welcher Düse.</li>
+          <li><strong>Einstellungen:</strong> die G-Code-Datei oder das Slicer-Projekt, das tatsächlich lief – unverändert archiviert. Ein Profilname genügt nicht, denn Profile ändern sich.</li>
+          <li><strong>Materialcharge:</strong> Chargennummer vom Spulenetikett, Ihre eigene Spulennummer und die Trocknung mit Dauer und Temperatur.</li>
+          <li><strong>Bediener:</strong> wer gerüstet und gestartet hat.</li>
+          <li><strong>Prüfung:</strong> welche Maße, mit welchem Messmittel, welches Ergebnis; dazu die Sichtprüfung.</li>
+          <li><strong>Freigabe:</strong> wer das Teil für den Versand freigegeben hat und wann.</li>
+        </ol>
+        <p>
+          Mit diesem Datensatz dauert der Anruf aus der Einleitung Minuten statt einen Nachmittag.
+          Über die Auftragsnummer finden Sie die Spule, über die Spule alle anderen Aufträge, die
+          daraus gedruckt wurden. Und Sie sehen, ob die Trocknung eingetragen ist. Fehlt sie,
+          haben Sie eine plausible Ursache. Ist sie eingetragen, suchen Sie an anderer Stelle
+          weiter – bei der Orientierung der Schichten zur Lastrichtung etwa. Beides ist besser
+          als zu raten.
+        </p>
+        <p>
+          Der Aufwand für Prüfung und Dokumentation gehört in den Preis. Wie Sie ihn als eigene
+          Position ansetzen, steht im Beitrag
+          <a href="/blog/3d-druck-angebot-kalkulieren/">3D-Druck-Angebot kalkulieren</a>. Welche
+          Prüfdokumentation ein Kunde erwartet, klären Sie am besten schon bei der Anfrage; die
+          Pflichtangaben dafür beschreibt der Beitrag
+          <a href="/blog/anfrage-bis-angebot-lohnfertigung/">Von der Anfrage zum Angebot</a>.
+        </p>
+
+        <h2>Woran Excel und Ordner scheitern</h2>
+        <p>
+          Excel ist nicht das Problem. Das Problem ist, dass nichts die Einträge miteinander
+          verbindet und nichts sie erzwingt. Typische Bruchstellen:
+        </p>
+        <ul>
+          <li><strong>Verstreute Information:</strong> Die Auftragsliste liegt in Excel, der G-Code auf dem Drucker, der Lieferschein der Spule im Postfach, die Messwerte auf einem Zettel. Alles existiert, aber nichts verweist aufeinander.</li>
+          <li><strong>Überschriebene Dateien:</strong> „halter_v3_final.gcode“ wird neu gesliced und ersetzt die alte Datei. Welche Version beim Kunden liegt, weiß niemand mehr.</li>
+          <li><strong>Spulen ohne Identität:</strong> Der Karton mit dem Chargenetikett ist entsorgt, die halbe Spule wandert aus der Trockenbox zurück ins Regal.</li>
+          <li><strong>Leere Zellen:</strong> Eine Tabelle merkt nicht, wenn die Materialspalte leer bleibt, und sie zeigt nicht, wer einen Wert nachträglich geändert hat.</li>
+          <li><strong>Stille Freigabe:</strong> Das Teil liegt im Versandkarton, also gilt es als freigegeben. Von wem, steht nirgends.</li>
+          <li><strong>Gesperrt nur auf Zuruf:</strong> Das auffällige Teil liegt mit einem Klebezettel neben den guten. Der Zettel fällt ab.</li>
+        </ul>
+
+        <h2>Checkliste: Das können Sie morgen einführen</h2>
+        <p>
+          Keiner dieser Schritte braucht Software. Ein Etikettendrucker, ein Ordner mit
+          Schreibschutz und eine rote Kiste reichen.
+        </p>
+        <ul>
+          <li>Jede Spule, jede Harzflasche und jedes Pulvergebinde bekommt beim Wareneingang eine laufende Nummer auf einem Etikett. Herstellercharge und Öffnungsdatum dazuschreiben.</li>
+          <li>Jeder Auftrag bekommt eine Nummer, die auf dem Beutel oder dem Begleitzettel der Teile steht.</li>
+          <li>Die tatsächlich gedruckte Datei wird unter der Auftragsnummer schreibgeschützt abgelegt.</li>
+          <li>Pro Druckjob eine Zeile: Maschine, Materialnummer, Bediener, Datum.</li>
+          <li>Vorbehandlung notieren: bei Filament die Trocknung, bei Pulver Mischungsverhältnis und Herkunft des Altpulvers, bei Harz Wasch- und Nachhärtezeit.</li>
+          <li>Jedes Messmittel bekommt eine Nummer und einen Eintrag mit letzter Prüfung und nächstem Termin. Den Messschieber vor einer Prüfserie an einem Endmaß kontrollieren und das festhalten.</li>
+          <li>Freigabe mit Name und Datum, bevor ein Teil verpackt wird.</li>
+          <li>Eine Sperrkiste für alles, was abweicht. Nichts verlässt sie ohne eine notierte Entscheidung: Nacharbeit, Neudruck oder Ausschuss.</li>
+        </ul>
+
+        <h2>Klein anfangen, ohne Zertifizierungsdruck</h2>
+        <p>
+          Fangen Sie mit den Materialnummern und der Verknüpfung zur Auftragsnummer an. Das kostet
+          am wenigsten und beantwortet die häufigste Frage. Danach kommt die Freigabe mit Namen,
+          dann der Umgang mit Abweichungen. Ein Handbuch müssen Sie dafür nicht schreiben.
+        </p>
+        <p>
+          Ein Zertifikat ist damit nicht erreicht. ISO 9001 verlangt ein ganzes Managementsystem,
+          unter anderem mit Qualitätszielen (6.2), internen Audits (9.2) und Managementbewertung
+          (9.3). Die Aufzeichnungen aus der Checkliste sind aber der Teil, der im Alltag den
+          Unterschied macht – und der Teil, den Sie bei einer späteren Zertifizierung nicht
+          nachträglich erfinden können.
+        </p>
+
+        <h2>Was Software dabei übernehmen kann – und was noch nicht</h2>
+        <p>
+          Ich entwickle mit <a href="/anfragen-postfach/">Agentic Gateway</a> ein
+          Anfragen-Postfach für 3D-Druck-Dienstleister. Es befindet sich in der Pilotphase und
+          ist noch nicht öffentlich verfügbar. Im aktuellen Entwicklungsstand gibt es
+          Abweichungsberichte mit Beschreibung, Ishikawa 6M, 5 Why, Korrektur- und
+          Vorbeugungsmaßnahme sowie Wirksamkeitsprüfung. Solange eine schwerwiegende Abweichung
+          offen ist, bleibt der Versand gesperrt. Dazu kommt eine verkettete Anfragehistorie, in
+          der selbst keine personenbezogenen Daten stehen.
+        </p>
+        <p>
+          Das hilft, die Aufzeichnungen zu führen, um die es in den Abschnitten 8.7 und 10.2
+          geht. Geplant, aber noch nicht gebaut sind die namentliche Freigabe, die Verfolgung von
+          Materialchargen und Kalibrieraufzeichnungen – für diese Punkte brauchen Sie heute die
+          Checkliste oben. Und grundsätzlich gilt: Software führt Aufzeichnungen. Zertifiziert
+          oder normkonform wird ein Betrieb dadurch nicht.
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h3>Abweichungen und Anfragen an einem Ort führen</h3>
+        <p>Agentic Gateway ist in der Pilotphase: 49 € pro Monat, monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+        <div class="cta-row">
+          <a class="cta-btn" href="/anfragen-postfach/#pilotliste">Auf die Pilotliste setzen
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div><strong>Agentic Gateway</strong> · KI-Agentur für Fertigungsbetriebe</div>
+        <div class="footer-links">
+          <a href="/">Startseite</a>
+          <a href="/blog/">Blog</a>
+          <a href="/anfragen-postfach/" data-cta="anfragen-postfach">Anfragen-Postfach (Pilot)</a>
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/agb/">AGB</a>
+          <button type="button" data-consent-open>Cookie-Einstellungen</button>
+          <span class="mono">agentic-gateway.de</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
