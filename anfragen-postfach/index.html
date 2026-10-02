@@ -286,7 +286,7 @@
           <li><strong>Datenschutz von Anfang an mitgedacht.</strong> Geplant ist ein Hosting in der EU. Ein Auftragsverarbeitungsvertrag liegt vor Pilotstart vor. CAD-Dateien werden nicht an einen KI-Dienst übertragen.</li>
           <li><strong>Ein Preis, der auf der Seite steht.</strong> Der Pilot kostet 49 € pro Monat und ist monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Kein Jahresvertrag, kein Preis nur auf Anfrage.</li>
           <li><strong>Ihre Kalkulation, nicht unsere.</strong> Der Preisrahmen basiert auf den Sätzen, die Sie hinterlegen.</li>
-          <li><strong>Von einem Praktiker entwickelt.</strong> Der Entwickler betreibt selbst FDM-Drucker in der Auftragsfertigung und beantwortet Anfragen mit STEP-Anhang jede Woche selbst.</li>
+          <li><strong>Von einem Praktiker entwickelt.</strong> Der Entwickler betreibt selbst FDM-Drucker und bildet in der additiven Fertigung aus.</li>
         </ul>
       </section>
 
@@ -510,10 +510,13 @@
             kanaele: d.kanaele.join(",")
           });
           done();
-        }, function () {
+        }, function (err) {
           btn.disabled = false;
           window.agTrack("lead_mailto", { form_id: TYPE });
-          setStatus("error", "Die direkte Übertragung hat nicht geklappt. Ihr E-Mail-Programm öffnet sich mit einer vorbereiteten Nachricht – bitte dort auf „Senden“ klicken. Falls sich nichts öffnet: <a href=\"mailto:info@agentic-gateway.de\">info@agentic-gateway.de</a>");
+          var hint = "Ihr E-Mail-Programm öffnet sich mit einer vorbereiteten Nachricht – bitte dort auf „Senden“ klicken. Falls sich nichts öffnet: <a href=\"mailto:info@agentic-gateway.de\">info@agentic-gateway.de</a>";
+          // Without a configured endpoint the e-mail route is the intended one, not a failure.
+          if (err && err.message === "no-endpoint") setStatus("pending", "Die Eintragung läuft per E-Mail. " + hint);
+          else setStatus("error", "Die direkte Übertragung hat nicht geklappt. " + hint);
           mailtoFallback(d);
         });
       });
