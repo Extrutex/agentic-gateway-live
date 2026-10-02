@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D-Druck Angebot kalkulieren mit Maschinenstundensatz</title>
+  <meta name="description" content="3D-Druck Angebot kalkulieren: Maschinenstundensatz berechnen, Material, Rüsten, Nacharbeit und Staffel – mit durchgerechnetem Beispiel." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sebastian Windt" />
+  <meta property="og:title" content="3D-Druck-Angebot kalkulieren: vom Maschinenstundensatz zur Preisspanne" />
+  <meta property="og:description" content="Maschinenstundensatz, Material mit Verlusten, Rüsten, Nacharbeit, Mindestauftragswert und Staffel – eine Methode mit durchgerechnetem Beispiel." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://agentic-gateway.de/blog/3d-druck-angebot-kalkulieren/" />
+  <meta property="og:image" content="https://agentic-gateway.de/og-image.png?v=2" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://agentic-gateway.de/blog/3d-druck-angebot-kalkulieren/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="/legal.css" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Agentic Gateway" />
+  <script src="/assets/site.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "3D-Druck-Angebot kalkulieren: vom Maschinenstundensatz zur Preisspanne",
+    "description": "Wie 3D-Druck-Dienstleister ein Angebot nachvollziehbar kalkulieren: Maschinenstundensatz, Material mit Verlusten, Rüsten, Nacharbeit, Mindestauftragswert und Staffel.",
+    "author": { "@type": "Person", "name": "Sebastian Windt" },
+    "publisher": { "@type": "Organization", "name": "Agentic Gateway", "url": "https://agentic-gateway.de" },
+    "mainEntityOfPage": "https://agentic-gateway.de/blog/3d-druck-angebot-kalkulieren/",
+    "image": "https://agentic-gateway.de/og-image.png?v=2",
+    "datePublished": "2026-10-02",
+    "dateModified": "2026-10-02",
+    "inLanguage": "de"
+  }
+  </script>
+  <style>
+    .article { max-width: 720px; }
+    .article .kicker { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .article .meta { font-size: 13.5px; color: var(--faint); margin-top: 10px; font-family: "JetBrains Mono", monospace; }
+    .article-body { margin-top: 8px; }
+    .article-body h2 { font-family: "Fraunces", Georgia, serif; font-size: clamp(22px, 3.4vw, 28px); font-weight: 550; letter-spacing: -.01em; color: var(--ink); margin: 40px 0 12px; }
+    .article-body h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 26px 0 8px; }
+    .article-body p { font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin: 0 0 16px; }
+    .article-body ul, .article-body ol { margin: 0 0 16px; padding-left: 4px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .article-body li { position: relative; padding-left: 26px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.6; }
+    .article-body ul li::before { content: ""; position: absolute; left: 4px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+    .article-body ol { counter-reset: step; }
+    .article-body ol li { counter-increment: step; }
+    .article-body ol li::before { content: counter(step); position: absolute; left: 0; top: 1px; font-family: "JetBrains Mono", monospace; font-size: 13px; font-weight: 500; color: var(--accent); }
+    .article-body strong { color: var(--ink); font-weight: 650; }
+    .article-body a { color: var(--accent); font-weight: 600; }
+    .table-wrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--line); border-radius: 14px; }
+    .article-body table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 540px; }
+    .article-body th, .article-body td { text-align: left; padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); line-height: 1.5; }
+    .article-body thead th { border-top: 0; background: var(--paper-deep, #F3EEE5); color: var(--ink); font-weight: 650; }
+    .article-body td.num, .article-body th.num { text-align: right; white-space: nowrap; }
+    .article-body tr.sum td { color: var(--ink); font-weight: 650; }
+    .template { white-space: pre-wrap; font: 14.5px/1.65 "Instrument Sans", sans-serif; color: var(--ink); background: var(--card); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 20px; margin: 0 0 20px; }
+    .cta-box { margin: 40px 0 8px; background: var(--card); border: 1px solid var(--line-strong); border-radius: 18px; padding: 30px; }
+    .cta-box h3 { font-family: "Fraunces", Georgia, serif; font-size: 22px; font-weight: 550; color: var(--ink); margin: 0 0 8px; }
+    .cta-box p { font-size: 15.5px; color: var(--muted); margin: 0 0 18px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--paper); font-weight: 650; font-size: 15px; padding: 13px 24px; border-radius: 999px; text-decoration: none; }
+    .backlink { display: inline-block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .backlink:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+              <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-title">Agentic Gateway</span>
+            <span class="brand-subtitle">KI-Agentur · Wissen &amp; Praxis</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="/blog/">Blog</a>
+          <a href="/#demo">Live-Demo</a>
+          <a href="/#kontakt">Kontakt</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content article">
+      <a href="/blog/" class="backlink">← Alle Beiträge</a>
+      <div class="kicker">Fertigung · Kalkulation</div>
+      <h1 class="headline">3D-Druck-Angebot kalkulieren: vom Maschinenstundensatz zur Preisspanne</h1>
+      <div class="meta">Von Sebastian Windt · 2. Oktober 2026 · ca. 8 Minuten Lesezeit</div>
+
+      <div class="article-body">
+        <p>
+          Eine Anfrage kommt mit einer STEP-Datei: ein Halter, PA-CF, zehn Stück, „was kostet
+          das?“. Viele Dienstleister antworten mit Gewicht mal Kilopreis mal Faktor drei. Das
+          geht schnell und stimmt manchmal. Es stimmt nicht mehr, sobald das Teil klein und
+          fummelig ist, lange druckt oder die Maschine die halbe Woche stillsteht.
+        </p>
+        <p>
+          Ich betreibe selbst FDM-Drucker und unterrichte additive Fertigung. Dieser Artikel
+          zeigt eine Methode, mit der Sie ein Angebot nachvollziehbar aufbauen:
+          Maschinenstundensatz, Material mit Verlusten, Rüsten und Nacharbeit,
+          Mindestauftragswert und Staffel. <strong>Alle Zahlen sind ausdrücklich
+          Beispielwerte</strong> – setzen Sie Ihre eigenen ein.
+        </p>
+
+        <h2>Maschinenstundensatz im 3D-Druck berechnen</h2>
+        <p>
+          Der Maschinenstundensatz beantwortet eine Frage: Was kostet es, wenn diese Maschine
+          eine Stunde läuft? Er setzt sich aus den Kosten zusammen, die pro Jahr anfallen, egal
+          ob gedruckt wird, und aus dem, was nur im Betrieb anfällt.
+        </p>
+        <div class="template">Maschinenstundensatz = (Abschreibung + Wartung + Stellfläche) pro Jahr ÷ produktive Stunden pro Jahr + Energiekosten pro Stunde</div>
+        <ul>
+          <li><strong>Abschreibung:</strong> Anschaffungspreis geteilt durch die Jahre, die Sie die Maschine realistisch nutzen – nicht die Jahre, die Sie sich wünschen.</li>
+          <li><strong>Wartung und Verschleiß:</strong> Düsen, Bauplatten, Riemen, Lüfter, Filter; bei Harzdruckern Tankfolien, bei Pulverbettanlagen Wartungsvertrag und Siebe.</li>
+          <li><strong>Stellfläche:</strong> anteilige Miete inklusive Nebenkosten, auch für Trockner, Waschstation oder Auspackstation.</li>
+          <li><strong>Energie:</strong> mittlere Leistungsaufnahme im Druck mal Strompreis. Messen Sie mit einem Zwischenstecker, statt die Nennleistung vom Typenschild zu nehmen.</li>
+          <li><strong>Auslastung:</strong> die Stunden, in denen die Maschine tatsächlich bezahlte Teile druckt.</li>
+        </ul>
+        <p>
+          Wer mit geliehenem Geld investiert oder seinen Kapitaleinsatz verzinst sehen will,
+          rechnet zusätzlich kalkulatorische Zinsen in den Jahresblock.
+        </p>
+
+        <h3>Beispielrechnung für einen FDM-Drucker</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Position</th><th>Beispielannahme</th><th class="num">Wert</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Abschreibung</td><td>Anschaffung 6.000 €, Nutzung 4 Jahre</td><td class="num">1.500 € pro Jahr</td></tr>
+              <tr><td>Wartung und Verschleiß</td><td>Erfahrungswert aus dem Vorjahr</td><td class="num">660 € pro Jahr</td></tr>
+              <tr><td>Stellfläche</td><td>2 m² zu 10 € pro m² und Monat</td><td class="num">240 € pro Jahr</td></tr>
+              <tr class="sum"><td>Jahreskosten</td><td></td><td class="num">2.400 €</td></tr>
+              <tr><td>Fixanteil pro Stunde</td><td>2.400 € ÷ 2.000 produktive Stunden</td><td class="num">1,20 €</td></tr>
+              <tr><td>Energie pro Stunde</td><td>0,25 kW × 0,32 € pro kWh</td><td class="num">0,08 €</td></tr>
+              <tr class="sum"><td>Maschinenstundensatz</td><td></td><td class="num">1,28 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Die empfindlichste Größe ist die Auslastung. Ein Jahr hat 8.760 Stunden; 2.000
+          produktive Stunden sind also schon eine Maschine, die knapp ein Viertel der Zeit
+          bezahlt druckt. Läuft sie im Beispiel nur 1.000 Stunden, steigt der Satz auf 2,48 €.
+          Rechnen Sie mit den Stunden des letzten Jahres, nicht mit der Hoffnung für das nächste.
+        </p>
+
+        <h2>Material: Verbrauch ist mehr als das Teilgewicht</h2>
+        <p>
+          Der Slicer nennt das Gewicht von Teil und Stützstruktur. Dazu kommen Verluste, die er
+          nicht kennt: Spülmenge beim Materialwechsel, Reste auf der Spule, die für kein Teil
+          mehr reichen, und Fehldrucke. Bei PA-CF gehört auch die Trocknung dazu: Eine Spule, die
+          nicht getrocknet wurde, liefert Teile für die Tonne – und die Trocknerzeit ist Aufwand,
+          den jemand bezahlen muss.
+        </p>
+        <p>
+          Praktikabel ist ein Zuschlag auf das Slicer-Gewicht, den Sie aus Ihren eigenen Zahlen
+          ableiten: Wiegen Sie einen Monat lang, was Sie einkaufen und was Sie ausliefern. Im
+          Beispiel unten sind es 15 %.
+        </p>
+
+        <h2>Rüsten und Nacharbeit: die Arbeitszeit, die gern vergessen wird</h2>
+        <p>
+          Maschinenzeit ist im FDM-Druck billig, Arbeitszeit nicht. Bei kleinen Stückzahlen ist
+          die Arbeitszeit oft der größte Block – und genau der fehlt in der Faustformel mit dem
+          Kilopreis.
+        </p>
+        <ul>
+          <li><strong>Rüsten, einmal pro Auftrag:</strong> Datei prüfen, orientieren, slicen, Material wechseln, Bauplatte vorbereiten, Druck starten und die erste Schicht beobachten.</li>
+          <li><strong>Nacharbeit, pro Teil:</strong> von der Platte lösen, Stützen entfernen, entgraten, Gewindeeinsätze setzen, prüfen, verpacken.</li>
+        </ul>
+        <p>
+          Rechnen Sie beides mit einem Personalstundensatz, der Lohnnebenkosten und unproduktive
+          Zeiten enthält. Wenn der Kunde ein Messprotokoll oder eine dokumentierte Prüfung
+          verlangt, ist das eine eigene Position. Was hinter solchen Aufzeichnungen steckt,
+          beschreibt der Beitrag zu
+          <a href="/blog/iso-9001-3d-druck-rueckverfolgbarkeit/">ISO 9001 und Rückverfolgbarkeit im 3D-Druck</a>.
+        </p>
+
+        <h2>Durchgerechnetes Beispiel: zehn Halter aus PA-CF</h2>
+        <p>
+          Annahmen, alle als Beispiel: Druckzeit 3,5 Stunden pro Teil, Slicer-Gewicht 60 g,
+          Materialpreis 80 € pro kg, Personalstundensatz 60 €, Rüsten 30 Minuten, Nacharbeit
+          6 Minuten pro Teil.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Position</th><th>Rechnung (Beispielwerte)</th><th class="num">Betrag</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Material</td><td>10 × 60 g × 1,15 × 0,08 € pro g</td><td class="num">55,20 €</td></tr>
+              <tr><td>Maschine</td><td>10 × 3,5 h × 1,28 € pro h</td><td class="num">44,80 €</td></tr>
+              <tr><td>Nacharbeit</td><td>10 × 6 min × 1,00 € pro min</td><td class="num">60,00 €</td></tr>
+              <tr><td>Rüsten</td><td>30 min × 1,00 € pro min</td><td class="num">30,00 €</td></tr>
+              <tr class="sum"><td>Zwischensumme</td><td></td><td class="num">190,00 €</td></tr>
+              <tr><td>Fehldruckzuschlag</td><td>10 % auf Material und Maschine</td><td class="num">10,00 €</td></tr>
+              <tr class="sum"><td>Herstellkosten des Auftrags</td><td></td><td class="num">200,00 €</td></tr>
+              <tr><td>Zuschlag für Gemeinkosten und Gewinn</td><td>30 %</td><td class="num">60,00 €</td></tr>
+              <tr class="sum"><td>Angebotspreis netto</td><td></td><td class="num">260,00 €</td></tr>
+              <tr><td>Preis pro Stück</td><td>260 € ÷ 10</td><td class="num">26,00 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Zwei Dinge fallen auf. Maschine und Material machen zusammen nur 100 € aus, die
+          Arbeitszeit 90 €. Und der Zuschlag von 30 % ist kein Luxus: Aus ihm bezahlen Sie
+          Software, Versicherung, Buchhaltung, die Zeit für Angebote, die nicht zum Auftrag
+          werden – und Ihren Gewinn. Wie hoch er sein muss, ergibt sich aus Ihren Gemeinkosten,
+          nicht aus diesem Beispiel.
+        </p>
+
+        <h2>Mindestauftragswert und Mengenstaffel</h2>
+        <p>
+          Dieselbe Rechnung für ein einzelnes Teil ergibt 61,10 €: 46,00 € Kosten, 1,00 €
+          Fehldruckzuschlag, 30 % obendrauf. Darin steckt aber noch nicht, dass jemand die
+          Anfrage gelesen, ein Angebot geschrieben, eine Rechnung gestellt und ein Paket gepackt
+          hat. Dafür gibt es den Mindestauftragswert. Legen Sie ihn so fest, dass der kleinste
+          Auftrag seinen Verwaltungsaufwand trägt – im Beispiel 75 €.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Stückzahl</th><th>Auftragspreis netto (Beispiel)</th><th class="num">Pro Stück</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>75,00 € (Mindestauftragswert statt 61,10 €)</td><td class="num">75,00 €</td></tr>
+              <tr><td>10</td><td>260,00 €</td><td class="num">26,00 €</td></tr>
+              <tr><td>50</td><td>1.144,00 €</td><td class="num">22,88 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Die Staffel zeigt, was im FDM-Druck tatsächlich mit der Menge sinkt: der Rüstanteil pro
+          Teil, sonst fast nichts. Druckzeit und Material wachsen linear mit. Von zehn auf
+          fünfzig Stück fällt der Stückpreis deshalb nur noch um gut drei Euro. Ein Mengenrabatt,
+          der darüber hinausgeht, kommt aus Ihrer Marge. Das kann sinnvoll sein, sollte aber eine
+          bewusste Entscheidung sein und kein Reflex.
+        </p>
+
+        <h2>FDM und Pulverbett: zwei verschiedene Rechnungen</h2>
+        <p>
+          Im FDM-Druck belegt ein Teil die Maschine für seine Druckzeit. Die Kosten lassen sich
+          dem Teil direkt zuordnen: Stunden mal Satz.
+        </p>
+        <p>
+          Im Pulverbett läuft ein Baujob, in dem viele Teile verschiedener Kunden verschachtelt
+          sind. Die Kosten entstehen für den Job als Ganzes: Maschinenzeit einschließlich
+          Aufheizen und Abkühlen, Pulver, Auspacken, Strahlen. Die Maschinenzeit hängt vor allem
+          von der Bauhöhe ab, kaum davon, ob ein Teil mehr oder weniger in der Schicht liegt. Ein
+          Teil trägt deshalb einen Anteil am Job, üblicherweise nach dem Volumen, das es im
+          Bauraum belegt – oft gemessen an seiner Hüllgeometrie und nicht am Teilvolumen. Kostet
+          ein Baujob im Beispiel 900 € und belegt ein Teil 2 % des genutzten Bauraums, trägt es
+          18 €, bevor Nacharbeit und Zuschläge dazukommen.
+        </p>
+        <p>
+          Daraus folgen zwei Dinge. Die Packdichte entscheidet über den Preis: Ein halb leerer
+          Job verteilt dieselben Kosten auf weniger Teile. Und beim Material zählt nicht nur, was
+          im Teil steckt. Unverbautes Pulver altert im Prozess und wird nur zum Teil
+          wiederverwendet; wie viel Neupulver Sie je Job zumischen, kann die Materialkosten
+          stärker bestimmen als das Teilgewicht.
+        </p>
+        <p>
+          Harzdrucker mit Flächenbelichtung liegen dazwischen: Die Druckzeit hängt an der Höhe,
+          nicht an der Zahl der Teile auf der Plattform. Eine volle Plattform kostet kaum mehr
+          Maschinenzeit als eine halb volle, dafür kommen Waschen und Nachhärten als feste
+          Arbeitsschritte dazu.
+        </p>
+
+        <h2>Warum eine Preisspanne ehrlicher ist als ein Punktpreis</h2>
+        <p>
+          Die 26,00 € aus dem Beispiel sehen genau aus. Sie beruhen aber auf Annahmen, die vor
+          der Durchsicht des Teils niemand kennt: Wie wird es orientiert? Die Orientierung
+          bestimmt Druckzeit, Stützmaterial und Nacharbeit – und sie richtet sich danach, wo die
+          Last angreift, was der Kunde in der ersten Mail selten schreibt. Welche Flächen sind
+          Funktionsflächen? Muss ein Maß geprüft werden?
+        </p>
+        <p>
+          Ein Punktpreis vor dieser Klärung ist entweder mit Sicherheitsaufschlag gerechnet und
+          damit zu teuer, oder er wird später korrigiert, was mehr Vertrauen kostet als jede
+          Spanne. Eine unverbindliche Preisspanne – etwa 23 bis 30 € pro Stück, mit dem Hinweis,
+          wovon das obere Ende abhängt – sagt dem Kunden sofort, ob sich das Gespräch lohnt, und
+          Ihnen bleibt Raum für die technische Prüfung. Den verbindlichen Preis nennt danach ein
+          Mensch, der das Teil angesehen hat. Welche Angaben dafür vorliegen müssen, steht im
+          Beitrag <a href="/blog/anfrage-bis-angebot-lohnfertigung/">Von der Anfrage zum Angebot</a>.
+        </p>
+
+        <h2>Was sich davon automatisieren lässt</h2>
+        <p>
+          Die Rechnung selbst ist nicht schwer. Mühsam ist, sie bei jeder Anfrage neu
+          aufzusetzen: Datei öffnen, messen, Werte in die Tabelle übertragen, Antwort
+          formulieren. An dieser Stelle setzt <a href="/anfragen-postfach/">Agentic Gateway</a>
+          an, das ich derzeit entwickle. Es ist in der Pilotphase und noch nicht öffentlich
+          verfügbar.
+        </p>
+        <p>
+          Im aktuellen Entwicklungsstand landen Anfragen aus E-Mail und Kontaktformular auf einem
+          Board mit Antwortfristen. Hängt eine 3D-Datei an (STEP, STL, 3MF oder OBJ), wird sie
+          vermessen und mit Ihrem eigenen Maschinenstundensatz, Ihren Materialpreisen und Ihrem
+          Bauraum zu einer unverbindlichen Preisspanne mit Fertigungshinweisen verrechnet. Eine
+          KI entwirft die Antwort; geprüft und abgeschickt wird sie immer von einem Menschen. Die
+          Kalkulationsgrundlage bleibt Ihre – das Werkzeug nimmt Ihnen das Übertragen ab, nicht
+          die Entscheidung.
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h3>Preisspanne direkt aus der 3D-Datei</h3>
+        <p>Agentic Gateway ist in der Pilotphase: 49 € pro Monat, monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+        <div class="cta-row">
+          <a class="cta-btn" href="/anfragen-postfach/#pilotliste">Auf die Pilotliste setzen
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div><strong>Agentic Gateway</strong> · KI-Agentur für Fertigungsbetriebe</div>
+        <div class="footer-links">
+          <a href="/">Startseite</a>
+          <a href="/blog/">Blog</a>
+          <a href="/anfragen-postfach/" data-cta="anfragen-postfach">Anfragen-Postfach (Pilot)</a>
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/agb/">AGB</a>
+          <button type="button" data-consent-open>Cookie-Einstellungen</button>
+          <span class="mono">agentic-gateway.de</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
