@@ -232,15 +232,15 @@
   else initDom();
 
   // ------------------------------------------------------------------ attribution
-  // First-touch attribution (UTM, gclid, external referrer) attached to every lead.
-  var ATTR_KEY = "ag_attr";
-  var attr = null;
-  try { attr = JSON.parse(sessionStorage.getItem(ATTR_KEY) || "null"); } catch (e) { attr = null; }
-  if (!attr) {
+  // Attribution (UTM, gclid, external referrer) attached to a lead sent from
+  // this page view. Held in memory only: nothing is written to the browser's
+  // storage, so no consent is needed for it (section 25 TDDDG). The price is
+  // that a visitor who navigates to another page before signing up loses it.
+  var attr = (function () {
     var qs = new URLSearchParams(location.search);
     var ref = "";
     try { if (document.referrer && new URL(document.referrer).host !== location.host) ref = document.referrer; } catch (e) { ref = ""; }
-    attr = {
+    return {
       utm_source: qs.get("utm_source") || "",
       utm_medium: qs.get("utm_medium") || "",
       utm_campaign: qs.get("utm_campaign") || "",
@@ -250,8 +250,9 @@
       referrer: ref,
       landing: location.pathname
     };
-    try { sessionStorage.setItem(ATTR_KEY, JSON.stringify(attr)); } catch (e) { /* private mode */ }
-  }
+  })();
+  // Remove what earlier versions stored.
+  try { sessionStorage.removeItem("ag_attr"); } catch (e) { /* private mode */ }
 
   // ------------------------------------------------------------------ lead transport
   // Resolves "sent" once the request left the browser; rejects on missing endpoint,
