@@ -25,12 +25,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://agentic-gateway.de/anfragen-postfach/</loc>
-    <lastmod>2026-09-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://agentic-gateway.de/impressum/</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>yearly</changefreq>
