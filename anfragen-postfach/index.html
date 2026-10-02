@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anfragen-Postfach für 3D-Druck-Dienstleister | Agentic Gateway</title>
-  <meta name="description" content="E-Mail, Formular und WhatsApp in einem Postfach. STEP/STL wird zu Preisrahmen und Antwortentwurf. In Entwicklung – Pilotbetriebe gesucht." />
+  <meta name="description" content="3D-Druck-Angebote schneller kalkulieren: STEP, STL oder 3MF aus der Anfrage wird vermessen, mit Ihren Sätzen zum Preisrahmen und Antwortentwurf. Pilotbetriebe gesucht." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Sebastian Windt" />
   <meta property="og:title" content="Anfragen-Postfach für 3D-Druck-Dienstleister | Agentic Gateway" />
-  <meta property="og:description" content="E-Mail, Formular und WhatsApp in einem Postfach. STEP/STL wird zu Preisrahmen und Antwortentwurf. In Entwicklung – Pilotbetriebe gesucht." />
+  <meta property="og:description" content="3D-Druck-Angebote schneller kalkulieren: STEP, STL oder 3MF aus der Anfrage wird vermessen, mit Ihren Sätzen zum Preisrahmen und Antwortentwurf. Pilotbetriebe gesucht." />
   <meta property="og:url" content="https://agentic-gateway.de/anfragen-postfach/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
@@ -29,7 +29,7 @@
         "@id": "https://agentic-gateway.de/anfragen-postfach/#webpage",
         "url": "https://agentic-gateway.de/anfragen-postfach/",
         "name": "Anfragen-Postfach für 3D-Druck-Dienstleister",
-        "description": "E-Mail, Formular und WhatsApp in einem Postfach. STEP/STL wird zu Preisrahmen und Antwortentwurf. In Entwicklung – Pilotbetriebe gesucht.",
+        "description": "3D-Druck-Angebote schneller kalkulieren: STEP, STL oder 3MF aus der Anfrage wird vermessen, mit Ihren Sätzen zum Preisrahmen und Antwortentwurf. Pilotbetriebe gesucht.",
         "inLanguage": "de",
         "publisher": { "@id": "https://agentic-gateway.de/#org" }
       },
@@ -61,6 +61,21 @@
             "@type": "Question",
             "name": "Muss ich meine E-Mail-Adresse oder WhatsApp-Nummer wechseln?",
             "acceptedAnswer": { "@type": "Answer", "text": "Nein. Ihre bestehenden Adressen werden angebunden. Kunden schreiben weiter dorthin, wo sie es gewohnt sind." }
+          },
+          {
+            "@type": "Question",
+            "name": "Welche Dateiformate werden vermessen?",
+            "acceptedAnswer": { "@type": "Answer", "text": "STEP, STL, 3MF und OBJ. Aus der Datei werden Abmessungen, Volumen und Oberfläche gelesen. Ist ein Netz nicht geschlossen oder passt ein Teil nicht in Ihren Bauraum, steht das als Hinweis bei der Anfrage. Andere Formate werden gespeichert, aber nicht ausgewertet." }
+          },
+          {
+            "@type": "Question",
+            "name": "Sieht ein KI-Dienst die CAD-Dateien meiner Kunden?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nein. Die CAD-Datei wird innerhalb der Anwendung vermessen und nicht an einen KI-Dienst übertragen. Für den Antwortentwurf erhält der KI-Dienst den Text der Anfrage, den Dateinamen und die berechneten Zahlen. Name, E-Mail-Adresse und Telefonnummer des Kunden werden vorher maskiert." }
+          },
+          {
+            "@type": "Question",
+            "name": "Was steht im Verlauf einer Anfrage?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Jeder Schritt mit Zeitpunkt: Eingang, Vermessung, Entwurf, Änderung von Hand, Versand, Löschung. Die Einträge sind miteinander verkettet, sodass ein nachträglich geänderter oder entfernter Eintrag bei der Prüfung auffällt. Der Verlauf enthält keine Namen und keine Nachrichtentexte." }
           }
         ]
       }
@@ -119,6 +134,11 @@
     .form-done { text-align: center; padding: 18px 4px; }
     .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin: 0 0 10px; color: var(--ink); }
     .form-done p { color: var(--muted); margin: 0; line-height: 1.6; }
+    .shot { margin: 0; background: var(--card); border: 1px solid var(--line-strong); border-radius: 22px; padding: 14px; box-shadow: 0 26px 60px -38px rgba(25, 22, 19, .25); }
+    .shot img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    .shot figcaption { margin: 12px 6px 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+    .shots { display: grid; gap: 22px; }
+    .block > .intro { max-width: 820px; margin: -10px 0 26px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; }
     .closing { margin-top: 80px; padding: 40px; border-radius: 22px; background: var(--ink); color: var(--paper); }
     .closing h2 { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 36px); font-weight: 500; margin: 0 0 12px; }
     .closing p { color: #CFC6B6; margin: 0 0 22px; font-size: 16.5px; line-height: 1.6; }
@@ -149,6 +169,7 @@
         </a>
         <div class="nav-links">
           <a href="#so-funktioniert-es">So soll es funktionieren</a>
+          <a href="#stand">Stand heute</a>
           <a href="#fragen">Fragen</a>
           <a href="#pilotliste" data-cta="pilotliste-nav">Pilotliste</a>
         </div>
@@ -162,9 +183,10 @@
         <h1 class="headline">Jede Anfrage beantwortet. Auch die kleinen.</h1>
         <p class="lead">
           Das Anfragen-Postfach für 3D-Druck-Dienstleister mit 1–5 Leuten: E-Mail, Webformular
-          und WhatsApp landen an einem Ort. Aus einer angehängten STEP- oder STL-Datei wird ein
-          Preisrahmen mit Antwortentwurf, und eine Erinnerung meldet sich, bevor eine Anfrage
-          liegen bleibt.
+          und WhatsApp landen an einem Ort. Eine angehängte STEP-, STL- oder 3MF-Datei wird
+          vermessen und mit Ihren eigenen Sätzen zu einem Preisrahmen mit Antwortentwurf. Eine
+          Erinnerung meldet sich, bevor eine Anfrage liegen bleibt, und jeder Schritt bleibt
+          nachvollziehbar.
         </p>
         <div class="cta-row">
           <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-hero">Auf die Pilotliste setzen</a>
@@ -203,7 +225,7 @@
           <div class="tile">
             <span class="num">02</span>
             <h3>Aus der CAD-Datei wird ein Preisrahmen</h3>
-            <p>Hängt eine STEP- oder STL-Datei an, liest das System Volumen und Abmessungen aus und berechnet mit Ihren eigenen Maschinen-, Material- und Stundensätzen einen Preisrahmen. Daraus entsteht ein Antwortentwurf in Ihrem Ton. Sie prüfen, passen an und senden. Ohne Ihre Freigabe geht nichts raus.</p>
+            <p>Hängt eine STEP-, STL-, 3MF- oder OBJ-Datei an, liest das System Abmessungen, Volumen und Oberfläche aus und berechnet mit Ihren eigenen Maschinen- und Materialsätzen einen Preisrahmen. Dazu kommen Hinweise aus der Fertigung: Passt das Teil in den Bauraum, ist das Netz geschlossen, droht Verzug? Daraus entsteht ein Antwortentwurf. Sie prüfen, passen an und senden. Ohne Ihre Freigabe geht nichts raus.</p>
           </div>
           <div class="tile">
             <span class="num">03</span>
@@ -211,6 +233,37 @@
             <p>Sie legen fest, bis wann eine Anfrage beantwortet sein soll, zum Beispiel innerhalb eines Werktags. Bevor die Frist abläuft, kommt eine Erinnerung. Die Übersicht zeigt, was offen ist, was beantwortet wurde und was auf den Kunden wartet.</p>
           </div>
         </div>
+      </section>
+
+      <!-- ============ STAND HEUTE ============ -->
+      <!-- COPY: added 2026-10-02 – shows the current development state with real product screenshots -->
+      <section class="block" id="stand">
+        <h2>Stand heute</h2>
+        <p class="intro">Das Produkt ist noch nicht öffentlich nutzbar. Diese beiden Teile laufen bereits in der Entwicklung, hier mit Beispieldaten.</p>
+        <div class="shots">
+          <figure class="shot">
+            <img src="/assets/img/anfragen-postfach-kalkulation.png" width="1520" height="1316" loading="lazy" decoding="async"
+                 alt="Anfrage mit zwei 3D-Dateien: Tabelle mit Maßen, Volumen, Gewicht, Maschinenzeit und Stückpreis je Bauteil, darunter eine Preisspanne von 70 bis 115 Euro netto und zwei Fertigungshinweise." />
+            <figcaption>Kalkulation aus den 3D-Daten: Maße, Gewicht und Maschinenzeit je Bauteil, eine unverbindliche Preisspanne aus den hinterlegten Sätzen und Hinweise, die vor dem Angebot zu klären sind. Beispieldaten.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="/assets/img/anfragen-postfach-verlauf.png" width="1520" height="688" loading="lazy" decoding="async"
+                 alt="Verlauf einer Anfrage mit fünf Einträgen von Eingang bis Stufenwechsel, jeweils mit Zeitpunkt, laufender Nummer und Prüfwert, darüber der Vermerk: Kette geprüft, 148 Einträge lückenlos." />
+            <figcaption>Verlauf einer Anfrage: Jeder Schritt ist mit dem vorherigen verkettet. Wird ein Eintrag nachträglich geändert oder entfernt, fällt das bei der Prüfung auf. Beispieldaten.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============ NACHVOLLZIEHBAR ============ -->
+      <!-- COPY: added 2026-10-02 -->
+      <section class="block" id="nachvollziehbar">
+        <h2>Nachvollziehbar vom Eingang bis zur Löschung</h2>
+        <ul class="list">
+          <li><strong>Jeder Schritt steht im Verlauf.</strong> Eingang, Vermessung, Entwurf, Änderung von Hand, Versand und Löschung werden mit Zeitpunkt festgehalten und miteinander verkettet.</li>
+          <li><strong>Ohne Kundendaten im Protokoll.</strong> Der Verlauf enthält Zustände und Zahlen, aber keine Namen und keine Nachrichtentexte. Eine Anfrage lässt sich löschen, und die Löschung bleibt belegbar.</li>
+          <li><strong>KI-Entwürfe sind als solche vermerkt.</strong> Im Verlauf steht, welches Modell den Entwurf geschrieben hat und ob Sie ihn vor dem Versand geändert haben.</li>
+          <li><strong>Eine Grundlage für Rückverfolgbarkeit.</strong> Wer nach ISO 9001 arbeitet oder dorthin will, braucht belegbare Abläufe. Freigabe- und Abweichungsprotokolle sind als nächste Schritte geplant und noch nicht gebaut.</li>
+        </ul>
       </section>
 
       <!-- ============ ABGRENZUNG ============ -->
@@ -230,7 +283,8 @@
         <h2>Warum dieses Postfach</h2>
         <ul class="list">
           <li><strong>Auf Deutsch, für den deutschen Markt.</strong> Oberfläche, Antwortentwürfe und Dokumentation sind deutsch.</li>
-          <li><strong>Datenschutz von Anfang an mitgedacht.</strong> Geplant ist ein Hosting in der EU. Ein Auftragsverarbeitungsvertrag liegt vor Pilotstart vor.</li>
+          <li><strong>Datenschutz von Anfang an mitgedacht.</strong> Geplant ist ein Hosting in der EU. Ein Auftragsverarbeitungsvertrag liegt vor Pilotstart vor. CAD-Dateien werden nicht an einen KI-Dienst übertragen.</li>
+          <li><strong>Ein Preis, der auf der Seite steht.</strong> Der Pilot kostet 49 € pro Monat (netto) und ist monatlich kündbar. Kein Jahresvertrag, kein Preis nur auf Anfrage.</li>
           <li><strong>Ihre Kalkulation, nicht unsere.</strong> Der Preisrahmen basiert auf den Sätzen, die Sie hinterlegen.</li>
           <li><strong>Von einem Praktiker entwickelt.</strong> Der Entwickler betreibt selbst FDM-Drucker in der Auftragsfertigung und beantwortet Anfragen mit STEP-Anhang jede Woche selbst.</li>
         </ul>
@@ -260,6 +314,18 @@
             <summary><h3 style="display:inline;font:inherit;margin:0;">Muss ich meine E-Mail-Adresse oder WhatsApp-Nummer wechseln?</h3></summary>
             <p>Nein. Ihre bestehenden Adressen werden angebunden. Kunden schreiben weiter dorthin, wo sie es gewohnt sind.</p>
           </details>
+          <details>
+            <summary><h3 style="display:inline;font:inherit;margin:0;">Welche Dateiformate werden vermessen?</h3></summary>
+            <p>STEP, STL, 3MF und OBJ. Aus der Datei werden Abmessungen, Volumen und Oberfläche gelesen. Ist ein Netz nicht geschlossen oder passt ein Teil nicht in Ihren Bauraum, steht das als Hinweis bei der Anfrage. Andere Formate werden gespeichert, aber nicht ausgewertet.</p>
+          </details>
+          <details>
+            <summary><h3 style="display:inline;font:inherit;margin:0;">Sieht ein KI-Dienst die CAD-Dateien meiner Kunden?</h3></summary>
+            <p>Nein. Die CAD-Datei wird innerhalb der Anwendung vermessen und nicht an einen KI-Dienst übertragen. Für den Antwortentwurf erhält der KI-Dienst den Text der Anfrage, den Dateinamen und die berechneten Zahlen. Name, E-Mail-Adresse und Telefonnummer des Kunden werden vorher maskiert.</p>
+          </details>
+          <details>
+            <summary><h3 style="display:inline;font:inherit;margin:0;">Was steht im Verlauf einer Anfrage?</h3></summary>
+            <p>Jeder Schritt mit Zeitpunkt: Eingang, Vermessung, Entwurf, Änderung von Hand, Versand, Löschung. Die Einträge sind miteinander verkettet, sodass ein nachträglich geänderter oder entfernter Eintrag bei der Prüfung auffällt. Der Verlauf enthält keine Namen und keine Nachrichtentexte.</p>
+          </details>
         </div>
       </section>
 
@@ -271,6 +337,8 @@
             <p>Sie betreiben einen 3D-Druck-Service mit 1–5 Leuten und beantworten Anfragen selbst? Tragen Sie sich ein. Wir melden uns persönlich, meist für ein 30-minütiges Gespräch darüber, wie Sie heute mit Anfragen arbeiten. Das ist kein Verkaufsgespräch.</p>
             <!-- COPY: added – privacy hint for the form, not part of the marketing copy -->
             <p style="font-size:14.5px;color:var(--muted);">Bitte über dieses Formular noch keine CAD-Dateien oder Kundendaten senden.</p>
+            <!-- COPY: added 2026-10-02 – scope of the offer -->
+            <p style="font-size:14.5px;color:var(--muted);">Das Angebot richtet sich an Unternehmen und Selbstständige, nicht an Verbraucher.</p>
           </div>
 
           <form id="waitlist-form" class="wform" novalidate>
