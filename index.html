@@ -67,50 +67,32 @@
   }
   </script>
   <style>
-    .content { width: min(1200px, calc(100% - 48px)); padding-top: 40px; }
-    .nav-inner { width: min(1200px, calc(100% - 48px)); }
-    .nav-links { gap: 26px; font-size: .92rem; }
-    .nav-cta { display: inline-flex; align-items: center; background: var(--ink); color: var(--paper) !important; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
-    .nav-cta:hover { background: #000; }
-    .label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-    .label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--ink); color: var(--paper); font: 600 16px/1 var(--font-body); padding: 17px 28px; border-radius: 999px; border: 0; text-decoration: none; cursor: pointer; transition: transform .15s ease, background .15s ease; }
-    .cta-btn:hover { background: #000; transform: translateY(-1px); }
-    .cta-btn svg { width: 16px; height: 16px; }
-    .cta-ghost { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ink); text-decoration: none; padding: 17px 6px; }
-    .cta-ghost:hover { color: var(--accent); }
+    /* Page-specific layout. Shared components live in /legal.css. */
+    .content { padding-top: 40px; }
 
     /* Hero */
-    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 56px 0 24px; }
-    .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(42px, 5.6vw, 76px); line-height: .98; letter-spacing: -.028em; margin: 26px 0 0; color: var(--ink); text-wrap: balance; }
-    .hero .lead { max-width: 580px; margin-top: 26px; font-size: 19px; line-height: 1.6; color: var(--ink-soft); }
-    .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; margin-top: 34px; }
-    .hero-note { margin: 18px 0 0; font-size: 14px; color: var(--muted); }
-    .stage { position: relative; border-radius: 28px; background: radial-gradient(120% 90% at 30% 10%, #ffffff 0%, var(--paper-deep) 60%, #ebe4d7 100%); border: 1px solid var(--line); box-shadow: inset 0 1px 0 #fff, 0 40px 80px -48px rgba(25, 22, 19, .35); overflow: hidden; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 48px 0 24px; }
+    .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5.4vw, 74px); line-height: .98; letter-spacing: -.028em; margin: 24px 0 0; color: var(--ink); text-wrap: balance; }
+    .hero .lead { max-width: 580px; margin: 24px 0 0; font-size: 19px; line-height: 1.6; color: var(--ink-soft); }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 20px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+    .hero-facts li { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-facts svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+    .stage { position: relative; border-radius: var(--radius-xl); background: radial-gradient(120% 90% at 30% 10%, #ffffff 0%, var(--paper-deep) 60%, #ebe4d7 100%); border: 1px solid var(--line); box-shadow: inset 0 1px 0 #fff, 0 40px 80px -48px rgba(25, 22, 19, .35); overflow: hidden; }
     .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgba(250, 247, 242, .5)); pointer-events: none; }
     .scene { position: relative; aspect-ratio: 1 / 1; min-height: 320px; }
     .scene canvas, .scene .scene-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
     .scene canvas { opacity: 0; transition: opacity .6s ease; }
     .scene[data-ready="true"] canvas { opacity: 1; }
     .scene[data-ready="true"] .scene-poster { display: none; }
-    .scene-toggle { position: absolute; right: 14px; bottom: 14px; z-index: 2; display: none; align-items: center; gap: 6px; font: 500 12.5px/1 var(--font-body); color: var(--ink-soft); background: rgba(250, 247, 242, .9); border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+    .scene-toggle { position: absolute; right: 14px; bottom: 14px; z-index: 2; display: none; align-items: center; gap: 6px; min-height: 36px; font: 500 12.5px/1 var(--font-body); color: var(--ink-soft); background: rgba(250, 247, 242, .92); border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
     .scene[data-ready="true"][data-animated="true"] .scene-toggle { display: inline-flex; }
     .stage-caption { position: absolute; left: 18px; bottom: 16px; z-index: 2; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-    /* Product window */
-    .window { border-radius: 18px; border: 1px solid var(--line-strong); background: #fff; box-shadow: 0 50px 100px -48px rgba(25, 22, 19, .45), 0 1px 0 #fff inset; overflow: hidden; }
-    .window-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: #fbf9f5; }
-    .window-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
-    .window-bar span { margin-left: 10px; flex: 1; max-width: 420px; font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; text-align: center; }
-    .window img { display: block; width: 100%; height: auto; }
     .showcase { margin-top: 56px; }
     .showcase figcaption { margin: 14px 4px 0; font-size: 14px; color: var(--muted); }
+    .trust-block { margin-top: 40px; }
 
-    .block { margin-top: 128px; }
-    .block-head { max-width: 760px; margin-bottom: 44px; }
-    .block-head h2 { font-family: var(--font-display); font-size: clamp(32px, 4.2vw, 50px); font-weight: 500; letter-spacing: -.025em; line-height: 1.04; margin: 16px 0 16px; color: var(--ink); text-wrap: balance; }
-    .block-head p { margin: 0; color: var(--ink-soft); font-size: 18px; line-height: 1.65; }
-
+    /* Three steps */
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line-strong); }
     .step { padding: 34px 28px 38px 0; border-right: 1px solid var(--line); }
     .step + .step { padding-left: 28px; }
@@ -119,6 +101,7 @@
     .step h3 { margin: 22px 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -.01em; color: var(--ink); }
     .step p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
 
+    /* Split sections */
     .split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; align-items: center; }
     .split.rev { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
     .split h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 42px); font-weight: 500; letter-spacing: -.022em; line-height: 1.08; margin: 16px 0 18px; color: var(--ink); text-wrap: balance; }
@@ -128,13 +111,12 @@
     .list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-wash); }
     .list li::after { content: ""; position: absolute; left: 5px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
     .list strong { color: var(--ink); }
-    .shot { margin: 0; }
-    .shot figcaption { margin: 12px 4px 0; font-size: 13.5px; color: var(--muted); }
 
+    /* Roadmap */
     .road { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .road .col { border-radius: 22px; padding: 30px; border: 1px solid var(--line); background: var(--card); }
+    .road .col { border-radius: var(--radius-lg); padding: 30px; border: 1px solid var(--line); background: var(--card); }
     .road .col.now { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-    .road .tag { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 11px; border-radius: 999px; background: var(--accent-wash); color: var(--accent); }
+    .road .tag { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 11px; border-radius: 999px; background: var(--accent-wash); color: var(--accent-deep); }
     .road .col.now .tag { background: rgba(255, 255, 255, .12); color: #C9D2FF; }
     .road h3 { margin: 20px 0 14px; font-size: 22px; font-weight: 700; letter-spacing: -.01em; color: inherit; }
     .road ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); }
@@ -142,49 +124,23 @@
     .road li { padding-left: 20px; position: relative; }
     .road li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 2px; background: currentColor; opacity: .5; }
 
+    /* Process chips */
     .chips { display: flex; flex-wrap: wrap; gap: 10px; }
     .chip { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--card); font-size: 15px; color: var(--ink-soft); }
     .chip b { font-weight: 600; color: var(--ink); }
-    .chip .state { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); }
+    .chip .state { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
     .chip.on { border-color: var(--accent); background: var(--accent-wash); }
-    .chip.on .state { color: var(--accent); }
-
-    .faq { display: grid; gap: 0; max-width: 860px; border-top: 1px solid var(--line-strong); }
-    .faq details { border-bottom: 1px solid var(--line); padding: 20px 0; }
-    .faq summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 18px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after { content: "+"; font-family: var(--font-mono); color: var(--faint); font-size: 20px; }
-    .faq details[open] summary::after { content: "–"; }
-    .faq details p { margin: 12px 0 0; max-width: 720px; color: var(--muted); line-height: 1.7; font-size: 16px; }
-
-    .closing { margin-top: 128px; padding: 56px; border-radius: 28px; background: var(--ink); color: var(--paper); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center; }
-    .closing h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 48px); font-weight: 500; letter-spacing: -.025em; margin: 0 0 14px; line-height: 1.05; }
-    .closing p { color: #CFC6B6; margin: 0; font-size: 17px; line-height: 1.6; }
-    .closing .price { font-family: var(--font-display); font-size: 64px; font-weight: 500; letter-spacing: -.03em; line-height: 1; }
-    .closing .price small { font: 400 16px/1 var(--font-body); color: #CFC6B6; letter-spacing: 0; }
-    .closing .cta-btn { background: var(--paper); color: var(--ink); margin-top: 22px; }
-    .closing .fine { font-size: 13.5px; margin-top: 12px; }
-
-    .footer-inner { width: min(1200px, calc(100% - 48px)); }
-    .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; padding: 44px 0 24px; }
-    .foot h4 { margin: 0 0 12px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
-    .foot a, .foot button { display: block; background: none; border: 0; padding: 0; margin: 0 0 9px; font: 500 15px/1.4 var(--font-body); color: var(--ink-soft); text-decoration: none; cursor: pointer; text-align: left; }
-    .foot a:hover, .foot button:hover { color: var(--ink); }
-    .foot p { margin: 10px 0 0; max-width: 320px; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
-    .foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 18px 0 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--faint); }
+    .chip.on .state { color: var(--accent-deep); }
 
     @media (max-width: 960px) {
-      .hero, .split, .split.rev, .closing { grid-template-columns: 1fr; }
-      .hero { padding-top: 24px; gap: 28px; }
+      .hero, .split, .split.rev { grid-template-columns: 1fr; }
+      .hero { padding-top: 16px; gap: 28px; }
       .stage { max-width: 520px; width: 100%; }
       .steps, .road { grid-template-columns: 1fr; }
       .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 26px 0; }
       .step + .step { padding-left: 0; }
       .step:last-child { border-bottom: 0; }
       .split.rev > :first-child { order: 2; }
-      .closing { padding: 32px; }
-      .block { margin-top: 88px; }
-      .foot { grid-template-columns: 1fr 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       .scene canvas { transition: none; }
@@ -193,8 +149,9 @@
   </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div class="shell">
-    <nav class="nav">
+    <nav class="nav" aria-label="Hauptnavigation">
       <div class="nav-inner">
         <a href="/" class="brand" aria-label="Agentic Gateway – Startseite">
           <span class="brand-mark" aria-hidden="true">
@@ -211,6 +168,7 @@
         <div class="nav-links">
           <a href="/anfragen-postfach/">Produkt</a>
           <a href="#stand">Stand</a>
+          <a href="#preis">Preis</a>
           <a href="/blog/">Wissen</a>
           <a href="/beratung/">Beratung</a>
           <a href="/anfragen-postfach/#pilotliste" class="nav-cta" data-cta="pilotliste-nav">Pilotliste</a>
@@ -218,7 +176,7 @@
       </div>
     </nav>
 
-    <main class="content">
+    <main class="content" id="main">
       <!-- ============ HERO ============ -->
       <header class="hero">
         <div>
@@ -236,7 +194,11 @@
             </a>
             <a href="#stand" class="cta-ghost">Was heute läuft</a>
           </div>
-          <p class="hero-note">Entwickelt von einem Fertiger. 800 € im Monat, monatlich kündbar.</p>
+          <ul class="hero-facts" aria-label="Eckdaten">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Entwickelt von einem Fertiger</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>800 € im Monat, monatlich kündbar</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Deutscher Vertrag, Abrechnung in Euro</li>
+          </ul>
         </div>
 
         <!-- Decorative: a gantry printer building a part layer by layer. -->
@@ -273,6 +235,37 @@
         </div>
         <figcaption>Das Board: jede Anfrage mit Kanal, Antwortfrist und Anhängen, von Eingang bis Rechnung. Entwicklungsstand, Beispieldaten.</figcaption>
       </figure>
+
+      <!-- ============ VERTRAUEN ============ -->
+      <section class="trust-block" id="vertrauen" aria-label="Rahmenbedingungen">
+        <ul class="trust">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+            <strong>Von einem Fertiger entwickelt</strong>
+            <span>Der Entwickler betreibt selbst FDM-Drucker und bildet in der additiven Fertigung aus.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <strong>DSGVO und AVV</strong>
+            <span>Auftragsverarbeitungsvertrag vor Pilotstart. CAD-Dateien gehen nicht an KI-Dienste.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18"/></svg>
+            <strong>Hosting in der EU</strong>
+            <span>Gehostete Anwendung mit geplantem EU-Standort. Deutscher Vertragspartner, Impressum in Rodgau.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+            <strong>Monatlich kündbar</strong>
+            <span>Kein Jahresvertrag, keine Vorauszahlung. Der Preis steht auf der Seite.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l5 5v13H6z"/><path d="M14 3v6h6M9 14h6M9 17h6"/></svg>
+            <strong>§ 19 UStG</strong>
+            <span>Es wird keine Umsatzsteuer berechnet. Rechnung auf Deutsch, in Euro.</span>
+          </li>
+        </ul>
+      </section>
 
       <!-- ============ DREI SCHRITTE ============ -->
       <section class="block" id="so-funktioniert-es">
@@ -344,6 +337,65 @@
         </figure>
       </section>
 
+      <!-- ============ VERGLEICH ============ -->
+      <section class="block" id="vergleich">
+        <div class="block-head">
+          <span class="label">Unterschied</span>
+          <h2>Gebaut für Betriebe in Deutschland, nicht für den US-Markt angepasst.</h2>
+          <p>Viele Plattformen für Fertigungsdienstleister kommen aus den USA. Das merkt man am Vertrag, an der Währung und daran, wer bei Fragen antwortet. Hier der Unterschied in den Punkten, die im Alltag zählen.</p>
+        </div>
+        <div class="compare-wrap">
+          <table class="compare">
+            <caption class="sr-only">Agentic Gateway im Vergleich mit einer typischen US-Plattform</caption>
+            <thead>
+              <tr>
+                <th scope="col">Kriterium</th>
+                <th scope="col" class="us">Agentic Gateway</th>
+                <th scope="col">Typische US-Plattform</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Laufzeit</th>
+                <td class="us">Monatlich kündbar, keine Vorauszahlung</td>
+                <td>Häufig Jahresvertrag mit Vorauszahlung und automatischer Verlängerung</td>
+              </tr>
+              <tr>
+                <th scope="row">Preis</th>
+                <td class="us">Steht auf der Seite: 800 € im Monat, § 19 UStG</td>
+                <td>Oft nur auf Anfrage oder in US-Dollar</td>
+              </tr>
+              <tr>
+                <th scope="row">Vertrag und Recht</th>
+                <td class="us">Deutscher Vertragspartner, deutsches Recht, Rechnung in Euro</td>
+                <td>Meist US-Vertragspartner, ausländisches Recht und Gerichtsstand</td>
+              </tr>
+              <tr>
+                <th scope="row">Sprache</th>
+                <td class="us">Oberfläche, Antwortentwürfe, Vertrag und Support auf Deutsch</td>
+                <td>In der Regel Englisch, deutsche Oberfläche nicht garantiert</td>
+              </tr>
+              <tr>
+                <th scope="row">Datenschutz</th>
+                <td class="us">AVV nach DSGVO vor Pilotstart, EU-Hosting geplant, CAD nicht an KI-Dienste</td>
+                <td>Datenverarbeitung oft über Standardvertragsklauseln außerhalb der EU</td>
+              </tr>
+              <tr>
+                <th scope="row">KI</th>
+                <td class="us">Entwürfe sind gekennzeichnet, Kundendaten werden vorher maskiert, nichts geht automatisch raus</td>
+                <td>Automatische Antworten und Sofortpreise an den Endkunden sind verbreitet</td>
+              </tr>
+              <tr>
+                <th scope="row">Zielbetrieb</th>
+                <td class="us">1 bis 5 Personen, FDM als Kern, weitere Verfahren folgen</td>
+                <td>Ausgelegt auf größere Fertiger mit Pulverbett und CNC</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="compare-note">Die rechte Spalte beschreibt verbreitete Vertragsmodelle, keinen bestimmten Anbieter. Stand Oktober 2026.</p>
+      </section>
+
       <!-- ============ STAND ============ -->
       <section class="block" id="stand">
         <div class="block-head">
@@ -403,6 +455,42 @@
         </div>
       </section>
 
+      <!-- ============ PREIS ============ -->
+      <section class="block" id="preis">
+        <div class="block-head">
+          <span class="label">Preis</span>
+          <h2>Ein Preis. Er steht hier.</h2>
+          <p>Der Pilot kostet das, was später die Software kostet. Was während der Pilotphase dazukommt, bekommen Pilotbetriebe ohne Aufpreis.</p>
+        </div>
+        <div class="pricing">
+          <div class="price-card">
+            <span class="tier">Pilot</span>
+            <div class="amount">800 € <small>im Monat</small></div>
+            <p class="fine">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+            <a href="/anfragen-postfach/#pilotliste" class="cta-btn" data-cta="pilotliste-preis">Auf die Pilotliste setzen</a>
+            <ul class="terms">
+              <li>Monatlich kündbar, kein Jahresvertrag</li>
+              <li>Keine Vorauszahlung, keine Einrichtungsgebühr</li>
+              <li>Für Unternehmen und Selbstständige</li>
+            </ul>
+          </div>
+          <div class="price-scope">
+            <h3>Im Pilot enthalten</h3>
+            <ul>
+              <li>Anfragen-Board mit Antwortfrist und Erinnerung</li>
+              <li>Vermessung von STEP, STL, 3MF und OBJ</li>
+              <li>Preisrahmen aus Ihrem eigenen Preisprofil</li>
+              <li>Antwortentwurf zur Freigabe, KI-Anteil vermerkt</li>
+              <li>Verketteter Verlauf jeder Anfrage</li>
+              <li>Abweichungsberichte mit Auslieferungssperre</li>
+              <li>Auftragsverarbeitungsvertrag vor Pilotstart</li>
+              <li>Persönlicher Ansprechpartner, Antwort innerhalb von zwei Werktagen</li>
+            </ul>
+            <p>Vor dem Start sprechen wir darüber, wie Sie heute mit Anfragen arbeiten. Das Gespräch ist unverbindlich und kostet nichts.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ FAQ ============ -->
       <section class="block" id="fragen">
         <div class="block-head">
@@ -426,6 +514,10 @@
             <summary>Was kostet es?</summary>
             <p>800 € im Monat, monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Im Pilot ist der volle Funktionsumfang enthalten; was dazukommt, kommt ohne Aufpreis.</p>
           </details>
+          <details>
+            <summary>Für welche Betriebe ist das gedacht?</summary>
+            <p>Für 3D-Druck-Dienstleister und Fertigungsbetriebe mit 1 bis 5 Personen, die Anfragen selbst beantworten. Der Kern ist das Schmelzschichten (FDM/FFF); weitere Verfahren bekommen eine eigene Kalkulation. Das Angebot richtet sich an Unternehmen und Selbstständige, nicht an Verbraucher.</p>
+          </details>
         </div>
       </section>
 
@@ -434,17 +526,17 @@
         <div>
           <h2>Pilotbetrieb werden.</h2>
           <p>Wir suchen Betriebe, die mit echten Anfragen prüfen, ob die Software im Alltag trägt, und sagen, was fehlt.</p>
+          <p class="note">Antwort innerhalb von zwei Werktagen. Kein Verkaufsgespräch.</p>
         </div>
         <div>
-          <div class="price">800 € <small>im Monat</small></div>
-          <p class="fine">Monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
           <a href="/anfragen-postfach/#pilotliste" class="cta-btn" data-cta="pilotliste-footer">Auf die Pilotliste setzen</a>
+          <p class="fine">800 € im Monat, monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="footer-inner">
+      <div class="footer-inner footer-grid">
         <div class="foot">
           <div>
             <a href="/" class="brand" aria-label="Agentic Gateway – Startseite" style="margin-bottom:8px;">
@@ -460,8 +552,9 @@
           </div>
           <div>
             <h4>Produkt</h4>
-            <a href="/anfragen-postfach/">Produkt</a>
+            <a href="/anfragen-postfach/">Anfragen-Postfach</a>
             <a href="/#stand">Stand der Entwicklung</a>
+            <a href="/#preis">Preis</a>
             <a href="/anfragen-postfach/#pilotliste">Pilotliste</a>
           </div>
           <div>
@@ -485,6 +578,11 @@
         </div>
       </div>
     </footer>
+
+    <nav class="sticky-cta" id="sticky-cta" aria-label="Schnellzugriff">
+      <span>800 € im Monat<br />monatlich kündbar</span>
+      <a href="/anfragen-postfach/#pilotliste" class="cta-btn" data-cta="pilotliste-sticky">Pilotliste</a>
+    </nav>
   </div>
 
   <script type="module">
@@ -527,6 +625,16 @@
 
     if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 2500 });
     else setTimeout(start, 600);
+
+    // Sticky CTA (mobile): hidden while the hero CTA is on screen, so the
+    // button never appears twice in the viewport.
+    const sticky = document.getElementById("sticky-cta");
+    const heroCta = document.querySelector('[data-cta="pilotliste-hero"]');
+    if (sticky && heroCta && "IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        sticky.classList.toggle("is-off", entries[0].isIntersecting);
+      }, { threshold: 0.2 }).observe(heroCta);
+    }
   </script>
 </body>
 </html>

@@ -83,34 +83,29 @@
   }
   </script>
   <style>
-    .content { width: min(1040px, calc(100% - 40px)); }
-    .status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--accent-wash); color: var(--accent); font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
-    .status-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .hero .headline { max-width: 820px; }
-    .hero .lead { max-width: 760px; }
-    .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 6px; }
-    .cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--ink); color: var(--paper); font: 600 15.5px/1 var(--font-body); padding: 15px 26px; border-radius: 999px; border: 0; text-decoration: none; cursor: pointer; }
-    .cta-btn:hover { background: #000; }
-    .cta-btn:disabled { opacity: .55; cursor: progress; }
-    .cta-link { font-weight: 600; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 4px; }
-    .block { margin-top: 72px; }
-    .block > h2 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 40px); font-weight: 500; letter-spacing: -.015em; line-height: 1.1; margin: 0 0 26px; color: var(--ink); }
+    /* Page-specific layout. Shared components live in /legal.css. */
+    .hero { padding-top: 8px; }
+    .hero .headline { max-width: 820px; margin-top: 22px; }
+    .hero .lead { max-width: 760px; font-size: 19px; }
+    .hero .cta-row { margin-top: 6px; }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 22px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+    .hero-facts li { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-facts svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .tile { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px; }
+    .tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 28px 26px; }
     .tile h3 { margin: 0 0 10px; font-size: 18px; font-weight: 700; line-height: 1.35; color: var(--ink); }
     .tile p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; }
-    .tile .num { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--accent); margin-bottom: 12px; letter-spacing: .08em; }
-    .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 820px; }
-    .list li { position: relative; padding-left: 26px; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
-    .list li::before { content: ""; position: absolute; left: 4px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+    .tile .num { display: block; font-family: var(--font-display); font-size: 40px; line-height: 1; color: var(--accent); margin-bottom: 16px; letter-spacing: -.03em; }
+    .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; max-width: 820px; }
+    .list li { position: relative; padding-left: 30px; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
+    .list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-wash); }
+    .list li::after { content: ""; position: absolute; left: 5px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
     .list strong { color: var(--ink); }
-    .faq { display: grid; gap: 12px; max-width: 820px; }
-    .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
-    .faq summary { cursor: pointer; font-weight: 650; color: var(--ink); font-size: 16.5px; }
-    .faq details p { margin: 12px 0 0; color: var(--muted); line-height: 1.65; }
     .pilot { display: grid; grid-template-columns: 1fr 1.25fr; gap: 36px; align-items: start; }
     .pilot-intro p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; margin: 0 0 14px; }
-    .wform { background: var(--card); border: 1px solid var(--line-strong); border-radius: 22px; padding: 30px; box-shadow: 0 26px 60px -38px rgba(25, 22, 19, .25); }
+    .pilot-intro .hint { font-size: 14.5px; color: var(--muted); }
+    .pilot-intro .trust { margin-top: 24px; grid-template-columns: 1fr; }
+    .wform { background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 30px; box-shadow: 0 26px 60px -38px rgba(25, 22, 19, .25); }
     .wform .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .wform .field { display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
     .wform .row .field { margin-top: 0; }
@@ -134,34 +129,20 @@
     .form-done { text-align: center; padding: 18px 4px; }
     .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin: 0 0 10px; color: var(--ink); }
     .form-done p { color: var(--muted); margin: 0; line-height: 1.6; }
-    .shot { margin: 0; }
-    .shot figcaption { margin: 12px 6px 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
-    .window { border-radius: 18px; border: 1px solid var(--line-strong); background: #fff; box-shadow: 0 50px 100px -48px rgba(25, 22, 19, .45), 0 1px 0 #fff inset; overflow: hidden; }
-    .window-bar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: #fbf9f5; }
-    .window-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
-    .window-bar span { margin-left: 10px; flex: 1; max-width: 420px; font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; text-align: center; }
-    .window img { display: block; width: 100%; height: auto; }
-    .nav-cta { display: inline-flex; align-items: center; background: var(--ink); color: var(--paper) !important; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
-    .nav-cta:hover { background: #000; }
-    .shots { display: grid; gap: 22px; }
-    .block > .intro { max-width: 820px; margin: -10px 0 26px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; }
-    .closing { margin-top: 80px; padding: 40px; border-radius: 22px; background: var(--ink); color: var(--paper); }
-    .closing h2 { font-family: var(--font-display); font-size: clamp(26px, 3.6vw, 36px); font-weight: 500; margin: 0 0 12px; }
-    .closing p { color: #CFC6B6; margin: 0 0 22px; font-size: 16.5px; line-height: 1.6; }
-    .closing .cta-btn { background: var(--paper); color: var(--ink); }
+    .shots { display: grid; gap: 28px; }
     @media (max-width: 860px) {
       .grid3, .pilot, .wform .row { grid-template-columns: 1fr; }
       .wform .row .field + .field { margin-top: 16px; }
-      .closing { padding: 28px; }
     }
   </style>
 </head>
 <body>
   <!-- COPY: all visible copy on this page is the final marketing copy dated 2026-09-29, except blocks marked "COPY: added" -->
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div class="shell">
-    <nav class="nav">
+    <nav class="nav" aria-label="Hauptnavigation">
       <div class="nav-inner">
-        <a href="/" class="brand">
+        <a href="/" class="brand" aria-label="Agentic Gateway – Startseite">
           <span class="brand-mark" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
               <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
@@ -170,22 +151,23 @@
           </span>
           <span class="brand-copy">
             <span class="brand-title">Agentic Gateway</span>
-            <span class="brand-subtitle">Anfragen-Postfach · Pilot</span>
+            <span class="brand-subtitle">Software für additive Fertigung</span>
           </span>
         </a>
         <div class="nav-links">
-          <a href="#so-funktioniert-es">So soll es funktionieren</a>
-          <a href="#stand">Stand heute</a>
+          <a href="#so-funktioniert-es">Funktion</a>
+          <a href="#stand">Stand</a>
           <a href="#fragen">Fragen</a>
+          <a href="/blog/">Wissen</a>
           <a href="#pilotliste" class="nav-cta" data-cta="pilotliste-nav">Pilotliste</a>
         </div>
       </div>
     </nav>
 
-    <main class="content">
+    <main class="content" id="main">
       <!-- ============ HERO ============ -->
       <header class="hero">
-        <span class="status-badge">In Entwicklung · Pilotbetriebe gesucht</span>
+        <span class="label">Anfragen-Postfach · In Entwicklung · Pilotbetriebe gesucht</span>
         <h1 class="headline">Jede Anfrage beantwortet. Auch die kleinen.</h1>
         <p class="lead">
           Das Anfragen-Postfach für 3D-Druck-Dienstleister mit 1–5 Leuten: E-Mail, Webformular
@@ -195,14 +177,25 @@
           nachvollziehbar.
         </p>
         <div class="cta-row">
-          <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-hero">Auf die Pilotliste setzen</a>
-          <a href="#so-funktioniert-es" class="cta-link">So soll es funktionieren ↓</a>
+          <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-hero">
+            Auf die Pilotliste setzen
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#so-funktioniert-es" class="cta-ghost">So soll es funktionieren</a>
         </div>
+        <ul class="hero-facts" aria-label="Eckdaten">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>800 € im Monat, monatlich kündbar</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Gemäß § 19 UStG keine Umsatzsteuer</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Antwort innerhalb von zwei Werktagen</li>
+        </ul>
       </header>
 
       <!-- ============ PROBLEM ============ -->
       <section class="block" id="kennen-sie-das">
-        <h2>Kennen Sie das?</h2>
+        <div class="block-head">
+          <span class="label">Alltag</span>
+          <h2>Kennen Sie das?</h2>
+        </div>
         <div class="grid3">
           <div class="tile">
             <h3>Drei Postfächer, ein Handy und eine Anfrage, die keiner gesehen hat</h3>
@@ -221,7 +214,10 @@
 
       <!-- ============ LÖSUNG ============ -->
       <section class="block" id="so-funktioniert-es">
-        <h2>So soll es funktionieren</h2>
+        <div class="block-head">
+          <span class="label">Funktion</span>
+          <h2>So soll es funktionieren</h2>
+        </div>
         <div class="grid3">
           <div class="tile">
             <span class="num">01</span>
@@ -244,8 +240,11 @@
       <!-- ============ STAND HEUTE ============ -->
       <!-- COPY: added 2026-10-02 – shows the current development state with real product screenshots -->
       <section class="block" id="stand">
-        <h2>Stand heute</h2>
-        <p class="intro">Das Produkt ist noch nicht öffentlich nutzbar. Diese beiden Teile laufen bereits in der Entwicklung, hier mit Beispieldaten.</p>
+        <div class="block-head">
+          <span class="label">Stand</span>
+          <h2>Stand heute</h2>
+          <p>Das Produkt ist noch nicht öffentlich nutzbar. Diese beiden Teile laufen bereits in der Entwicklung, hier mit Beispieldaten.</p>
+        </div>
         <div class="shots">
           <figure class="shot">
             <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Anfrage · Kalkulation</span></div>
@@ -267,7 +266,10 @@
       <!-- ============ NACHVOLLZIEHBAR ============ -->
       <!-- COPY: added 2026-10-02 -->
       <section class="block" id="nachvollziehbar">
-        <h2>Nachvollziehbar vom Eingang bis zur Löschung</h2>
+        <div class="block-head">
+          <span class="label">Nachweis</span>
+          <h2>Nachvollziehbar vom Eingang bis zur Löschung</h2>
+        </div>
         <ul class="list">
           <li><strong>Jeder Schritt steht im Verlauf.</strong> Eingang, Vermessung, Entwurf, Änderung von Hand, Versand und Löschung werden mit Zeitpunkt festgehalten und miteinander verkettet.</li>
           <li><strong>Ohne Kundendaten im Protokoll.</strong> Der Verlauf enthält Zustände und Zahlen, aber keine Namen und keine Nachrichtentexte. Eine Anfrage lässt sich löschen, und die Löschung bleibt belegbar.</li>
@@ -278,7 +280,10 @@
 
       <!-- ============ ABGRENZUNG ============ -->
       <section class="block" id="was-es-nicht-ist">
-        <h2>Was es nicht ist</h2>
+        <div class="block-head">
+          <span class="label">Abgrenzung</span>
+          <h2>Was es nicht ist</h2>
+        </div>
         <ul class="list">
           <li><strong>Kein ERP und keine Buchhaltung.</strong> Das Postfach endet dort, wo der Auftrag beginnt. Rechnungen schreiben Sie weiter mit Ihrem bestehenden Werkzeug.</li>
           <li><strong>Kein Online-Shop mit Sofortpreis für Endkunden.</strong> Der Preisrahmen ist ein Entwurf für Sie und kein automatisches Angebot an den Kunden.</li>
@@ -290,7 +295,10 @@
 
       <!-- ============ WARUM ============ -->
       <section class="block" id="warum">
-        <h2>Warum dieses Postfach</h2>
+        <div class="block-head">
+          <span class="label">Warum</span>
+          <h2>Warum dieses Postfach</h2>
+        </div>
         <ul class="list">
           <li><strong>Auf Deutsch, für den deutschen Markt.</strong> Oberfläche, Antwortentwürfe und Dokumentation sind deutsch.</li>
           <li><strong>Datenschutz von Anfang an mitgedacht.</strong> Geplant ist ein Hosting in der EU. Ein Auftragsverarbeitungsvertrag liegt vor Pilotstart vor. CAD-Dateien werden nicht an einen KI-Dienst übertragen.</li>
@@ -302,38 +310,41 @@
 
       <!-- ============ FAQ ============ -->
       <section class="block" id="fragen">
-        <h2>Häufige Fragen</h2>
+        <div class="block-head">
+          <span class="label">Fragen</span>
+          <h2>Häufige Fragen</h2>
+        </div>
         <div class="faq">
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Gibt es das Produkt schon?</h3></summary>
+            <summary><h3>Gibt es das Produkt schon?</h3></summary>
             <p>Nein. Das Anfragen-Postfach ist in Entwicklung. Bevor wir es fertig bauen, sprechen wir mit Dienstleistern darüber, wie sie heute mit Anfragen arbeiten. Mit der Pilotliste sind Sie bei den Ersten, die es testen können.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Was kostet der Pilot?</h3></summary>
+            <summary><h3>Was kostet der Pilot?</h3></summary>
             <p>Der Pilot kostet 800 € pro Monat und ist monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Im Pilot ist der volle Funktionsumfang enthalten; was während des Pilots dazukommt, kommt ohne Aufpreis.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Wie genau ist der Preisrahmen aus der STEP-Datei?</h3></summary>
+            <summary><h3>Wie genau ist der Preisrahmen aus der STEP-Datei?</h3></summary>
             <p>So genau wie Ihre hinterlegten Sätze und die Geometrie es zulassen. Das Postfach gibt bewusst einen Rahmen aus und keinen Festpreis. Stützstrukturen, Nacharbeit und Toleranzanforderungen bewerten Sie weiterhin selbst. Wie gut der Rahmen im Alltag trifft, soll der Pilot zeigen.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Wo liegen meine Daten und die CAD-Dateien meiner Kunden?</h3></summary>
+            <summary><h3>Wo liegen meine Daten und die CAD-Dateien meiner Kunden?</h3></summary>
             <p>Geplant ist ein Hosting in der EU. CAD-Dateien werden nur für die Berechnung Ihres Preisrahmens verarbeitet und nicht für andere Zwecke genutzt. Vor Pilotstart erhalten Sie einen Auftragsverarbeitungsvertrag.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Muss ich meine E-Mail-Adresse oder WhatsApp-Nummer wechseln?</h3></summary>
+            <summary><h3>Muss ich meine E-Mail-Adresse oder WhatsApp-Nummer wechseln?</h3></summary>
             <p>Nein. Ihre bestehenden Adressen werden angebunden. Kunden schreiben weiter dorthin, wo sie es gewohnt sind.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Welche Dateiformate werden vermessen?</h3></summary>
+            <summary><h3>Welche Dateiformate werden vermessen?</h3></summary>
             <p>STEP, STL, 3MF und OBJ. Aus der Datei werden Abmessungen, Volumen und Oberfläche gelesen. Ist ein Netz nicht geschlossen oder passt ein Teil nicht in Ihren Bauraum, steht das als Hinweis bei der Anfrage. Andere Formate werden gespeichert, aber nicht ausgewertet.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Sieht ein KI-Dienst die CAD-Dateien meiner Kunden?</h3></summary>
+            <summary><h3>Sieht ein KI-Dienst die CAD-Dateien meiner Kunden?</h3></summary>
             <p>Nein. Die CAD-Datei wird innerhalb der Anwendung vermessen und nicht an einen KI-Dienst übertragen. Für den Antwortentwurf erhält der KI-Dienst den Text der Anfrage, den Dateinamen und die berechneten Zahlen. Name, E-Mail-Adresse und Telefonnummer des Kunden werden vorher maskiert.</p>
           </details>
           <details>
-            <summary><h3 style="display:inline;font:inherit;margin:0;">Was steht im Verlauf einer Anfrage?</h3></summary>
+            <summary><h3>Was steht im Verlauf einer Anfrage?</h3></summary>
             <p>Jeder Schritt mit Zeitpunkt: Eingang, Vermessung, Entwurf, Änderung von Hand, Versand, Löschung. Die Einträge sind miteinander verkettet, sodass ein nachträglich geänderter oder aus der Reihe entfernter Eintrag bei der Prüfung auffällt. Der Verlauf enthält keine Namen und keine Nachrichtentexte.</p>
           </details>
         </div>
@@ -341,14 +352,31 @@
 
       <!-- ============ PILOTLISTE ============ -->
       <section class="block" id="pilotliste">
-        <h2>Pilotbetrieb werden</h2>
+        <div class="block-head">
+          <span class="label">Pilotliste</span>
+          <h2>Pilotbetrieb werden</h2>
+        </div>
         <div class="pilot">
           <div class="pilot-intro">
             <p>Sie betreiben einen 3D-Druck-Service mit 1–5 Leuten und beantworten Anfragen selbst? Tragen Sie sich ein. Wir melden uns persönlich, meist für ein 30-minütiges Gespräch darüber, wie Sie heute mit Anfragen arbeiten. Das ist kein Verkaufsgespräch.</p>
             <!-- COPY: added – privacy hint for the form, not part of the marketing copy -->
-            <p style="font-size:14.5px;color:var(--muted);">Bitte über dieses Formular noch keine CAD-Dateien oder Kundendaten senden.</p>
+            <p class="hint">Bitte über dieses Formular noch keine CAD-Dateien oder Kundendaten senden.</p>
             <!-- COPY: added 2026-10-02 – scope of the offer -->
-            <p style="font-size:14.5px;color:var(--muted);">Das Angebot richtet sich an Unternehmen und Selbstständige, nicht an Verbraucher.</p>
+            <p class="hint">Das Angebot richtet sich an Unternehmen und Selbstständige, nicht an Verbraucher.</p>
+            <ul class="trust trust--compact" aria-label="Rahmenbedingungen">
+              <li>
+                <strong>800 € im Monat</strong>
+                <span>Monatlich kündbar. Gemäß § 19 UStG keine Umsatzsteuer.</span>
+              </li>
+              <li>
+                <strong>AVV vor Pilotstart</strong>
+                <span>Hosting in der EU geplant. CAD-Dateien gehen nicht an KI-Dienste.</span>
+              </li>
+              <li>
+                <strong>Antwort in zwei Werktagen</strong>
+                <span>Persönlich, per E-Mail. Kein Newsletter, keine Weitergabe.</span>
+              </li>
+            </ul>
           </div>
 
           <form id="waitlist-form" class="wform" novalidate>
@@ -420,26 +448,65 @@
 
       <!-- ============ ABSCHLUSS ============ -->
       <section class="closing">
-        <h2>Weniger Postfächer. Keine vergessenen Anfragen.</h2>
-        <p>Wir suchen Pilotbetriebe, die mit echten Anfragen prüfen, ob das Postfach im Alltag trägt.</p>
-        <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-footer">Auf die Pilotliste setzen</a>
+        <div>
+          <h2>Weniger Postfächer. Keine vergessenen Anfragen.</h2>
+          <p>Wir suchen Pilotbetriebe, die mit echten Anfragen prüfen, ob das Postfach im Alltag trägt.</p>
+        </div>
+        <div>
+          <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-footer">Auf die Pilotliste setzen</a>
+          <p class="fine">800 € im Monat, monatlich kündbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+        </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="footer-inner">
-        <div><strong>Agentic Gateway</strong> · Anfragen-Postfach für 3D-Druck-Dienstleister (in Entwicklung)</div>
-        <div class="footer-links">
-          <a href="/">Startseite</a>
-          <a href="/blog/">Blog</a>
-          <a href="/impressum/">Impressum</a>
-          <a href="/datenschutz/">Datenschutz</a>
-          <a href="/agb/">AGB</a>
-          <button type="button" data-consent-open>Cookie-Einstellungen</button>
+      <div class="footer-inner footer-grid">
+        <div class="foot">
+          <div>
+            <a href="/" class="brand" aria-label="Agentic Gateway – Startseite" style="margin-bottom:8px;">
+              <span class="brand-mark" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+                  <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+                  <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+                </svg>
+              </span>
+              <span class="brand-copy"><span class="brand-title">Agentic Gateway</span></span>
+            </a>
+            <p>Software für die additive Fertigung: Anfrage, Angebot, Fertigung, Nachweis. Entwickelt in Rodgau, Rhein-Main.</p>
+          </div>
+          <div>
+            <h4>Produkt</h4>
+            <a href="/">Übersicht</a>
+            <a href="/#stand">Stand der Entwicklung</a>
+            <a href="/#preis">Preis</a>
+            <a href="#pilotliste">Pilotliste</a>
+          </div>
+          <div>
+            <h4>Wissen</h4>
+            <a href="/blog/3d-druck-angebot-kalkulieren/">Angebot kalkulieren</a>
+            <a href="/blog/iso-9001-3d-druck-rueckverfolgbarkeit/">ISO 9001 und Rückverfolgbarkeit</a>
+            <a href="/blog/">Alle Beiträge</a>
+            <a href="/beratung/">Beratung</a>
+          </div>
+          <div>
+            <h4>Rechtliches</h4>
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
+            <a href="/agb/">AGB</a>
+            <button type="button" data-consent-open>Cookie-Einstellungen</button>
+          </div>
+        </div>
+        <div class="foot-base">
+          <span>© 2026 Agentic Gateway · Sebastian Windt</span>
           <span class="mono">agentic-gateway.de</span>
         </div>
       </div>
     </footer>
+
+    <nav class="sticky-cta" id="sticky-cta" aria-label="Schnellzugriff">
+      <span>800 € im Monat<br />monatlich kündbar</span>
+      <a href="#pilotliste" class="cta-btn" data-cta="pilotliste-sticky">Pilotliste</a>
+    </nav>
   </div>
 
   <script>
@@ -484,6 +551,19 @@
         ].join("\n");
         window.location.href = "mailto:info@agentic-gateway.de?subject=" +
           encodeURIComponent("[Pilotliste Anfragen-Postfach] " + d.firma) + "&body=" + encodeURIComponent(body);
+      }
+
+      // Sticky CTA (mobile): hidden while the form or the hero CTA is on screen.
+      var sticky = document.getElementById("sticky-cta");
+      var heroCta = document.querySelector('[data-cta="pilotliste-hero"]');
+      if (sticky && "IntersectionObserver" in window) {
+        var visible = { form: false, hero: false };
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { visible[e.target === form ? "form" : "hero"] = e.isIntersecting; });
+          sticky.classList.toggle("is-off", visible.form || visible.hero);
+        }, { threshold: 0.1 });
+        io.observe(form);
+        if (heroCta) io.observe(heroCta);
       }
 
       form.addEventListener("focusin", function () {
