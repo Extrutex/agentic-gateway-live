@@ -19,7 +19,7 @@
   var cfg = window.AG_CONFIG = Object.freeze({
     // Web-App URL of the Google Apps Script lead webhook (ops/lead-webhook/Code.gs).
     // Empty = forms fall back to a prepared mailto message.
-    leadEndpoint: "",
+    leadEndpoint: "https://script.google.com/macros/s/AKfycbwgt6X7FSV9DJTt4EGuYS4a8vAH1yVsv4F7q86T5jXiNJzySu_JoiPiRhAH3GHl-Exj1A/exec",
     // Umami Cloud website ID (cookieless, no consent required). Empty = Umami off.
     umamiWebsiteId: "",
     // Google Analytics 4 measurement ID. The placeholder keeps GA and the consent banner off.
