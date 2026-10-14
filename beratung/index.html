@@ -743,7 +743,15 @@
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       html { scroll-behavior: auto; }
+      .btn, .sector, .check-opt { transition: none; }
+      .btn:hover, .btn:hover svg, .sector:hover, .check-opt:hover { transform: none; }
     }
+
+    /* ---------- Keyboard focus ---------- */
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    .btn:focus-visible, .nav-cta:focus-visible, .demo-chip:focus-visible, .demo-copy:focus-visible { outline-offset: 4px; border-radius: 999px; }
+    .faq-item summary:focus-visible { outline-offset: 6px; }
+    .plan-featured .btn:focus-visible, .case-card .btn:focus-visible { outline-color: var(--paper); }
   </style>
 </head>
 <body>
