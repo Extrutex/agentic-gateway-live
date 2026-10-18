@@ -725,6 +725,106 @@ summary:focus-visible {
   color: var(--muted);
 }
 
+/* Plans after the pilot phase: three compact cards below the pilot card. */
+.tiers-head {
+  margin: var(--space-7) 0 var(--space-5);
+}
+
+.tiers-head h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tiers-head p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.tier-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tier-card .tier-name {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.tier-card .tier-amount {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.tier-card .tier-amount small {
+  font: 400 15px/1 var(--font-body);
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.tier-card .tier-for {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.tier-card ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.tier-card li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.tier-card li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--faint);
+}
+
+.tier-card li .state {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.tiers-note {
+  margin: 14px 4px 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
 /* FAQ accordion – one style for every page. */
 .faq {
   display: grid;
@@ -1145,6 +1245,7 @@ summary:focus-visible {
   }
 
   .pricing,
+  .tiers,
   .closing {
     grid-template-columns: 1fr;
   }
