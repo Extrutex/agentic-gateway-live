@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KI-Agenten für Fertigungsbetriebe | Agentic Gateway</title>
-  <meta name="description" content="KI-Agenten für Fertiger, Zulieferer und Lohnfertiger: Anfragen mit Zeichnung prüfen, Angebote vorbereiten, Status nachhalten. Mit menschlicher Freigabe, Festpreis." />
+  <title>KI-Consulting für Fertigungsbetriebe | Agentic Gateway</title>
+  <meta name="description" content="KI-Consulting für Fertiger, Zulieferer und Lohnfertiger: Prozess-Check, KI-Agenten für Anfrage und Angebot, eigene Werkzeuge – mit menschlicher Freigabe und offengelegter Wirtschaftlichkeit." />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="KI-Agenten für Fertigungsbetriebe | Agentic Gateway" />
-  <meta property="og:description" content="KI-Agenten für Fertigungsbetriebe – gebaut von einem Fertiger. Anfrage, Zeichnung, Machbarkeit, Angebot: automatisiert, mit menschlicher Freigabe und Festpreis." />
+  <meta property="og:title" content="KI-Consulting für Fertigungsbetriebe | Agentic Gateway" />
+  <meta property="og:description" content="KI-Consulting für Fertigungsbetriebe – mit eigenen Werkzeugen, die wirklich laufen. Prozess-Check, Anfrage- und Angebotsautomatisierung, Firmenwissen mit Quellen." />
   <meta property="og:url" content="https://agentic-gateway.de/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
@@ -38,7 +38,7 @@
       "@type": "ProfessionalService",
       "@id": "https://agentic-gateway.de/#org",
       "name": "Agentic Gateway",
-      "description": "KI-Agentur für Fertigungsbetriebe: KI-Agenten und Workflow-Automatisierung für Anfrage-, Angebots- und Auftragsprozesse in Lohnfertigung, Zulieferindustrie und Maschinenbau.",
+      "description": "KI-Consulting-Agentur für Fertigungsbetriebe: KI-Agenten und Workflow-Automatisierung für Anfrage-, Angebots- und Auftragsprozesse in Lohnfertigung, Zulieferindustrie und Maschinenbau.",
       "url": "https://agentic-gateway.de",
       "logo": "https://agentic-gateway.de/og-image.png",
       "image": "https://agentic-gateway.de/og-image.png",
@@ -464,6 +464,8 @@
     /* ---------- Pricing ---------- */
     .pricing-section { background: var(--paper-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .plans { display: grid; gap: 22px; margin-top: 70px; align-items: stretch; }
+    @media (min-width: 960px) { .plans.plans-two { grid-template-columns: repeat(2, 1fr); } }
+    .plan-status { display: inline-block; align-self: flex-start; margin-top: 14px; font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-wash, #edf0ff); color: var(--accent-deep, #2743d8); }
     @media (min-width: 960px) { .plans { grid-template-columns: repeat(3, 1fr); } }
     .plan {
       background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px);
@@ -760,7 +762,7 @@
         </span>
         <span>
           <span class="brand-name">Agentic Gateway</span><br />
-          <span class="brand-sub">KI-Agentur</span>
+          <span class="brand-sub">KI-Consulting</span>
         </span>
       </a>
       <div class="nav-links">
@@ -769,7 +771,7 @@
         <a href="#leistungen">Leistungen</a>
         <a href="#preise">Preise</a>
         <a href="/roi-rechner/">ROI-Rechner</a>
-        <a href="#sicherheit">Sicherheit</a>
+        <a href="#werkzeuge">Werkzeuge</a>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <a href="#kontakt" class="btn btn-ink nav-cta">Erstgespräch anfragen</a>
@@ -782,6 +784,7 @@
       <a href="#check">KI-Check</a>
       <a href="#demo">Live-Demo</a>
       <a href="#leistungen">Leistungen</a>
+      <a href="#werkzeuge">Werkzeuge</a>
       <a href="#branchen">Branchen</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#preise">Preise</a>
@@ -797,12 +800,13 @@
     <header class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">KI-Agentur für Fertigung &amp; Industrie</span>
-          <h1 class="display">KI-Agenten für <em>Fertigungs&shy;betriebe</em> – gebaut von einem Fertiger.</h1>
+          <span class="eyebrow">KI-Consulting für Fertigung &amp; Industrie</span>
+          <h1 class="display">KI-Beratung für <em>Fertigungs&shy;betriebe</em> – mit Werkzeugen, die wirklich laufen.</h1>
           <p class="lead">
-            Zwischen Anfrage, Zeichnung, Machbarkeitsprüfung und Angebot bleibt in Fertigungsbetrieben
-            die meiste Zeit liegen. Genau diese Abläufe automatisieren wir – aus der Praxis eines eigenen
-            Industrie-3D-Druck-Betriebs, mit menschlicher Freigabe an jeder kritischen Stelle.
+            Wir finden die Abläufe, in denen bei Ihnen die meiste Zeit liegen bleibt – zwischen Anfrage,
+            Zeichnung, Angebot und Auftrag – und setzen sie um: mit eigener, getesteter Software statt
+            Folien. Aus der Praxis eines eigenen Fertigungsbetriebs, mit menschlicher Freigabe an jeder
+            kritischen Stelle.
           </p>
           <div class="hero-ctas">
             <a href="#check" class="btn btn-ink">
@@ -1032,6 +1036,50 @@
                 <span>Potenzialanalyse</span><span>ERP-Bewertung</span><span>Team-Schulung</span>
               </div>
             </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WERKZEUGE ============ -->
+    <section class="block" id="werkzeuge">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Unsere Werkzeuge</span>
+          <h2 class="display">Beratung mit eigener Software dahinter.</h2>
+          <p class="lead">
+            Was wir empfehlen, können wir selbst umsetzen. Zwei Werkzeuge entwickeln wir dafür selbst –
+            der Stand steht jeweils dabei.
+          </p>
+        </div>
+        <div class="plans plans-two">
+          <article class="plan reveal">
+            <div class="plan-tier">Software · Abo</div>
+            <h3>Anfragen-Postfach</h3>
+            <span class="plan-status">Pilotphase · gebaut und getestet</span>
+            <div class="plan-price"><strong>ab 149&nbsp;€</strong><span>im Monat netto</span></div>
+            <div class="plan-meta">monatlich kündbar · gehostete Fassung folgt</div>
+            <ul>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Anfragen aus E-Mail und Formular auf einem Board, jede mit Antwortfrist</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>STEP, STL, 3MF und OBJ werden vermessen, der Preisrahmen kommt aus Ihren eigenen Sätzen</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>KI-Antwortentwurf mit Kennzeichnung – versendet wird nur nach Ihrer Freigabe</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Aufträge, Materialchargen, Abweichungsberichte und ein lückenloser Verlauf</li>
+            </ul>
+            <a href="/software/" class="btn btn-ghost">Zur Software</a>
+          </article>
+          <article class="plan reveal">
+            <div class="plan-tier">Lokal im Betrieb</div>
+            <h3>CorpBrain – Firmenwissen mit Quellen</h3>
+            <span class="plan-status">in Vorbereitung · Pilotbetriebe gesucht</span>
+            <div class="plan-price"><strong>nach Umfang</strong></div>
+            <div class="plan-meta">Einrichtung durch uns · Preis im Angebot</div>
+            <ul>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Antworten aus Ihren eigenen Dokumenten – QM-Handbuch, Arbeitsanweisungen, Servicewissen – immer mit Quelle</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ausgelegt für den Betrieb auf eigener Hardware mit lokalem Sprachmodell</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Rollen, Audit-Log, Löschkonzept und ein KI-Hinweis an jeder Antwort</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B5BFD" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Bausteine für den EU AI Act statt pauschaler Konformitätsversprechen</li>
+            </ul>
+            <a href="#kontakt" class="btn btn-ghost">Pilot anfragen</a>
           </article>
         </div>
       </div>
@@ -1440,7 +1488,7 @@
             <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
           </svg>
         </span>
-        <span><strong>Agentic Gateway</strong> · KI-Agentur · Rodgau bei Frankfurt</span>
+        <span><strong>Agentic Gateway</strong> · KI-Consulting · Rodgau bei Frankfurt</span>
       </div>
       <div class="foot-links">
         <a href="/blog/">Blog</a>
