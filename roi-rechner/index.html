@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROI-Rechner Prozessautomatisierung | Agentic Gateway</title>
+  <meta name="description" content="Rechnen Sie selbst nach, ob sich die Automatisierung von Anfrage und Angebot lohnt: Zeitersparnis, cashwirksamer Nutzen, ROI, Amortisation, drei Szenarien und Sensitivität. Alle Formeln offen." />
+  <meta name="robots" content="index, follow" />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="/legal.css" />
+  <link rel="canonical" href="https://agentic-gateway.de/roi-rechner/" />
+  <meta property="og:title" content="ROI-Rechner Prozessautomatisierung | Agentic Gateway" />
+  <meta property="og:description" content="Lohnt sich die Automatisierung von Anfrage und Angebot? Selbst nachrechnen, mit offenen Formeln und drei Szenarien." />
+  <meta property="og:url" content="https://agentic-gateway.de/roi-rechner/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://agentic-gateway.de/og-image.png?v=2" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Agentic Gateway" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script src="/assets/site.js"></script>
+  <script src="/assets/roi.js"></script>
+  <style>
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; }
+    .roi-grid fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 14px; align-content: start; }
+    .roi-grid legend { font-weight: 650; margin-bottom: 6px; color: var(--ink); }
+    .roi-field label { display: block; font-size: 15px; color: var(--ink-soft); margin-bottom: 4px; }
+    .roi-field input { width: 100%; font: inherit; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--card); color: var(--ink); }
+    .roi-field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .roi-field small { display: block; color: var(--muted); font-size: 13.5px; margin-top: 4px; line-height: 1.45; }
+    .roi-error { color: var(--danger); font-weight: 600; margin: 12px 0 0; }
+    .roi-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 8px 0 20px; }
+    .roi-kpi { background: var(--paper-deep); border-radius: var(--radius-sm); padding: 14px; }
+    .roi-kpi span { display: block; font-size: 13.5px; color: var(--muted); }
+    .roi-kpi strong { display: block; font-size: 22px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .roi-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; }
+    .roi-table th, .roi-table td { text-align: right; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+    .roi-table th:first-child, .roi-table td:first-child { text-align: left; }
+    .roi-scroll { overflow-x: auto; }
+    .roi-note { background: var(--warn-wash); color: var(--ink-soft); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 15px; }
+    .roi-cta { display: inline-block; background: var(--ink); color: var(--paper); padding: 12px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+    code.f { font-family: var(--font-mono); font-size: 14px; }
+    @media (max-width: 720px) {
+      .roi-grid { grid-template-columns: 1fr; }
+      .roi-kpis { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="halo"></div>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+              <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-title">Agentic Gateway</span>
+            <span class="brand-subtitle">KI-Agentur · ROI-Rechner</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="/">Startseite</a>
+          <a href="/#preise">Pakete</a>
+          <a href="/#kontakt">Kontakt</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <div class="eyebrow">Wirtschaftlichkeit</div>
+      <h1 class="headline">Lohnt sich die Automatisierung von Anfrage und Angebot?</h1>
+      <p class="lead">
+        Tragen Sie Ihre eigenen Zahlen ein. Der Rechner zeigt, wie viel Zeit frei wird, welcher Teil davon
+        wirklich Geld ist, wann sich die Investition trägt und welche Annahme das Ergebnis am stärksten bewegt.
+        Es wird nichts übertragen; die Rechnung läuft nur in Ihrem Browser. Vorbelegt sind Beispielwerte, keine Messwerte.
+      </p>
+
+      <section class="card">
+        <div class="card-inner">
+          <form id="roi-form" novalidate>
+            <div class="roi-grid">
+              <fieldset>
+                <legend>Ihr Ablauf heute und danach</legend>
+                <div class="roi-field">
+                  <label for="vorgaengeProMonat">Vorgänge pro Monat</label>
+                  <input id="vorgaengeProMonat" inputmode="decimal" value="40" />
+                  <small>z. B. Anfragen, die zu einem Angebot führen</small>
+                </div>
+                <div class="roi-field">
+                  <label for="minutenVorher">Minuten je Vorgang heute</label>
+                  <input id="minutenVorher" inputmode="decimal" value="45" />
+                  <small>Am besten an einem echten Vorgang gestoppt</small>
+                </div>
+                <div class="roi-field">
+                  <label for="minutenNachher">Minuten je Vorgang mit Automatisierung</label>
+                  <input id="minutenNachher" inputmode="decimal" value="20" />
+                  <small>Inklusive Prüfung und Freigabe durch Ihr Team</small>
+                </div>
+                <div class="roi-field">
+                  <label for="stundensatz">Voll belasteter Stundensatz (€)</label>
+                  <input id="stundensatz" inputmode="decimal" value="55" />
+                  <small>Lohn plus Nebenkosten und Arbeitsplatz, nicht der Verkaufsstundensatz</small>
+                </div>
+                <div class="roi-field">
+                  <label for="anteilCashwirksam">Davon cashwirksam (%)</label>
+                  <input id="anteilCashwirksam" inputmode="decimal" value="50" />
+                  <small>Nur der Teil der freien Zeit, der wirklich Kosten spart oder verkauft wird
+                    (weniger Überstunden, keine Neueinstellung, mehr fakturierbare Stunden). 0 % ist ehrlich, wenn die Zeit einfach frei bleibt.</small>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Kosten und weiterer Nutzen</legend>
+                <div class="roi-field">
+                  <label for="einmalkosten">Einmalkosten Umsetzung (€)</label>
+                  <input id="einmalkosten" inputmode="decimal" value="2900" />
+                  <small>z. B. Paket „Anfrage-Eingang automatisiert“</small>
+                </div>
+                <div class="roi-field">
+                  <label for="interneEinmalkosten">Interne Einmalkosten (€)</label>
+                  <input id="interneEinmalkosten" inputmode="decimal" value="440" />
+                  <small>Ihre Stunden für Einführung und Schulung × Stundensatz</small>
+                </div>
+                <div class="roi-field">
+                  <label for="laufendeKostenProMonat">Laufende Kosten pro Monat (€)</label>
+                  <input id="laufendeKostenProMonat" inputmode="decimal" value="149" />
+                  <small>Software-Abo, KI-Nutzung, interne Pflege</small>
+                </div>
+                <div class="roi-field">
+                  <label for="sonstigeEinsparungProMonat">Weitere belegbare Einsparung pro Monat (€)</label>
+                  <input id="sonstigeEinsparungProMonat" inputmode="decimal" value="0" />
+                  <small>Nur was Sie belegen können, z. B. weniger Nacharbeit durch vollständige Anfragen</small>
+                </div>
+                <div class="roi-field">
+                  <label for="zusatzAuftraegeProMonat">Zusätzliche Aufträge pro Monat</label>
+                  <input id="zusatzAuftraegeProMonat" inputmode="decimal" value="0" />
+                  <small>Etwa weil Angebote schneller rausgehen. Im Zweifel 0.</small>
+                </div>
+                <div class="roi-field">
+                  <label for="deckungsbeitragJeAuftrag">Deckungsbeitrag je zusätzlichem Auftrag (€)</label>
+                  <input id="deckungsbeitragJeAuftrag" inputmode="decimal" value="0" />
+                  <small>Umsatz minus variable Kosten, nicht der Umsatz</small>
+                </div>
+                <div class="roi-field">
+                  <label for="zeitraumMonate">Betrachtungszeitraum (Monate)</label>
+                  <input id="zeitraumMonate" inputmode="numeric" value="12" />
+                </div>
+              </fieldset>
+            </div>
+            <p class="roi-error" id="roi-error" role="alert" hidden></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="card" aria-live="polite">
+        <div class="card-inner">
+          <h2>Ergebnis (Basis-Szenario)</h2>
+          <div class="roi-kpis">
+            <div class="roi-kpi"><span>Gesparte Stunden / Monat</span><strong id="k-stunden">–</strong></div>
+            <div class="roi-kpi"><span>Cashwirksamer Nutzen / Monat</span><strong id="k-nutzen">–</strong></div>
+            <div class="roi-kpi"><span>ROI im Zeitraum</span><strong id="k-roi">–</strong></div>
+            <div class="roi-kpi"><span>Amortisation</span><strong id="k-amort">–</strong></div>
+          </div>
+          <p id="k-text"></p>
+
+          <h3>Drei Szenarien</h3>
+          <p>Die Szenarien unterscheiden sich nur darin, wie viel der erwarteten Zeitersparnis tatsächlich eintritt:
+            konservativ 50 %, Basis 80 %, optimistisch 100 %. Das sind Annahmen, keine Messwerte.</p>
+          <div class="roi-scroll">
+            <table class="roi-table">
+              <thead><tr><th>Szenario</th><th>Stunden / Monat</th><th>Netto / Monat</th><th>Netto im Zeitraum</th><th>ROI</th><th>Amortisation</th></tr></thead>
+              <tbody id="t-szenarien"></tbody>
+            </table>
+          </div>
+
+          <h3>Was das Ergebnis am stärksten bewegt</h3>
+          <p>Jede Eingabe einzeln um 20 % kleiner und größer, Wirkung auf das Netto im Zeitraum (Basis-Szenario).</p>
+          <div class="roi-scroll">
+            <table class="roi-table">
+              <thead><tr><th>Eingabe</th><th>−20 %</th><th>+20 %</th><th>Spanne</th></tr></thead>
+              <tbody id="t-sensitiv"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-inner">
+          <h2>So wird gerechnet</h2>
+          <p><code class="f">Gesparte Stunden = Vorgänge × (Minuten heute − Minuten danach) × Realisierungsgrad ÷ 60</code></p>
+          <p><code class="f">Zeitwert = gesparte Stunden × voll belasteter Stundensatz</code> (kalkulatorisch)</p>
+          <p><code class="f">Nutzen = Zeitwert × Anteil cashwirksam + Deckungsbeiträge + belegbare Einsparungen</code></p>
+          <p><code class="f">Kosten = Einmalkosten + laufende Kosten × Monate</code></p>
+          <p><code class="f">ROI = (Nutzen im Zeitraum − Kosten im Zeitraum) ÷ Kosten im Zeitraum × 100</code></p>
+          <p><code class="f">Amortisation = Einmalkosten ÷ (Nutzen − laufende Kosten) pro Monat</code>, nur wenn der Monatswert positiv ist.</p>
+          <p class="roi-note">Grenzen: konstante Monatswerte, keine Abzinsung, keine Anlaufphase. Freigesetzte Zeit zählt nur
+            mit dem Anteil, den Sie als cashwirksam angeben. Das Ergebnis ist eine Rechnung mit Ihren Annahmen, keine Zusage.
+            Im Prozess-Check messen wir die Minuten an einem echten Vorgang aus Ihrem Betrieb.</p>
+          <p id="k-kalk"></p>
+          <p><a class="roi-cta" href="/#kontakt">Prozess-Check anfragen (690 €, wird angerechnet)</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div><strong>Agentic Gateway</strong> · KI-Agentur für Fertigungsbetriebe · Rodgau</div>
+        <div class="footer-links">
+          <a href="/">Startseite</a>
+          <a href="/software/">Software</a>
+          <a href="/blog/">Blog</a>
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/agb/">AGB</a>
+          <button type="button" data-consent-open>Cookie-Einstellungen</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      var form = document.getElementById("roi-form");
+      var errorBox = document.getElementById("roi-error");
+      var PROZENT = ["anteilCashwirksam"];
+      var NAMEN = {
+        vorgaengeProMonat: "Vorgänge pro Monat",
+        minutenVorher: "Minuten heute",
+        minutenNachher: "Minuten danach",
+        stundensatz: "Stundensatz",
+        anteilCashwirksam: "Anteil cashwirksam",
+        laufendeKostenProMonat: "Laufende Kosten",
+        einmalkosten: "Einmalkosten"
+      };
+      var eur = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+      var zahl1 = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 1 });
+
+      function lies() {
+        var e = {};
+        form.querySelectorAll("input").forEach(function (inp) {
+          var v = inp.value.trim().replace(",", ".");
+          var n = v === "" ? NaN : Number(v);
+          if (PROZENT.indexOf(inp.id) >= 0) n = n / 100;
+          e[inp.id] = n;
+        });
+        return e;
+      }
+      function prozent(x) { return x === null ? "nicht berechenbar" : zahl1.format(x) + " %"; }
+      function amort(a) {
+        if (a.monate === null) return "keine";
+        if (a.monate === 0) return "sofort";
+        return zahl1.format(a.monate) + " Monate";
+      }
+      function zelle(t) { var td = document.createElement("td"); td.textContent = t; return td; }
+
+      function rechne() {
+        var eingabe = lies();
+        var basis, sz, sens;
+        try {
+          sz = AGRoi.szenarien(eingabe);
+          basis = sz.basis;
+          sens = AGRoi.sensitivitaet(Object.assign({}, eingabe, { realisierungsgrad: AGRoi.SZENARIEN.basis }));
+          errorBox.hidden = true;
+        } catch (err) {
+          errorBox.textContent = "Bitte prüfen Sie die Eingaben: " + (err.fehler || [err.message]).map(function (f) {
+            var feld = f.split(":")[0];
+            var label = form.querySelector('label[for="' + feld + '"]');
+            return (label ? label.textContent : feld) + " –" + f.slice(feld.length + 1);
+          }).join("; ");
+          errorBox.hidden = false;
+          return;
+        }
+        var n = basis.eingabe.zeitraumMonate;
+        document.getElementById("k-stunden").textContent = zahl1.format(basis.gesparteStundenProMonat) + " h";
+        document.getElementById("k-nutzen").textContent = eur.format(basis.nutzenProMonat);
+        document.getElementById("k-roi").textContent = prozent(basis.roiProzent);
+        document.getElementById("k-amort").textContent = amort(basis.amortisation);
+        document.getElementById("k-text").textContent =
+          "In " + n + " Monaten: Nutzen " + eur.format(basis.gesamtnutzen) + ", Kosten " + eur.format(basis.gesamtkosten) +
+          ", Netto " + eur.format(basis.nettoGesamt) + "." + (basis.amortisation.grund ? " Hinweis: " + basis.amortisation.grund + "." : "");
+        document.getElementById("k-kalk").textContent =
+          "Zum Vergleich, falls jede freie Stunde Geld wäre (kalkulatorisch, kein Cashflow): ROI " + prozent(basis.roiKalkulatorischProzent) + ".";
+
+        var tb = document.getElementById("t-szenarien");
+        tb.textContent = "";
+        [["konservativ", "Konservativ"], ["basis", "Basis"], ["optimistisch", "Optimistisch"]].forEach(function (p) {
+          var r = sz[p[0]];
+          var tr = document.createElement("tr");
+          [p[1], zahl1.format(r.gesparteStundenProMonat), eur.format(r.nettoProMonat), eur.format(r.nettoGesamt), prozent(r.roiProzent), amort(r.amortisation)]
+            .forEach(function (t) { tr.appendChild(zelle(t)); });
+          tb.appendChild(tr);
+        });
+
+        var ts = document.getElementById("t-sensitiv");
+        ts.textContent = "";
+        sens.forEach(function (s) {
+          var tr = document.createElement("tr");
+          [NAMEN[s.feld] || s.feld, eur.format(s.nettoRunter), eur.format(s.nettoHoch), eur.format(s.spanne)]
+            .forEach(function (t) { tr.appendChild(zelle(t)); });
+          ts.appendChild(tr);
+        });
+        if (window.agTrack) window.agTrack("roi_berechnet", { roi: basis.roiProzent === null ? "n/a" : Math.round(basis.roiProzent) });
+      }
+
+      form.addEventListener("input", rechne);
+      form.addEventListener("submit", function (ev) { ev.preventDefault(); rechne(); });
+      rechne();
+    })();
+  </script>
+</body>
+</html>

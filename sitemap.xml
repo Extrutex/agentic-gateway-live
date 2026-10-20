@@ -31,7 +31,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://agentic-gateway.de/beratung/</loc>
+    <loc>https://agentic-gateway.de/roi-rechner/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://agentic-gateway.de/software/</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
