@@ -284,13 +284,13 @@
       width: 38px; height: 38px; border-radius: 10px;
       background: var(--ink); display: grid; place-items: center; flex: none;
     }
-    .brand-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
-    .brand-sub { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
-    .nav-links { display: none; align-items: center; gap: 30px; font-size: 15px; font-weight: 500; color: var(--muted); }
-    .nav-links a { transition: color .15s ease; }
+    .brand-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+    .brand-sub { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 600; white-space: nowrap; }
+    .nav-links { display: none; align-items: center; gap: 26px; font-size: 15px; font-weight: 500; color: var(--muted); }
+    .nav-links a { transition: color .15s ease; white-space: nowrap; }
     .nav-links a:hover { color: var(--ink); }
-    .nav-cta { display: none; }
-    @media (min-width: 960px) {
+    .nav-cta { display: none; white-space: nowrap; }
+    @media (min-width: 1180px) {
       .nav-links { display: flex; }
       .nav-cta { display: inline-flex; padding: 11px 22px; font-size: 14.5px; }
     }
@@ -298,7 +298,7 @@
       display: grid; place-items: center; width: 42px; height: 42px;
       border: 1px solid var(--line-strong); border-radius: 10px; background: transparent; cursor: pointer;
     }
-    @media (min-width: 960px) { .nav-burger { display: none; } }
+    @media (min-width: 1180px) { .nav-burger { display: none; } }
     .mobile-menu {
       display: none; flex-direction: column; gap: 4px; padding: 10px 24px 22px;
       border-top: 1px solid var(--line);
@@ -767,8 +767,6 @@
         <a href="#check">KI-Check</a>
         <a href="#demo">Live-Demo</a>
         <a href="#leistungen">Leistungen</a>
-        <a href="#branchen">Branchen</a>
-        <a href="#ablauf">Ablauf</a>
         <a href="#preise">Preise</a>
         <a href="/roi-rechner/">ROI-Rechner</a>
         <a href="#sicherheit">Sicherheit</a>
