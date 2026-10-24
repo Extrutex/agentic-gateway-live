@@ -19,7 +19,7 @@
   var cfg = window.AG_CONFIG = Object.freeze({
     // Web-App URL of the Google Apps Script lead webhook (ops/lead-webhook/Code.gs).
     // Empty = forms fall back to a prepared mailto message.
-    leadEndpoint: "",
+    leadEndpoint: "https://script.google.com/macros/s/AKfycbwgt6X7FSV9DJTt4EGuYS4a8vAH1yVsv4F7q86T5jXiNJzySu_JoiPiRhAH3GHl-Exj1A/exec",
     // Umami Cloud website ID (cookieless, no consent required). Empty = Umami off.
     umamiWebsiteId: "",
     // Google Analytics 4 measurement ID. The placeholder keeps GA and the consent banner off.
@@ -255,9 +255,10 @@
   try { sessionStorage.removeItem("ag_attr"); } catch (e) { /* private mode */ }
 
   // ------------------------------------------------------------------ lead transport
-  // Resolves "sent" once the request left the browser; rejects on missing endpoint,
-  // network error or 10 s timeout. no-cors + text/plain avoids a CORS preflight that
-  // Apps Script cannot answer; the response body is therefore opaque by design.
+  // Resolves "sent" only when the webhook answers {"ok":true}; rejects on missing endpoint,
+  // network error, 10 s timeout or a negative/unreadable answer, so the forms fall back to mailto.
+  // text/plain keeps this a simple request (no CORS preflight); the Apps Script answer carries
+  // access-control-allow-origin: * and can be read.
   window.agSendLead = function (payload) {
     var body = {};
     Object.keys(payload).forEach(function (k) { body[k] = payload[k]; });
@@ -269,13 +270,15 @@
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 10000) : null;
     return fetch(cfg.leadEndpoint, {
       method: "POST",
-      mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body),
       signal: ctrl ? ctrl.signal : undefined
-    }).then(function () {
+    }).then(function (res) {
       if (timer) clearTimeout(timer);
-      return "sent";
+      return res.json();
+    }).then(function (data) {
+      if (data && data.ok === true) return "sent";
+      throw new Error("lead-rejected");
     }, function (err) {
       if (timer) clearTimeout(timer);
       throw err;

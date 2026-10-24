@@ -110,3 +110,14 @@ Wenn du Links in LinkedIn-Posts, E-Mails oder Ads setzt, UTM-Parameter anhängen
 ```
 https://agentic-gateway.de/?utm_source=linkedin&utm_medium=post&utm_campaign=demo-anfragecheck
 ```
+
+## KI-Entwurf für Kontaktanfragen (optional)
+
+Der Webhook legt für Kontaktanfragen einen **Gmail-Entwurf** an (nie automatischer Versand).
+
+1. In der Anthropic Platform Console einen eigenen API-Schlüssel nur dafür anlegen (Name z. B. `website-agent`) und dort ein Ausgabenlimit setzen.
+2. Apps-Script-Projekt → Projekteinstellungen → Skripteigenschaften: `ANTHROPIC_API_KEY` = Schlüssel. Nicht in den Code, nicht ins Repo.
+3. Skript neu bereitstellen (`deploy.sh`), `testLead` ausführen und die neuen Berechtigungen (externe Anfragen, Gmail-Entwurf) erlauben.
+4. Ohne Schlüssel läuft alles wie bisher, nur ohne Entwurf. Abschalten: `DRAFT_ENABLED: false`.
+
+Der Entwurf geht an die Absenderadresse der Anfrage und erscheint in den Entwürfen des Google-Kontos, das das Skript bereitstellt. Gesendet wird über den Alias `info@agentic-gateway.de`, falls dieser in Gmail als „Senden als“ eingerichtet ist.
