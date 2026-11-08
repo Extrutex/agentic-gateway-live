@@ -20,7 +20,8 @@
     // Web-App URL of the Google Apps Script lead webhook (ops/lead-webhook/Code.gs).
     // Empty = forms fall back to a prepared mailto message.
     leadEndpoint: "https://script.google.com/macros/s/AKfycbwgt6X7FSV9DJTt4EGuYS4a8vAH1yVsv4F7q86T5jXiNJzySu_JoiPiRhAH3GHl-Exj1A/exec",
-    // Umami Cloud website ID (cookieless, no consent required). Empty = Umami off.
+    // Umami Cloud website ID (cookieless). Empty = Umami off. Decision 08.11.2026: only with visitor consent
+    // via "Statistik erlauben"; do not set an ID before the consent switch is merged (§ 25 TDDDG).
     umamiWebsiteId: "",
     // Google Analytics 4 measurement ID. The placeholder keeps GA and the consent banner off.
     ga4MeasurementId: GA4_PLACEHOLDER,

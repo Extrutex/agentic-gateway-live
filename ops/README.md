@@ -41,7 +41,7 @@ Spalte **Status** im Sheet ist deine Pipeline: `neu` → `kontaktiert` → `Term
 
 ## 2. Conversion-Tracking mit Umami Cloud (≈ 5 Minuten)
 
-Umami arbeitet ohne Cookies und ohne personenbezogene Profile – kein Cookie-Banner nötig. Der kostenlose Hobby-Tarif reicht (100.000 Events/Monat, 3 Websites, 6 Monate Datenhaltung).
+Umami arbeitet ohne Cookies und ohne personenbezogene Profile. Das Skript liest aber Geräteeigenschaften aus, § 25 TDDDG ist dafür nicht geklärt. **Entscheidung vom 08.11.2026: Umami läuft nur mit Einwilligung über „Statistik erlauben“.** Website-ID erst eintragen, wenn der Einwilligungs-Schalter gemergt ist. Der kostenlose Hobby-Tarif reicht (100.000 Events/Monat, 3 Websites, 6 Monate Datenhaltung).
 
 1. Konto anlegen auf <https://cloud.umami.is> (Hobby, ohne Kreditkarte).
 2. **Websites → Add website**: Name `Agentic Gateway`, Domain `agentic-gateway.de`.
