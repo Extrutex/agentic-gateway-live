@@ -39,6 +39,7 @@
     us.src = "https://cloud.umami.is/script.js";
     us.setAttribute("data-website-id", cfg.umamiWebsiteId);
     us.setAttribute("data-domains", "agentic-gateway.de");
+    us.setAttribute("data-do-not-track", "true"); // respect the browser's Do-Not-Track setting
     us.onload = function () {
       var q = umamiQueue.splice(0, umamiQueue.length);
       q.forEach(function (ev) { sendUmami(ev[0], ev[1]); });

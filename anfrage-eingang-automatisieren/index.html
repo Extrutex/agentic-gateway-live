@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anfragen aus E-Mails automatisch erfassen | Agentic Gateway</title>
+  <meta name="description" content="Anfrage-Eingang automatisieren: Angebotsanfragen aus E-Mails automatisch erfassen, fehlende Angaben erkennen, Rückfrage als Entwurf. Festpreis 2.900 € netto." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sebastian Windt" />
+  <meta property="og:title" content="Anfrage-Eingang automatisieren | Agentic Gateway" />
+  <meta property="og:description" content="Jede E-Mail-Anfrage wird zum Vorgang mit ausgelesenen Angaben. Fehlende Angaben sind markiert, die Rückfrage liegt als Entwurf bereit. Versand nur nach Ihrer Freigabe. 2.900 € netto." />
+  <meta property="og:url" content="https://agentic-gateway.de/anfrage-eingang-automatisieren/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Agentic Gateway" />
+  <meta property="og:image" content="https://agentic-gateway.de/og-image.png?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://agentic-gateway.de/anfrage-eingang-automatisieren/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191613'/%3E%3Cpath d='M18 48V32a14 14 0 0 1 28 0v16' fill='none' stroke='%23FAF7F2' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='33' r='4.6' fill='%233B5BFD'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="/legal.css" />
+  <script src="/assets/site.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://agentic-gateway.de/#org",
+        "name": "Agentic Gateway",
+        "url": "https://agentic-gateway.de/",
+        "logo": "https://agentic-gateway.de/og-image.png",
+        "email": "info@agentic-gateway.de",
+        "founder": { "@type": "Person", "name": "Sebastian Windt" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Rodgau",
+          "postalCode": "63110",
+          "addressRegion": "Hessen",
+          "addressCountry": "DE"
+        }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://agentic-gateway.de/anfrage-eingang-automatisieren/#service",
+        "name": "Anfrage-Eingang automatisieren",
+        "serviceType": "Automatisierung des Anfrage-Eingangs per E-Mail",
+        "description": "Eingehende Anfragen aus einem Postfach oder Webformular werden automatisch zum Vorgang mit ausgelesenen Angaben. Fehlende Pflichtangaben werden markiert, eine Rückfrage liegt als Entwurf vor. Versand nur nach menschlicher Freigabe.",
+        "provider": { "@id": "https://agentic-gateway.de/#org" },
+        "areaServed": { "@type": "Country", "name": "Deutschland" },
+        "offers": {
+          "@type": "Offer",
+          "price": "2900",
+          "priceCurrency": "EUR",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "2900",
+            "priceCurrency": "EUR",
+            "valueAddedTaxIncluded": false
+          },
+          "url": "https://agentic-gateway.de/anfrage-eingang-automatisieren/"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://agentic-gateway.de/anfrage-eingang-automatisieren/#webpage",
+        "url": "https://agentic-gateway.de/anfrage-eingang-automatisieren/",
+        "name": "Anfragen aus E-Mails automatisch erfassen | Agentic Gateway",
+        "inLanguage": "de",
+        "isPartOf": { "@id": "https://agentic-gateway.de/#website" },
+        "about": { "@id": "https://agentic-gateway.de/anfrage-eingang-automatisieren/#service" },
+        "publisher": { "@id": "https://agentic-gateway.de/#org" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://agentic-gateway.de/" },
+          { "@type": "ListItem", "position": 2, "name": "Anfrage-Eingang automatisieren", "item": "https://agentic-gateway.de/anfrage-eingang-automatisieren/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://agentic-gateway.de/anfrage-eingang-automatisieren/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Was kostet es, den Anfrage-Eingang zu automatisieren?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Die Einrichtung im beschriebenen Umfang kostet einmalig 2.900 € netto zzgl. gesetzlicher Umsatzsteuer. Laufende Kosten für KI-Verbrauch, Server und eine eventuelle Betreuung sind nicht enthalten und werden im Angebot gesondert ausgewiesen." }
+          },
+          {
+            "@type": "Question",
+            "name": "Geht eine Antwort automatisch an unsere Kunden?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nein. Rückfragen und Antworten liegen als Entwurf vor. Ein Mitarbeiter prüft, ändert bei Bedarf und gibt mit einem Klick frei. Ohne diese Freigabe geht keine Nachricht an Kunden." }
+          },
+          {
+            "@type": "Question",
+            "name": "Funktioniert das mit Microsoft 365 oder Outlook.com?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Derzeit nicht. Microsoft 365 und Outlook.com erlauben den Postfachzugriff per Passwort nicht mehr, die dafür nötige Microsoft-Anmeldung ist noch nicht eingebaut. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage." }
+          },
+          {
+            "@type": "Question",
+            "name": "Wo werden die Anfragen verarbeitet?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Die Software läuft mit Docker auf einem Rechner oder Server in Ihrem internen Netz, die Datenbank ebenfalls. Für das Auslesen nutzen Sie entweder Claude von Anthropic, dann werden Anfragetexte an Anthropic übermittelt, oder ein lokales Modell auf Ihrem Rechner." }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie lange dauert die Einrichtung?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Wir planen zwei bis vier Wochen ab dem Zeitpunkt, an dem alle Voraussetzungen vorliegen: Postfachzugang, ein Rechner mit Docker, zehn Beispielanfragen, Ihre Pflichtangaben und eine verantwortliche Person." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    /* Page-specific layout. Shared components live in /legal.css. */
+    .content { padding-top: 40px; }
+    .hero { padding: 48px 0 16px; max-width: 900px; }
+    .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(38px, 5vw, 66px); line-height: 1.02; letter-spacing: -.026em; margin: 24px 0 0; color: var(--ink); text-wrap: balance; }
+    .hero h1 em { font-style: italic; color: var(--accent-deep); }
+    .hero .lead { max-width: 680px; margin: 24px 0 0; font-size: 19px; line-height: 1.6; color: var(--ink-soft); }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 22px 0 0; padding: 0; list-style: none; font-size: 14.5px; color: var(--muted); }
+    .hero-facts li { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-facts svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+    .crumbs { font-size: 13.5px; color: var(--muted); margin: 0; }
+    .crumbs a { color: var(--muted); }
+
+    .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 26px 24px; }
+    .tile h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; line-height: 1.35; color: var(--ink); }
+    .tile p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line-strong); }
+    .step { padding: 30px 22px 34px 0; border-right: 1px solid var(--line); }
+    .step + .step { padding-left: 22px; }
+    .step:last-child { border-right: 0; padding-right: 0; }
+    .step .num { font-family: var(--font-display); font-size: 48px; line-height: 1; font-weight: 400; color: var(--accent); letter-spacing: -.03em; }
+    .step h3 { margin: 18px 0 10px; font-size: 19px; font-weight: 700; letter-spacing: -.01em; color: var(--ink); }
+    .step p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; }
+
+    .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; max-width: 820px; }
+    .list li { position: relative; padding-left: 30px; color: var(--ink-soft); font-size: 16px; line-height: 1.6; }
+    .list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-wash); }
+    .list li::after { content: ""; position: absolute; left: 5px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .list strong { color: var(--ink); }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .cols h3 { margin: 0 0 16px; font-size: 20px; font-weight: 700; color: var(--ink); }
+    .list.minus li::before { background: #EFE9DF; }
+    .list.minus li::after { background: var(--muted); }
+
+    .honest { background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 30px; }
+    .honest p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; margin: 0 0 12px; }
+    .honest p:last-child { margin-bottom: 0; }
+
+    .pilot { display: grid; grid-template-columns: 1fr 1.25fr; gap: 36px; align-items: start; }
+    .pilot-intro p { color: var(--ink-soft); font-size: 16.5px; line-height: 1.7; margin: 0 0 14px; }
+    .pilot-intro .hint { font-size: 14.5px; color: var(--muted); }
+    .wform { background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 30px; box-shadow: 0 26px 60px -38px rgba(25, 22, 19, .25); }
+    .wform .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .wform .field { display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
+    .wform .row .field { margin-top: 0; }
+    .wform .row + .row, .wform .row + .field, .wform .field + .row { margin-top: 16px; }
+    .wform label { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .wform .opt { font-weight: 400; color: var(--faint); }
+    .wform input[type="text"], .wform input[type="email"], .wform select, .wform textarea { width: 100%; font: 15.5px/1.4 var(--font-body); color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 12px; padding: 12px 14px; }
+    .wform input:focus, .wform select:focus, .wform textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+    .wform .form-hint { margin-top: 16px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+    .wform .form-hint a { color: var(--accent); font-weight: 600; }
+    .wform .cta-btn { margin-top: 20px; width: 100%; }
+    .hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+    .form-status { margin: 14px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+    .form-status[data-state="error"] { color: #B42318; }
+    .form-status a { color: var(--accent); font-weight: 600; }
+    .form-alt { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+    .form-alt a { color: var(--accent); font-weight: 600; }
+    .form-done { text-align: center; padding: 18px 4px; }
+    .form-done h3 { font-family: var(--font-display); font-size: 26px; font-weight: 500; margin: 0 0 10px; color: var(--ink); }
+    .form-done p { color: var(--muted); margin: 0; line-height: 1.6; }
+
+    @media (max-width: 960px) {
+      .steps { grid-template-columns: 1fr 1fr; }
+      .step:nth-child(2) { border-right: 0; }
+      .step:nth-child(3) { padding-left: 0; }
+    }
+    @media (max-width: 760px) {
+      .tiles, .cols, .pilot, .wform .row, .steps { grid-template-columns: 1fr; }
+      .wform .row .field + .field { margin-top: 16px; }
+      .step, .step + .step, .step:nth-child(3) { border-right: 0; border-bottom: 1px solid var(--line); padding: 24px 0; }
+      .step:last-child { border-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+  <div class="shell">
+    <nav class="nav" aria-label="Hauptnavigation">
+      <div class="nav-inner">
+        <a href="/" class="brand" aria-label="Agentic Gateway – Startseite">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+              <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-title">Agentic Gateway</span>
+            <span class="brand-subtitle">Software &amp; KI-Agenten</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#ablauf">Ablauf</a>
+          <a href="#umfang">Umfang</a>
+          <a href="#fragen">Fragen</a>
+          <a href="/">Startseite</a>
+          <a href="#anfrage" class="nav-cta" data-cta="anfrage-eingang-nav">Anfrage stellen</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content" id="main">
+      <!-- ============ HERO ============ -->
+      <header class="hero">
+        <p class="crumbs"><a href="/">Startseite</a> / Anfrage-Eingang automatisieren</p>
+        <span class="label" style="margin-top:18px;">Paket · Festpreis 2.900 € netto</span>
+        <h1>Anfrage-Eingang automatisieren: <em>Jede E-Mail-Anfrage wird zum vollständigen Vorgang.</em></h1>
+        <p class="lead">
+          Angebotsanfragen kommen per E-Mail, und oft fehlen Stückzahl, Werkstoff oder Zeichnung.
+          Wir richten ein, dass jede Anfrage automatisch erfasst wird: Angaben ausgelesen, Fehlendes markiert,
+          Rückfrage als Entwurf vorbereitet. Ihr Team prüft und gibt frei – ohne Freigabe geht nichts an Kunden.
+        </p>
+        <div class="cta-row">
+          <a href="#anfrage" class="cta-btn" data-cta="anfrage-eingang-hero">
+            Passt das zu uns? Anfrage stellen
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#umfang" class="cta-ghost">Was enthalten ist</a>
+        </div>
+        <ul class="hero-facts" aria-label="Eckdaten">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>2.900 € netto zzgl. USt, einmalig</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Geplant 2–4 Wochen ab Voraussetzungen</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Versand nur nach Ihrer Freigabe</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Läuft in Ihrer eigenen Umgebung</li>
+        </ul>
+      </header>
+
+      <!-- ============ PROBLEM ============ -->
+      <section class="block" id="problem">
+        <div class="block-head">
+          <span class="label">Ausgangslage</span>
+          <h2>Wo Anfragen heute liegen bleiben.</h2>
+          <p>Im Mittelstand landen Angebotsanfragen meist in einem Sammelpostfach. Bis daraus ein Angebot wird, steckt viel Handarbeit dazwischen.</p>
+        </div>
+        <div class="tiles">
+          <div class="tile">
+            <h3>Angaben fehlen</h3>
+            <p>Stückzahl, Werkstoff, Liefertermin oder Zeichnung stehen nicht in der Mail. Jemand muss es bemerken und nachfragen.</p>
+          </div>
+          <div class="tile">
+            <h3>Nachfragen kostet Zeit</h3>
+            <p>Die gleichen Rückfragen werden immer wieder von Hand geschrieben – oft erst, wenn jemand Zeit dafür findet.</p>
+          </div>
+          <div class="tile">
+            <h3>Antworten gehen verloren</h3>
+            <p>Antwortet der Kunde auf die Rückfrage, muss seine Mail wieder der richtigen Anfrage zugeordnet werden.</p>
+          </div>
+          <div class="tile">
+            <h3>Kein Überblick</h3>
+            <p>Welche Anfrage ist vollständig, welche wartet auf den Kunden, welche hat noch niemand angesehen? Das steht nirgends.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABLAUF ============ -->
+      <section class="block" id="ablauf">
+        <div class="block-head">
+          <span class="label">So läuft es</span>
+          <h2>Angebotsanfragen automatisieren – mit Freigabe durch Ihr Team.</h2>
+          <p>Ein Eingang, ein Team, ein klar abgegrenzter Ablauf. Welche Angaben Pflicht sind und wie die Rückfragen lauten, legen Sie fest.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <h3>Anfrage kommt an</h3>
+            <p>Aus Ihrem Anfragen-Postfach (IMAP) oder aus einem Webformular. Jede Nachricht wird ein Vorgang, doppelt eingegangene Mails werden erkannt.</p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <h3>Angaben werden ausgelesen</h3>
+            <p>Eine KI liest bis zu acht festgelegte Angaben aus und fasst die Anfrage kurz zusammen. Jeder Wert wird gegen den Originaltext geprüft; was dort nicht steht, wird verworfen.</p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <h3>Fehlendes wird markiert</h3>
+            <p>Fehlen Pflichtangaben, liegt eine passende Rückfrage als Entwurf bereit – mit Ihren Formulierungen und Ihrer Signatur.</p>
+          </div>
+          <div class="step">
+            <span class="num">04</span>
+            <h3>Ihr Team gibt frei</h3>
+            <p>Auf einer Prüfseite stehen Angaben, Originalnachricht und Entwurf. Ändern, freigeben und senden oder verwerfen. Die Antwort des Kunden wird dem Vorgang zugeordnet.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ UMFANG ============ -->
+      <section class="block" id="umfang">
+        <div class="block-head">
+          <span class="label">Umfang und Preis</span>
+          <h2>Ein fester Umfang. Ein fester Preis.</h2>
+          <p>Der Preis gilt für den beschriebenen Umfang. Was darüber hinausgeht, vereinbaren wir vorher schriftlich mit Preis und Termin.</p>
+        </div>
+        <div class="pricing">
+          <div class="price-card">
+            <span class="tier">Anfrage-Eingang automatisieren</span>
+            <div class="amount">2.900 € <small>netto</small></div>
+            <p class="fine">Einmalig, zzgl. gesetzlicher Umsatzsteuer. Zahlung je zur Hälfte bei Beauftragung und nach der gemeinsamen Ergebnisprüfung.</p>
+            <a href="#anfrage" class="cta-btn" data-cta="anfrage-eingang-preis">Anfrage stellen</a>
+            <ul class="terms">
+              <li>Für Unternehmen und Selbstständige</li>
+              <li>Geplant 2–4 Wochen ab vollständigen Voraussetzungen</li>
+            </ul>
+          </div>
+          <div class="price-scope">
+            <h3>Enthalten</h3>
+            <ul>
+              <li>Ein Eingang: ein Postfach (IMAP) oder ein Webformular</li>
+              <li>Versand über Ihren eigenen Mailserver (SMTP)</li>
+              <li>Regelprofil: bis zu 8 Angaben mit Rückfragetexten, bis zu 6 Kategorien, Signatur</li>
+              <li>Auslesen und Kurzfassung per KI, jeder Wert gegen den Originaltext geprüft</li>
+              <li>Prüfseite mit „Freigeben und senden“ oder „Verwerfen“</li>
+              <li>Protokoll von Eingang, Freigabe und Versand mit automatischer Löschfrist</li>
+              <li>Fehlerhinweise: fällt die KI aus, läuft der Ablauf regelbasiert weiter</li>
+              <li>Einrichtung durch uns, zehn Testvorgänge, Bedienhinweise und Abnahmeprotokoll</li>
+            </ul>
+            <p>Die Ergebnisprüfung machen wir gemeinsam mit zehn Ihrer Beispielanfragen – darunter eine vollständige, eine mit fehlenden Angaben, eine mit Anhang und eine doppelt eingegangene. Abweichungen werden dokumentiert und behoben.</p>
+          </div>
+        </div>
+
+        <div class="cols" style="margin-top:48px;">
+          <div>
+            <h3>Nicht enthalten</h3>
+            <ul class="list minus">
+              <li>Weitere Postfächer, Teams oder Systeme</li>
+              <li>Anbindung an CRM oder ERP</li>
+              <li>Inhaltliche Prüfung von Anhängen sowie Preis- oder Angebotskalkulation</li>
+              <li>Automatischer Versand ohne Freigabe</li>
+              <li>Hosting durch uns und persönliche Schulungen</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Laufende Kosten (separat)</h3>
+            <ul class="list minus">
+              <li>KI-Verbrauch, wenn Sie Claude von Anthropic nutzen; beim lokalen Modell entfällt er</li>
+              <li>Ihr Server bzw. Rechner und Strom</li>
+              <li>Betreuung nur nach gesonderter Vereinbarung</li>
+            </ul>
+            <p style="margin:16px 0 0;color:var(--muted);font-size:15px;line-height:1.6;">Diese Kosten weisen wir im Angebot gesondert aus.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VORAUSSETZUNGEN ============ -->
+      <section class="block" id="voraussetzungen">
+        <div class="block-head">
+          <span class="label">Passt es?</span>
+          <h2>Was Sie mitbringen.</h2>
+          <p>Gedacht für Betriebe, bei denen Anfragen oder Bestellungen per E-Mail eintreffen und von Hand weiterverarbeitet werden – in Fertigung, Handwerk, Handel oder Dienstleistung.</p>
+        </div>
+        <div class="cols">
+          <ul class="list">
+            <li><strong>Zugang zum Postfach und zum Mailversand</strong> – gern ein eigens dafür angelegter Zugang.</li>
+            <li><strong>Ein Rechner oder Server mit Docker</strong> in Ihrem internen Netz.</li>
+            <li><strong>Zehn Beispielanfragen</strong>, anonymisiert oder freigegeben.</li>
+            <li><strong>Ihre Pflichtangaben</strong> mit den gewünschten Rückfragetexten.</li>
+            <li><strong>Eine verantwortliche Person</strong> für Freigaben und Abnahme.</li>
+          </ul>
+          <ul class="list minus">
+            <li><strong>Microsoft 365 und Outlook.com werden derzeit nicht unterstützt.</strong> Die dafür nötige Microsoft-Anmeldung ist noch nicht eingebaut.</li>
+            <li><strong>Windows-Rechner</strong> nur mit WSL.</li>
+            <li><strong>Menge:</strong> Wir empfehlen das Paket ab etwa 20 Anfragen pro Woche. Bei weniger sprechen wir offen darüber, ob sich der Aufwand für Sie rechnet.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ DATEN ============ -->
+      <section class="block" id="daten">
+        <div class="block-head">
+          <span class="label">Daten</span>
+          <h2>Ihre Anfragen bleiben in Ihrer Umgebung.</h2>
+          <p>Software und Datenbank laufen auf Ihrem eigenen Rechner oder Server. Der Aufbau ist DSGVO-orientiert; welche Vereinbarungen Sie brauchen, klären wir vor dem Start.</p>
+        </div>
+        <ul class="list">
+          <li><strong>KI nach Wahl.</strong> Entweder Claude von Anthropic – dann werden Anfragetexte an Anthropic übermittelt, und eine Auftragsverarbeitung ist vorher zu prüfen. Oder ein lokales Modell auf Ihrem Rechner, ohne Übermittlung an einen KI-Anbieter.</li>
+          <li><strong>Die Prüfseite bleibt intern.</strong> Sie ist nur in Ihrem Netz erreichbar, nicht aus dem Internet.</li>
+          <li><strong>Löschfrist.</strong> Protokolleinträge werden nach einer vereinbarten Frist automatisch gelöscht.</li>
+          <li><strong>Auftragsverarbeitung.</strong> Für unseren Zugriff während der Einrichtung schließen wir einen Auftragsverarbeitungsvertrag.</li>
+        </ul>
+      </section>
+
+      <!-- ============ EHRLICH ============ -->
+      <section class="block" id="ehrlich">
+        <div class="block-head">
+          <span class="label">Ehrlich gesagt</span>
+          <h2>Neu. Ohne Referenzen. Mit klarer Abnahme.</h2>
+        </div>
+        <div class="honest">
+          <p>Agentic Gateway ist ein junges Unternehmen aus Rodgau bei Frankfurt. Das Paket ist neu, Kundenreferenzen gibt es noch nicht. Getestet haben wir den Ablauf bisher in unserem eigenen Testaufbau.</p>
+          <p>Deshalb versprechen wir keine Einsparungen in Stunden oder Euro. Was wir zusagen, steht im Angebot: der Lieferumfang und zehn Testvorgänge mit Ihren eigenen Beispielen, die wir gemeinsam prüfen. Die zweite Hälfte des Preises wird erst nach dieser Ergebnisprüfung fällig.</p>
+          <p>Hintergrund zu den typischen Pflichtangaben einer Anfrage: <a class="inline-link" href="/blog/anfrage-bis-angebot-lohnfertigung/">Von der Anfrage bis zum Angebot</a>.</p>
+        </div>
+      </section>
+
+      <!-- ============ FAQ ============ -->
+      <section class="block" id="fragen">
+        <div class="block-head">
+          <span class="label">Fragen</span>
+          <h2>Häufige Fragen.</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary><h3>Was kostet es, den Anfrage-Eingang zu automatisieren?</h3></summary>
+            <p>Die Einrichtung im beschriebenen Umfang kostet einmalig 2.900 € netto zzgl. gesetzlicher Umsatzsteuer. Laufende Kosten für KI-Verbrauch, Server und eine eventuelle Betreuung sind nicht enthalten und werden im Angebot gesondert ausgewiesen.</p>
+          </details>
+          <details>
+            <summary><h3>Geht eine Antwort automatisch an unsere Kunden?</h3></summary>
+            <p>Nein. Rückfragen und Antworten liegen als Entwurf vor. Ein Mitarbeiter prüft, ändert bei Bedarf und gibt mit einem Klick frei. Ohne diese Freigabe geht keine Nachricht an Kunden.</p>
+          </details>
+          <details>
+            <summary><h3>Funktioniert das mit Microsoft 365 oder Outlook.com?</h3></summary>
+            <p>Derzeit nicht. Microsoft 365 und Outlook.com erlauben den Postfachzugriff per Passwort nicht mehr, die dafür nötige Microsoft-Anmeldung ist noch nicht eingebaut. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage.</p>
+          </details>
+          <details>
+            <summary><h3>Wo werden die Anfragen verarbeitet?</h3></summary>
+            <p>Die Software läuft mit Docker auf einem Rechner oder Server in Ihrem internen Netz, die Datenbank ebenfalls. Für das Auslesen nutzen Sie entweder Claude von Anthropic, dann werden Anfragetexte an Anthropic übermittelt, oder ein lokales Modell auf Ihrem Rechner.</p>
+          </details>
+          <details>
+            <summary><h3>Wie lange dauert die Einrichtung?</h3></summary>
+            <p>Wir planen zwei bis vier Wochen ab dem Zeitpunkt, an dem alle Voraussetzungen vorliegen: Postfachzugang, ein Rechner mit Docker, zehn Beispielanfragen, Ihre Pflichtangaben und eine verantwortliche Person.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ============ ANFRAGE ============ -->
+      <section class="block" id="anfrage">
+        <div class="pilot">
+          <div class="pilot-intro">
+            <span class="label">Nächster Schritt</span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(30px,3.6vw,42px);font-weight:500;letter-spacing:-.022em;line-height:1.08;margin:16px 0 18px;color:var(--ink);">Passt das Paket zu Ihrem Betrieb?</h2>
+            <p>Sagen Sie uns kurz, wie viele Anfragen kommen und welches Postfach Sie nutzen. Wir melden uns innerhalb von zwei Werktagen und klären in einem kurzen Gespräch, ob es passt.</p>
+            <p class="hint">Direkt: <a class="inline-link" href="mailto:info@agentic-gateway.de">info@agentic-gateway.de</a> · <a class="inline-link" href="tel:+4915125534623">+49 1512 5534623</a></p>
+          </div>
+
+          <form id="eingang-form" class="wform" novalidate>
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website (bitte leer lassen)</label>
+              <input id="website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="company">Firma / Betrieb</label>
+                <input id="company" name="company" type="text" autocomplete="organization" placeholder="Muster GmbH" required />
+              </div>
+              <div class="field">
+                <label for="email">E-Mail</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="name@betrieb.de" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="menge">Anfragen pro Woche</label>
+                <select id="menge" name="menge" required>
+                  <option value="">Bitte auswählen</option>
+                  <option>unter 10</option>
+                  <option>10 bis 20</option>
+                  <option>20 bis 50</option>
+                  <option>über 50</option>
+                  <option>weiß nicht</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="postfach">Ihr E-Mail-Postfach</label>
+                <select id="postfach" name="postfach" required>
+                  <option value="">Bitte auswählen</option>
+                  <option>Hoster-Postfach (z. B. IONOS, Strato, all-inkl)</option>
+                  <option>Eigener Mailserver</option>
+                  <option>Google Workspace</option>
+                  <option>Microsoft 365 / Outlook.com</option>
+                  <option>weiß nicht</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="branche">Branche <span class="opt">(optional)</span></label>
+              <select id="branche" name="branche">
+                <option value="">Bitte auswählen</option>
+                <option>Lohnfertigung</option>
+                <option>Zulieferer</option>
+                <option>Maschinen- &amp; Anlagenbau</option>
+                <option>Handwerk</option>
+                <option>Handel / Logistik</option>
+                <option>Dienstleistung / Kundenservice</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Kurzbeschreibung <span class="opt">(optional, ohne vertrauliche Daten)</span></label>
+              <textarea id="message" name="message" rows="4" placeholder="Wie läuft eine Anfrage bei Ihnen bis zum Angebot? Welche Angaben fehlen am häufigsten?"></textarea>
+            </div>
+            <p class="form-hint">Bitte keine Kundendaten oder vertraulichen Unterlagen über dieses Formular senden. Wie wir Ihre Angaben verarbeiten, steht in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+            <button type="submit" class="cta-btn">
+              Anfrage senden
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="form-status" id="eingang-status" role="status" aria-live="polite" hidden></p>
+            <p class="form-alt" id="eingang-route"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner footer-grid">
+        <div class="foot">
+          <div>
+            <a href="/" class="brand" aria-label="Agentic Gateway – Startseite" style="margin-bottom:8px;">
+              <span class="brand-mark" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+                  <path d="M18 48V32a14 14 0 0 1 28 0v16" stroke="#FAF7F2" stroke-width="5" stroke-linecap="round"/>
+                  <circle cx="32" cy="33" r="4.6" fill="#3B5BFD"/>
+                </svg>
+              </span>
+              <span class="brand-copy"><span class="brand-title">Agentic Gateway</span></span>
+            </a>
+            <p>Software und KI-Agenten für wiederkehrende Abläufe. Rodgau, Rhein-Main.</p>
+          </div>
+          <div>
+            <h4>Angebot</h4>
+            <a href="/anfrage-eingang-automatisieren/">Anfrage-Eingang automatisieren</a>
+            <a href="/#preise">Preise</a>
+            <a href="/roi-rechner/">ROI-Rechner</a>
+            <a href="/">Startseite</a>
+          </div>
+          <div>
+            <h4>Wissen</h4>
+            <a href="/blog/anfrage-bis-angebot-lohnfertigung/">Von der Anfrage bis zum Angebot</a>
+            <a href="/blog/ki-agenten-mittelstand-einfuehren/">KI-Agenten im Mittelstand</a>
+            <a href="/blog/">Alle Beiträge</a>
+          </div>
+          <div>
+            <h4>Rechtliches</h4>
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
+            <a href="/agb/">AGB</a>
+            <button type="button" data-consent-open>Cookie-Einstellungen</button>
+          </div>
+        </div>
+        <div class="foot-base">
+          <span>© 2026 Agentic Gateway · Sebastian Windt</span>
+          <span class="mono">agentic-gateway.de</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Anfrageformular -> Lead-Webhook (typ "kontakt"), Fallback mailto. Gleiches Verfahren wie auf der Startseite.
+    (function () {
+      var form = document.getElementById("eingang-form");
+      if (!form) return;
+      var btn = form.querySelector('button[type="submit"]');
+      var status = document.getElementById("eingang-status");
+      var started = false;
+      var PAKET = "Paket Anfrage-Eingang automatisieren (2.900 €)";
+      if (!window.AG_CONFIG.leadEndpoint) {
+        btn.firstChild.textContent = "Anfrage als E-Mail vorbereiten ";
+        document.getElementById("eingang-route").textContent = "Die Anfrage wird in Ihrem E-Mail-Programm vorbereitet. Sie senden die Nachricht anschließend selbst ab.";
+      }
+
+      function setStatus(state, html) {
+        status.hidden = false;
+        status.setAttribute("data-state", state);
+        status.innerHTML = html;
+      }
+
+      form.addEventListener("focusin", function () {
+        if (started) return;
+        started = true;
+        window.agTrack("form_start", { form_id: "anfrage-eingang" });
+      });
+
+      function mailtoFallback(d) {
+        var body = [
+          "Hallo Agentic Gateway,",
+          "",
+          "ich interessiere mich für das Paket „Anfrage-Eingang automatisieren“.",
+          "",
+          "Firma: " + d.firma,
+          "Branche: " + (d.branche || "-"),
+          "E-Mail: " + d.email,
+          "",
+          d.nachricht,
+          "",
+          "Mit freundlichen Grüßen"
+        ].join("\n");
+        window.location.href = "mailto:info@agentic-gateway.de?subject=" +
+          encodeURIComponent("Anfrage-Eingang automatisieren | agentic-gateway.de") + "&body=" + encodeURIComponent(body);
+      }
+
+      function done() {
+        form.innerHTML = '<div class="form-done"><h3>Danke – Ihre Anfrage wurde übertragen.</h3>' +
+          '<p>Wir melden uns innerhalb von zwei Werktagen. Falls keine Antwort ankommt, schreiben Sie bitte direkt an info@agentic-gateway.de.</p></div>';
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var f = new FormData(form);
+        var menge = String(f.get("menge") || "");
+        var postfach = String(f.get("postfach") || "");
+        var text = String(f.get("message") || "").trim();
+        var d = {
+          typ: "kontakt",
+          firma: String(f.get("company") || "").trim(),
+          email: String(f.get("email") || "").trim(),
+          engpass: PAKET,
+          branche: String(f.get("branche") || ""),
+          nachricht: ["Anfragen pro Woche: " + menge, "Postfach: " + postfach, "", text].join("\n").trim(),
+          website: String(f.get("website") || "")
+        };
+        if (d.website) { done(); return; } // Bot: stillschweigend verwerfen
+        btn.disabled = true;
+        setStatus("pending", "Wird gesendet …");
+        window.agSendLead(d).then(function () {
+          window.agTrack("generate_lead", { form_id: "anfrage-eingang", menge: menge, postfach: postfach });
+          done();
+        }, function () {
+          btn.disabled = false;
+          window.agTrack("lead_mailto", { form_id: "anfrage-eingang" });
+          setStatus("error", "Die Anfrage wurde noch nicht gesendet. Eine vorbereitete Nachricht wird an Ihr E-Mail-Programm übergeben – bitte dort auf „Senden“ klicken. Falls sich nichts öffnet: <a href=\"mailto:info@agentic-gateway.de\">info@agentic-gateway.de</a>");
+          mailtoFallback(d);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
