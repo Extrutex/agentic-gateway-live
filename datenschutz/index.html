@@ -100,7 +100,7 @@
           <section class="section">
             <h2>3. Kontaktaufnahme, Kontaktformular und KI-Check</h2>
             <p>
-              Wenn Sie per E-Mail, über das Kontaktformular oder über den KI-Check Kontakt
+              Wenn Sie per E-Mail, über das Kontaktformular, das Anfrageformular der Paketseite oder den KI-Check Kontakt
               aufnehmen, verarbeiten wir die von Ihnen übermittelten Angaben zur Bearbeitung
               Ihrer Anfrage. Dazu gehören je nach Weg Ihre E-Mail-Adresse, Firma, Teamgröße,
               Branche, Ihre Antworten im KI-Check, Angaben zur Anfragemenge und zum genutzten
@@ -194,8 +194,11 @@
               erfasst aufgerufene Seiten, Verweildauer, verweisende Website, Gerätetyp, Browser,
               ungefähren Standort (Land/Region) sowie Ereignisse wie „Formular begonnen“,
               „Anfrage gesendet“, „Pilotliste eingetragen“ und Klicks auf Handlungsaufforderungen.
-              Ihre Formulareingaben (z. B. E-Mail-Adresse oder Nachricht) werden nicht an
-              Google Analytics übertragen.
+              Kontaktdaten und Freitexte (z. B. E-Mail-Adresse oder Nachricht) werden nicht an
+              Google Analytics übertragen. Bei Formularen werden die gewählten Kategorien
+              (je nach Formular Anfragemenge, Postfachart, Teamgröße, Eingangskanäle, Branche,
+              Engpass) erfasst, beim KI-Check zusätzlich die
+              ermittelte Potenzialstufe.
             </p>
             <p>
               Google Analytics 4 speichert keine vollständigen IP-Adressen; die IP-Adresse wird
@@ -214,32 +217,38 @@
               wird nicht mehr geladen.
             </p>
             <!-- ENTWURF Umami (08.11.2026), Prüfung durch Vera vor Veröffentlichung.
-                 Nur zusammen mit der Umami-Website-ID in assets/site.js veröffentlichen.
-                 Vor dem Push prüfen und ggf. ergänzen:
-                 1. Serverstandort/Region laut Umami-Konto (Text nennt bewusst keinen Standort).
-                 2. Auftragsverarbeitungsvertrag (DPA) bei Umami abgeschlossen? Grundlage der US-Übermittlung laut DPA ergänzen.
-                 3. Aufbewahrungsdauer laut Tarif (Hobby laut ops/README.md: 6 Monate).
-                 4. Rechtsfrage: Reicht Art. 6 Abs. 1 lit. f DSGVO ohne Einwilligung (§ 25 TDDDG – Skript liest Browsereigenschaften wie Bildschirmgröße und Sprache aus)? -->
+                 Korrekturen aus dem Recht-Check vom 08.11.2026 sind eingearbeitet (D1 bis D4, E11).
+                 Vor der Aktivierung von Umami noch offen:
+                 1. D5: Einwilligung über den Schalter „Statistik erlauben“ oder Anwalt (§ 25 TDDDG), Entscheidung Sebastian. Rechtsgrundlage unten danach anpassen.
+                 2. Aufbewahrungsdauer laut Umami-Konto (die 6 Monate stehen nur in ops/README.md).
+                 3. Datenregion laut Umami-Konto (Text nennt bewusst keinen Standort). -->
             <p>
-              <strong>Umami.</strong> Zur Reichweitenmessung setzen wir Umami Cloud ein, einen
-              Dienst der Umami Software, Inc. (USA). Umami setzt keine Cookies und bildet keine
+              <strong>Umami.</strong> Sofern aktiviert, setzen wir zur Reichweitenmessung Umami Cloud
+              ein, einen Dienst der Umami Software, Inc. (USA). Umami setzt keine Cookies und bildet keine
               geräteübergreifenden Profile. Beim Aufruf einer Seite wird das Messskript von
               Servern des Anbieters geladen; dabei wird technisch bedingt Ihre IP-Adresse an
-              den Anbieter übertragen. Nach Angaben des Anbieters wird sie nicht gespeichert.
+              den Anbieter übertragen. Nach Angaben des Anbieters wird sie nicht in den Analysedaten gespeichert; in
+              Betriebs- und Sicherheitsprotokollen des Anbieters und seiner Dienstleister kann
+              sie erfasst werden.
             </p>
             <p>
               Erfasst werden aufgerufene Seiten, verweisende Website, Gerätetyp, Browser,
               Betriebssystem, Bildschirmgröße, Sprache und Land sowie anonyme Ereignisse wie
               „Formular begonnen“, „Anfrage gesendet“, „KI-Check abgeschlossen“ oder Klicks auf
-              Schaltflächen – ohne Ihre Formulareingaben. Vor der Aktivierung schließen wir mit
-              dem Anbieter einen Auftragsverarbeitungsvertrag ab. Eine Übermittlung in die USA
-              ist nicht ausgeschlossen.
+              Schaltflächen – ohne Kontaktdaten und Freitexte. Bei Formularen werden die gewählten Kategorien
+              (je nach Formular Anfragemenge, Postfachart, Teamgröße, Eingangskanäle, Branche,
+              Engpass) erfasst, beim KI-Check
+              zusätzlich die ermittelte Potenzialstufe. Bei aktivierter Messung besteht mit dem
+              Anbieter ein Auftragsverarbeitungsvertrag. Eine Übermittlung in die USA ist nicht
+              ausgeschlossen; sie erfolgt auf Grundlage der EU-Standardvertragsklauseln
+              (Art. 46 Abs. 2 lit. c DSGVO).
             </p>
             <p>
               Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse
               liegt darin, zu verstehen, welche Inhalte genutzt werden und wo Besucher
               abspringen. Sie können dieser Verarbeitung nach Art. 21 DSGVO widersprechen;
-              eine Nachricht an info@agentic-gateway.de genügt. Die Messdaten werden höchstens
+              eine Nachricht an info@agentic-gateway.de genügt. Ist in Ihrem Browser „Do Not
+              Track“ aktiviert, findet keine Messung statt. Die Messdaten werden höchstens
               sechs Monate aufbewahrt.
             </p>
           </section>

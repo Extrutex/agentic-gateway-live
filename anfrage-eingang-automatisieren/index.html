@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anfragen aus E-Mails automatisch erfassen | Agentic Gateway</title>
-  <meta name="description" content="Anfrage-Eingang automatisieren: Angebotsanfragen aus E-Mails automatisch erfassen, fehlende Angaben erkennen, Rückfrage als Entwurf. Festpreis 2.900 € netto." />
+  <meta name="description" content="Angebotsanfragen aus E-Mails automatisch erfassen, fehlende Angaben erkennen, Rückfrage als Entwurf. Festpreis 2.900 € netto zzgl. USt, für Unternehmen." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Sebastian Windt" />
   <meta property="og:title" content="Anfrage-Eingang automatisieren | Agentic Gateway" />
@@ -97,7 +97,7 @@
           {
             "@type": "Question",
             "name": "Funktioniert das mit Microsoft 365 oder Outlook.com?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Derzeit nicht. Microsoft 365 und Outlook.com erlauben den Postfachzugriff per Passwort nicht mehr, die dafür nötige Microsoft-Anmeldung ist noch nicht eingebaut. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Derzeit nicht. Für Microsoft 365 und Outlook.com ist eine Microsoft-Anmeldung nötig, die noch nicht eingebaut ist. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage." }
           },
           {
             "@type": "Question",
@@ -224,7 +224,7 @@
       <header class="hero">
         <p class="crumbs"><a href="/">Startseite</a> / Anfrage-Eingang automatisieren</p>
         <span class="label" style="margin-top:18px;">Paket · Festpreis 2.900 € netto</span>
-        <h1>Anfrage-Eingang automatisieren: <em>Jede E-Mail-Anfrage wird zum vollständigen Vorgang.</em></h1>
+        <h1>Anfrage-Eingang automatisieren: <em>Jede E-Mail-Anfrage wird zum Vorgang – Fehlendes ist markiert.</em></h1>
         <p class="lead">
           Angebotsanfragen kommen per E-Mail, und oft fehlen Stückzahl, Werkstoff oder Zeichnung.
           Wir richten ein, dass jede Anfrage automatisch erfasst wird: Angaben ausgelesen, Fehlendes markiert,
@@ -238,7 +238,7 @@
           <a href="#umfang" class="cta-ghost">Was enthalten ist</a>
         </div>
         <ul class="hero-facts" aria-label="Eckdaten">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>2.900 € netto zzgl. USt, einmalig</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>2.900 € netto zzgl. USt · nur für Unternehmen</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Geplant 2–4 Wochen ab Voraussetzungen</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Versand nur nach Ihrer Freigabe</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Läuft in Ihrer eigenen Umgebung</li>
@@ -250,7 +250,7 @@
         <div class="block-head">
           <span class="label">Ausgangslage</span>
           <h2>Wo Anfragen heute liegen bleiben.</h2>
-          <p>Im Mittelstand landen Angebotsanfragen meist in einem Sammelpostfach. Bis daraus ein Angebot wird, steckt viel Handarbeit dazwischen.</p>
+          <p>Im Mittelstand landen Angebotsanfragen oft in einem Sammelpostfach. Bis daraus ein Angebot wird, steckt viel Handarbeit dazwischen.</p>
         </div>
         <div class="tiles">
           <div class="tile">
@@ -288,7 +288,7 @@
           <div class="step">
             <span class="num">02</span>
             <h3>Angaben werden ausgelesen</h3>
-            <p>Eine KI liest bis zu acht festgelegte Angaben aus und fasst die Anfrage kurz zusammen. Jeder Wert wird gegen den Originaltext geprüft; was dort nicht steht, wird verworfen.</p>
+            <p>Eine KI liest bis zu acht festgelegte Angaben aus und fasst die Anfrage kurz zusammen. Von der KI ausgelesene Werte werden mit dem Originaltext abgeglichen; nicht belegte Werte werden verworfen.</p>
           </div>
           <div class="step">
             <span class="num">03</span>
@@ -317,7 +317,7 @@
             <p class="fine">Einmalig, zzgl. gesetzlicher Umsatzsteuer. Zahlung je zur Hälfte bei Beauftragung und nach der gemeinsamen Ergebnisprüfung.</p>
             <a href="#anfrage" class="cta-btn" data-cta="anfrage-eingang-preis">Anfrage stellen</a>
             <ul class="terms">
-              <li>Für Unternehmen und Selbstständige</li>
+              <li>Nur für Unternehmer (§ 14 BGB), nicht für Verbraucher</li>
               <li>Geplant 2–4 Wochen ab vollständigen Voraussetzungen</li>
             </ul>
           </div>
@@ -327,13 +327,13 @@
               <li>Ein Eingang: ein Postfach (IMAP) oder ein Webformular</li>
               <li>Versand über Ihren eigenen Mailserver (SMTP)</li>
               <li>Regelprofil: bis zu 8 Angaben mit Rückfragetexten, bis zu 6 Kategorien, Signatur</li>
-              <li>Auslesen und Kurzfassung per KI, jeder Wert gegen den Originaltext geprüft</li>
+              <li>Auslesen und Kurzfassung per KI; ausgelesene Werte werden mit dem Originaltext abgeglichen</li>
               <li>Prüfseite mit „Freigeben und senden“ oder „Verwerfen“</li>
               <li>Protokoll von Eingang, Freigabe und Versand mit automatischer Löschfrist</li>
               <li>Fehlerhinweise: fällt die KI aus, läuft der Ablauf regelbasiert weiter</li>
               <li>Einrichtung durch uns, zehn Testvorgänge, Bedienhinweise und Abnahmeprotokoll</li>
             </ul>
-            <p>Die Ergebnisprüfung machen wir gemeinsam mit zehn Ihrer Beispielanfragen – darunter eine vollständige, eine mit fehlenden Angaben, eine mit Anhang und eine doppelt eingegangene. Abweichungen werden dokumentiert und behoben.</p>
+            <p>Die Ergebnisprüfung machen wir gemeinsam mit zehn Ihrer Beispielanfragen – darunter eine vollständige, eine mit fehlenden Angaben, eine mit Anhang und eine doppelt eingegangene. Abweichungen vom vereinbarten Umfang werden dokumentiert und im Rahmen des Lieferumfangs behoben.</p>
           </div>
         </div>
 
@@ -387,12 +387,12 @@
       <section class="block" id="daten">
         <div class="block-head">
           <span class="label">Daten</span>
-          <h2>Ihre Anfragen bleiben in Ihrer Umgebung.</h2>
+          <h2>Software und Datenbank laufen in Ihrer Umgebung.</h2>
           <p>Software und Datenbank laufen auf Ihrem eigenen Rechner oder Server. Der Aufbau ist DSGVO-orientiert; welche Vereinbarungen Sie brauchen, klären wir vor dem Start.</p>
         </div>
         <ul class="list">
           <li><strong>KI nach Wahl.</strong> Entweder Claude von Anthropic – dann werden Anfragetexte an Anthropic übermittelt, und eine Auftragsverarbeitung ist vorher zu prüfen. Oder ein lokales Modell auf Ihrem Rechner, ohne Übermittlung an einen KI-Anbieter.</li>
-          <li><strong>Die Prüfseite bleibt intern.</strong> Sie ist nur in Ihrem Netz erreichbar, nicht aus dem Internet.</li>
+          <li><strong>Die Prüfseite bleibt intern.</strong> Sie wird nur für Ihr internes Netz eingerichtet und nicht ins Internet freigegeben.</li>
           <li><strong>Löschfrist.</strong> Protokolleinträge werden nach einer vereinbarten Frist automatisch gelöscht.</li>
           <li><strong>Auftragsverarbeitung.</strong> Für unseren Zugriff während der Einrichtung schließen wir einen Auftragsverarbeitungsvertrag.</li>
         </ul>
@@ -428,7 +428,7 @@
           </details>
           <details>
             <summary><h3>Funktioniert das mit Microsoft 365 oder Outlook.com?</h3></summary>
-            <p>Derzeit nicht. Microsoft 365 und Outlook.com erlauben den Postfachzugriff per Passwort nicht mehr, die dafür nötige Microsoft-Anmeldung ist noch nicht eingebaut. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage.</p>
+            <p>Derzeit nicht. Für Microsoft 365 und Outlook.com ist eine Microsoft-Anmeldung nötig, die noch nicht eingebaut ist. Unterstützt werden Postfächer mit IMAP und SMTP sowie ein Webformular als Eingang. Nutzen Sie Microsoft 365, sagen Sie es uns in der Anfrage.</p>
           </details>
           <details>
             <summary><h3>Wo werden die Anfragen verarbeitet?</h3></summary>
@@ -507,7 +507,7 @@
               <label for="message">Kurzbeschreibung <span class="opt">(optional, ohne vertrauliche Daten)</span></label>
               <textarea id="message" name="message" rows="4" placeholder="Wie läuft eine Anfrage bei Ihnen bis zum Angebot? Welche Angaben fehlen am häufigsten?"></textarea>
             </div>
-            <p class="form-hint">Bitte keine Kundendaten oder vertraulichen Unterlagen über dieses Formular senden. Wie wir Ihre Angaben verarbeiten, steht in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+            <p class="form-hint">Bitte keine Kundendaten oder vertraulichen Unterlagen über dieses Formular senden. Für den Antwortentwurf nutzen wir einen KI-Dienst; den Versand prüfen wir persönlich. Wie wir Ihre Angaben verarbeiten, steht in der <a href="/datenschutz/">Datenschutzerklärung</a>. Pflichtfelder sind alle Felder ohne den Zusatz „optional“.</p>
             <button type="submit" class="cta-btn">
               Anfrage senden
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
